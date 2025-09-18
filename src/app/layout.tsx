@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
+import Nav from "@/components/nav";
 
 const quicksandSans = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
   title: "HAPI",
-  description: "By Will Moss",
+  description: "Health & AI Policy Index",
 };
 
 export default function RootLayout({
@@ -21,9 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksandSans.variable} antialiased`}
+        className={`${quicksandSans.variable} antialiased flex flex-col items-center min-h-screen w-screen justify-start`}
       >
-        {children}
+        <main className="w-full max-w-7xl ">
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );
