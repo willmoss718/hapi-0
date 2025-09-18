@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${quicksandSans.variable} antialiased flex flex-col items-center min-h-screen w-screen justify-start`}
       >
-        <main className="w-full max-w-7xl ">
+        <main className="w-full max-w-7xl px-4 md:px-0">
           <Nav />
           {children}
         </main>

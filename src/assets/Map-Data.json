@@ -1,0 +1,38 @@
+{
+    "law-present": [
+        "CA",
+        "TX",
+        "WA",
+        "MT",
+        "ND",
+        "OR",
+        "NV",
+        "UT",
+        "CO",
+        "NE",
+        "AZ",
+        "AR",
+        "MS",
+        "AL",
+        "FL",
+        "NC",
+        "VA",
+        "WV",
+        "OH",
+        "IN",
+        "IL",
+        "KY",
+        "NY",
+        "NJ",
+        "MD",
+        "VT",
+        "NH",
+        "HI"
+    ],
+    "policies-no-law": [
+        "PA",
+        "NM",
+        "LA",
+        "GA"
+    ]
+}

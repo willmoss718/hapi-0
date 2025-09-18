@@ -15,8 +15,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { HamburgerIcon, MenuIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { MenuIcon } from "lucide-react";
 
 export default function Nav() {
     const list = (
@@ -57,7 +56,7 @@ export default function Nav() {
     )
 
     return (
-        <nav className="flex flex-row justify-between items-center p-4">
+        <nav className="flex flex-row justify-between items-center py-4">
             <div className="flex flex-row justify-start items-center">
                 <Link href="/" className="text-lg font-semibold whitespace-nowrap">
                     Health & AI Policy Index
