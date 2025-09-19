@@ -1,6 +1,6 @@
 import { FILES } from '@/assets/files';
 import { Card } from '@/components/ui/card';
-import fs from 'fs/promises';
+
 import neatCsv, { Row } from 'neat-csv';
 import { redirect } from 'next/navigation';
 import path from 'path';
@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/hover-card"
 import { ArrowUpRightIcon } from 'lucide-react';
 import { Badge } from "@/components/ui/badge"
+import Link from 'next/link';
+import { getCsvData } from '@/lib/server-utils';
 
 export default async function DataPage({ params }: { params: Promise<{ path: string }> }) {
   const { path } = await params;
@@ -94,24 +96,16 @@ function CustomCell({ value }: { value: string }) {
 function TaggedCell({ value, row, tagKeys }: { value: string, row: Row, tagKeys: string[] }) {
   return (
     <TableCell>
-      {value}
-      <div className="flex flex-row gap-2 mt-1">
-        {tagKeys.map((tagKey) => (
-          <Badge key={tagKey} variant="secondary" className="empty:hidden">{row[tagKey]}</Badge>
-        ))}
-      </div>
+      <Link href={`/policies/${encodeURIComponent(value)}`}>
+        <span className="underline underline-offset-4 font-semibold">
+          {value}
+        </span>
+        <div className="flex flex-row gap-2 mt-2">
+          {tagKeys.map((tagKey) => (
+            <Badge key={tagKey} variant="secondary" className="empty:hidden">{row[tagKey]}</Badge>
+          ))}
+        </div>
+      </Link>
     </TableCell>
   );
-}
-
-async function getCsvData(csv: string) {
-  try {
-    const ourPath = `/src/assets/${csv}.csv`
-    const newPath = path.join(process.cwd(), ourPath);
-    const csvData = await fs.readFile(newPath, 'utf-8');
-    return csvData;
-  } catch (error) {
-    console.error('Error reading CSV file:', error);
-    return null;
-  }
 }
