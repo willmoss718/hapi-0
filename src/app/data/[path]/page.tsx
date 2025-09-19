@@ -21,9 +21,12 @@ import { ArrowUpRightIcon } from 'lucide-react';
 import { Badge } from "@/components/ui/badge"
 import Link from 'next/link';
 import { getCsvData } from '@/lib/server-utils';
+import Filters from '@/components/filters';
 
-export default async function DataPage({ params }: { params: Promise<{ path: string }> }) {
+export default async function DataPage({ params, searchParams }: { params: Promise<{ path: string }>, searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const { path } = await params;
+  const { q, t } = await searchParams;
+
   const csvStr = await getCsvData(path);
   const matchingFile = FILES.find((file) => file.path === path);
 
@@ -32,13 +35,27 @@ export default async function DataPage({ params }: { params: Promise<{ path: str
   }
 
   const csv = await neatCsv(csvStr);
-  const tags = Object.keys(csv[0]).filter((key) => key.trim().endsWith('Tags'));
-  const validKeys = Object.keys(csv[0]).filter((key) => !tags.includes(key));
+  const tagKeys = Object.keys(csv[0]).filter((key) => key.trim().endsWith('Tags'));
+  const validKeys = Object.keys(csv[0]).filter((key) => !tagKeys.includes(key));
+  
+  const tags: string[] = [];
+  for (const row of csv) {
+    for (const key of tagKeys) {
+      const rawValue = row[key];
+      const semicolonDelimitedValues = rawValue.split(';');
+      for (const value of semicolonDelimitedValues) {
+        if (value && !tags.includes(value)) {
+          tags.push(value);
+        }
+      }
+    }
+  }
 
   return (
     <>
       <h1 className="text-4xl mt-8 font-medium md:mt-16">{matchingFile.name}</h1>
       <h2 className="text-xl mt-4">{matchingFile.description}</h2>
+      <Filters availableTags={tags} />
       <Table className="w-full my-12 border shadow">
         <TableHeader className="bg-gray-100">
           <TableRow>
@@ -49,20 +66,45 @@ export default async function DataPage({ params }: { params: Promise<{ path: str
         </TableHeader>
         <TableBody>
           {csv.map((row, index) => (
-            <TableRow key={index}>
-              {Object.entries(row).map(([key, value], colIndex) => (
-                colIndex === 1 ? (
-                  <TaggedCell key={key} value={value} row={row} tagKeys={tags} />
-                ) : validKeys.includes(key) ? (
-                  <CustomCell key={key} value={value} />
-                ) : null
-              ))}
-            </TableRow>
+            rowMatchesFilters(row, { q, t }, tagKeys) ? (
+              <TableRow key={index}>
+                {Object.entries(row).map(([key, value], colIndex) => (
+                  colIndex === 1 ? (
+                    <TaggedCell key={key} value={value} row={row} tagKeys={tagKeys} />
+                  ) : validKeys.includes(key) ? (
+                    <CustomCell key={key} value={value} />
+                  ) : null
+                ))}
+              </TableRow>
+            ) : null
           ))}
         </TableBody>
       </Table>
     </>
   )
+}
+
+function rowMatchesFilters(row: Row, filters: { q: unknown, t: unknown }, tagKeys: string[]) {
+  const serializedRow = JSON.stringify(row);
+  const matchesSearch = filters.q && typeof filters.q === 'string' ? serializedRow.toLowerCase().includes(filters.q.toLowerCase()) : true;
+  
+  let matchesTags = false;
+  if (filters.t && typeof filters.t === 'string') {
+    const queryFilterTags = filters.t.split(',');
+    for (const tag of queryFilterTags) {
+      for (const tagKey of tagKeys) {
+        const rawValue = row[tagKey];
+        const semicolonDelimitedValues = rawValue.split(';');
+        if (semicolonDelimitedValues.some((value) => value.toLowerCase() === tag.toLowerCase())) {
+          matchesTags = true;
+        }
+      }
+    }
+  } else {
+    matchesTags = true;
+  }
+
+  return matchesSearch && matchesTags;
 }
 
 function CustomCell({ value }: { value: string }) {
@@ -101,9 +143,13 @@ function TaggedCell({ value, row, tagKeys }: { value: string, row: Row, tagKeys:
           {value}
         </span>
         <div className="flex flex-row gap-2 mt-2">
-          {tagKeys.map((tagKey) => (
-            <Badge key={tagKey} variant="secondary" className="empty:hidden">{row[tagKey]}</Badge>
-          ))}
+          {tagKeys.map((tagKey) => {
+            const rawValue = row[tagKey];
+            const semicolonDelimitedValues = rawValue.split(';');
+            return semicolonDelimitedValues.map((value) => (
+              <Badge key={value} variant="secondary" className="empty:hidden">{value}</Badge>
+            ));
+          })}
         </div>
       </Link>
     </TableCell>

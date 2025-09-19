@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const quicksandSans = Quicksand({
   variable: "--font-quicksand",
@@ -23,10 +24,12 @@ export default function RootLayout({
       <body
         className={`${quicksandSans.variable} antialiased flex flex-col items-center min-h-screen w-screen justify-start`}
       >
-        <main className="w-full max-w-7xl px-4 md:px-0">
-          <Nav />
-          {children}
-        </main>
+        <NuqsAdapter>
+          <main className="w-full max-w-7xl px-4 md:px-0">
+            <Nav />
+            {children}
+          </main>
+        </NuqsAdapter>
       </body>
     </html>
   );
