@@ -16,36 +16,19 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { MenuIcon } from "lucide-react";
+import { FILES } from "@/assets/files";
 
 export default function Nav() {
     const list = (
         <NavigationMenu>
             <NavigationMenuList className="flex flex-col md:flex-row md:justify-end gap-2 items-start md:items-center">
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/state-policies">State Policies</Link>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/federal-policies">Federal Policies</Link>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/sector-specific-regulations">Sector-Specific Regulations</Link>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/voluntary-standards">Voluntary Standards</Link>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/international-frameworks">International Frameworks</Link>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
+                {FILES.map((file) => (
+                    <NavigationMenuItem key={file.path}>
+                        <NavigationMenuLink asChild>
+                            <Link href={`/data/${file.path}`}>{file.name}</Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                ))}
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                         <Link href="/about">About / Methodology</Link>

@@ -1,7 +1,7 @@
 export default function About() {
     return (
-        <article className="prose leading-tight my-8 md:my-16">
-            <h1>About the Health & AI Policy Index</h1>
+        <article className="prose leading-tight my-8">
+            <h1 className="text-4xl mt-8 font-medium md:mt-16">About the Health & AI Policy Index</h1>
             <p>
                 The Health & AI Policy Index (HAPI) is a curated, research-oriented registry of policies relevant to artificial intelligence in healthcare. It is designed to help clinicians, health systems, payers, developers, and policymakers track meaningful developments across U.S. states, federal agencies, sector regulations, international frameworks, and voluntary standards.
             </p>

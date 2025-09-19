@@ -8,6 +8,7 @@ import {
 import whatsNew from "@/assets/Whats-New.json"
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
+import { FILES } from "@/assets/files"
 
 export default function WhatsNew() {
     return (
@@ -32,9 +33,9 @@ export default function WhatsNew() {
                 <br />
                 <span className="text-gray-500">Last Updated</span>
             </div>
-            {["State Policies", "Federal Policies", "Sector-Specific Regulations", "Voluntary Standards", "International Frameworks"].map((item) => (
-                <Link key={item} href={`/${item.toLowerCase().replace(" ", "-")}`} className="group odd:w-40 even:w-48 h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative">
-                    <span className="text-black">{item}</span>
+            {FILES.map((item) => (
+                <Link key={item.path} href={`/data/${item.path}`} className="group odd:w-40 even:w-48 h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative">
+                    <span className="text-black">{item.name}</span>
                     <ArrowRightIcon className="w-4 h-4 text-gray-400 absolute right-4 bottom-4 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
                 </Link>
             ))}
