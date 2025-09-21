@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import neatCsv, { Row } from 'neat-csv';
 import { redirect } from 'next/navigation';
 import path from 'path';
+import Map from "@/components/map";
 import {
   Table,
   TableBody,
@@ -38,14 +39,17 @@ export default async function DataPage({ params, searchParams }: { params: Promi
   const tagKeys = Object.keys(csv[0]).filter((key) => key.trim().endsWith('Tags'));
   const validKeys = Object.keys(csv[0]).filter((key) => !tagKeys.includes(key));
   
-  const tags: string[] = [];
+  const tags: Record<string, string[]> = {};
   for (const row of csv) {
     for (const key of tagKeys) {
       const rawValue = row[key];
-      const semicolonDelimitedValues = rawValue.split(';');
-      for (const value of semicolonDelimitedValues) {
-        if (value && !tags.includes(value)) {
-          tags.push(value);
+      const cleanedValues = rawValue.split(';').map((value) => value.trim());
+      for (const value of cleanedValues) {
+        if (!tags[key]) {
+          tags[key] = [];
+        }
+        if (value && !tags[key].includes(value)) {
+          tags[key].push(value); 
         }
       }
     }
@@ -55,6 +59,11 @@ export default async function DataPage({ params, searchParams }: { params: Promi
     <>
       <h1 className="text-4xl mt-8 font-medium md:mt-16">{matchingFile.name}</h1>
       <h2 className="text-xl mt-4">{matchingFile.description}</h2>
+      {path === "state-policies" && (
+        <div id="map" className="w-full h-full max-w-3xl mt-12">
+          <Map />
+        </div>
+      )}
       <Filters availableTags={tags} />
       <Table className="w-full my-12 border shadow">
         <TableHeader className="bg-gray-100">
@@ -72,7 +81,7 @@ export default async function DataPage({ params, searchParams }: { params: Promi
                   colIndex === 1 ? (
                     <TaggedCell key={key} value={value} row={row} tagKeys={tagKeys} />
                   ) : validKeys.includes(key) ? (
-                    <CustomCell key={key} value={value} />
+                    <CustomCell includeId={colIndex === 0} key={key} value={value} />
                   ) : null
                 ))}
               </TableRow>
@@ -107,7 +116,7 @@ function rowMatchesFilters(row: Row, filters: { q: unknown, t: unknown }, tagKey
   return matchesSearch && matchesTags;
 }
 
-function CustomCell({ value }: { value: string }) {
+function CustomCell({ value, includeId }: { value: string; includeId: boolean }) {
   if (value.trim().startsWith('http')) {
     return (
       <TableCell className='flex flex-row items-center translate-y-3 gap-1 underline underline-offset-4'>
@@ -130,6 +139,10 @@ function CustomCell({ value }: { value: string }) {
         </HoverCard>
       </TableCell>
     )
+  }
+
+  if (includeId) {
+    return <TableCell id={value.trim()}>{value}</TableCell>;
   }
 
   return <TableCell>{value}</TableCell>;
