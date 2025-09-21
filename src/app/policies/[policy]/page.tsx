@@ -104,14 +104,14 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
 
                 {/* Footer Section */}
                 <div className="flex items-center justify-between pt-4">
-                    <Button asChild variant="outline">
+                    {targetRow["Link To Bill"] && <Button asChild variant="outline">
                         <Link href={targetRow["Link To Bill"]} target="_blank" rel="noopener noreferrer">
                             View Original Bill
                         </Link>
-                    </Button>
-                    <p className="text-sm text-muted-foreground">
+                    </Button>}
+                    {targetRow["Last Updated On"] && <p className="text-sm text-muted-foreground">
                         Last updated: {targetRow["Last Updated On"]}
-                    </p>
+                    </p>}
                 </div>
             </div>
         </div>

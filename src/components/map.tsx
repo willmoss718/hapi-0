@@ -8,9 +8,17 @@ import { useEffect } from "react";
 type CustomState = {
     fill: string;
     onClick: () => void;
+    tooltip: {
+      enabled: boolean;
+      render: (state: string) => React.ReactNode;
+    };
 }
 
-export default function Map() {
+type MapProps = {
+  statePolicyCounts: Record<string, number>;
+}
+
+export default function Map({ statePolicyCounts }: MapProps) {
   const router = useRouter();
 
   useEffect(function prefetchAllStates() {
@@ -29,6 +37,14 @@ export default function Map() {
       onClick: () => {
         router.push(`/data/state-policies#${state}`);
       },
+      tooltip: {
+        enabled: true,
+        render: (state) => (
+          <div>
+            {statePolicyCounts[state] || 0} state {statePolicyCounts[state] === 1 ? 'policy' : 'policies'}
+          </div>
+        )
+      }
     };
   });
   mapData["policies-no-law"].forEach((state) => {
@@ -37,6 +53,14 @@ export default function Map() {
       onClick: () => {
         router.push(`/data/state-policies#${state}`);
       },
+      tooltip: {
+        enabled: true,
+        render: (state) => (
+          <div>
+            {statePolicyCounts[state] || 0} state {statePolicyCounts[state] === 1 ? 'policy' : 'policies'}
+          </div>
+        )
+      }
     };
   });
 

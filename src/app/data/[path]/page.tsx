@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import neatCsv, { Row } from 'neat-csv';
 import { redirect } from 'next/navigation';
 import path from 'path';
-import Map from "@/components/map";
+import ServerMap from "@/components/server-map";
 import {
   Table,
   TableBody,
@@ -61,7 +61,7 @@ export default async function DataPage({ params, searchParams }: { params: Promi
       <h2 className="text-xl mt-4">{matchingFile.description}</h2>
       {path === "state-policies" && (
         <div id="map" className="w-full h-full max-w-3xl mt-12">
-          <Map />
+          <ServerMap />
         </div>
       )}
       <Filters availableTags={tags} />
