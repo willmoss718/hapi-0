@@ -7,12 +7,8 @@ import {
 } from "@/components/ui/navigation-menu"
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
     DrawerHeader,
-    DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { MenuIcon } from "lucide-react";
@@ -29,6 +25,11 @@ export default function Nav() {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 ))}
+                <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                        <Link href="/trends">Trends</Link>
+                    </NavigationMenuLink>
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                         <Link href="/about">About / Methodology</Link>

@@ -1,7 +1,7 @@
 
 import path from "path";
 import fs from 'fs/promises';
-import neatCsv from 'neat-csv';
+// import neatCsv from 'neat-csv';
 
 export async function getCsvData(csv: string) {
     try {
