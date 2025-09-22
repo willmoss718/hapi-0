@@ -5,8 +5,7 @@ import fs from 'fs/promises';
 
 export async function getCsvData(csv: string) {
     try {
-      const ourPath = `/src/assets/${csv}.csv`
-      const newPath = path.join(process.cwd(), ourPath);
+      const newPath = path.join(process.cwd(), 'src', 'assets', `${csv}.csv`);
       let csvData = await fs.readFile(newPath, 'utf-8');
       // Remove BOM if present
       if (csvData.charCodeAt(0) === 0xFEFF) {
