@@ -12,7 +12,7 @@ export const FILES = [
       "Enacted and proposed U.S. federal actions shaping AI in healthcare—from statutes to agency rulemaking and executive directives.",
   },
   {
-    name: "Sector-Specific Regulations",
+    name: "Sector Specific Regulations",
     path: "sector-specific-regulations",
     description:
       "Rules and guidance issued by U.S. agencies governing how AI is built and used in specific health domains.",
