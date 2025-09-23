@@ -24,6 +24,7 @@ import Link from "next/link";
 import { getCsvData } from "@/lib/server-utils";
 import Filters from "@/components/filters";
 import { getRandomTailwindColor } from "@/lib/utils";
+import { SortableHeader } from "@/components/sortable-head";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
@@ -35,7 +36,7 @@ export default async function DataPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { path } = await params;
-  const { q, t } = await searchParams;
+  const { q, t, sk, so } = await searchParams;
 
   const csvStr = await getCsvData(path);
   const matchingFile = FILES.find((file) => file.path === path);
@@ -66,6 +67,18 @@ export default async function DataPage({
     }
   }
 
+  let sortedCsv = [...csv];
+  if (sk) {
+    sortedCsv = csv.sort((a, b) => {
+      const aValue = a[sk as keyof typeof a];
+      const bValue = b[sk as keyof typeof b];
+      if (so === "asc") {
+        return aValue.localeCompare(bValue);
+      }
+      return bValue.localeCompare(aValue);
+    });
+  }
+
   return (
     <>
       <h1 className="text-4xl mt-8 font-medium md:mt-16">
@@ -79,15 +92,9 @@ export default async function DataPage({
       )}
       <Filters availableTags={tags} />
       <Table className="w-full my-12 border shadow">
-        <TableHeader className="bg-gray-100">
-          <TableRow>
-            {validKeys.map((header) => (
-              <TableHead key={header}>{header}</TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
+        <SortableHeader validKeys={validKeys} />
         <TableBody>
-          {csv.map((row, index) =>
+          {sortedCsv.map((row, index) =>
             rowMatchesFilters(row, { q, t }, tagKeys) ? (
               <TableRow key={index}>
                 {Object.entries(row).map(([key, value], colIndex) =>
