@@ -5,14 +5,14 @@ export type TrendRecord = {
   title: string;
   tags: {
     keyword: string[];
-    implications: string[];
+    stakeholder: string[];
     impact: string[];
   };
 };
 
 export type TrendFilter = {
   module?: TrendRecord['module'];
-  tagType?: 'keyword' | 'implications' | 'impact';
+  tagType?: 'keyword' | 'stakeholder' | 'impact';
   tagValue?: string;
   issuingBody?: string; // includes state name for state module
   start?: string; // ISO date

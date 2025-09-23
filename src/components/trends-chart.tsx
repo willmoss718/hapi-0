@@ -12,8 +12,14 @@ import {
 import { TrendFilter, TrendRecord, bucketByMonth, filterTrends } from "@/lib/trends-shared";
 import { Input } from "@/components/ui/input";
 
-export default function TrendsChart({ data }: {
+
+export default function TrendsChart({ data, tagData }: {
     data: TrendRecord[];
+    tagData: {
+        keyword: string[];
+        stakeholder: string[];
+        impact: string[];
+    };
 }) {
   const [module, setModule] = useState<TrendFilter['module']>();
   const [tagType, setTagType] = useState<TrendFilter['tagType']>();
@@ -75,13 +81,31 @@ export default function TrendsChart({ data }: {
           >
             <option value="">Any</option>
             <option value="keyword">Keyword</option>
-            <option value="implications">Implications</option>
+            <option value="stakeholder">Stakeholder</option>
             <option value="impact">Impact</option>
           </select>
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm text-gray-600">Tag Value</label>
-          <Input placeholder="e.g., Safety & Risk" value={tagValue} onChange={(e) => setTagValue(e.target.value)} />
+          <select
+            className="border rounded px-2 py-1"
+            value={tagValue}
+            onChange={(e) => setTagValue(e.target.value)}
+          >
+            <option value="">Any</option>
+            {(function render() {
+              if (tagType) {
+                return tagData[tagType].map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ));
+              } else {
+                const allTags = Array.from(new Set([...tagData.keyword, ...tagData.stakeholder, ...tagData.impact]));
+                return allTags.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ));
+              }
+            })()}
+          </select>
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm text-gray-600">Issuing Body</label>
