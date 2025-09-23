@@ -46,7 +46,7 @@ export default async function DataPage({
 
   const csv = await neatCsv(csvStr);
   const tagKeys = Object.keys(csv[0]).filter((key) =>
-    key.trim().endsWith("Tags"),
+    key.trim().endsWith("Tags") || key === "Impact Level",
   );
   const validKeys = Object.keys(csv[0]).filter((key) => !tagKeys.includes(key) && !HIDDEN_KEYS.includes(key));
 
