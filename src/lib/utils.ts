@@ -17,3 +17,7 @@ export function getRandomTailwindColor(seed?: string) {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 }
+
+export function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

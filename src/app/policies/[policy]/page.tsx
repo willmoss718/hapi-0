@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getRandomTailwindColor } from "@/lib/utils";
 
 export default async function PolicyPage({ params }: { params: Promise<{ policy: string }> }) {
     const { policy } = await params;
@@ -28,18 +29,18 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                 <h1 className="text-4xl font-semibold tracking-tight">
                     {targetRow["Policy Name/Number"]} – Artificial Intelligence Task Force
                 </h1>
-                <div className="flex items-center gap-2">
+                {targetRow["﻿State"] && targetRow["Policy Type"] && <div className="flex items-center gap-2">
                     <Badge variant="secondary" className="text-sm font-normal">
                         {targetRow["﻿State"]}
                     </Badge>
                     <Badge variant="secondary" className="text-sm font-normal">
                         {targetRow["Policy Type"]}
                     </Badge>
-                </div>
+                </div>}
             </div>
 
             {/* Metadata Grid */}
-            <div className="grid grid-cols-2 gap-6 mb-8">
+            {targetRow["Date Passed"] && targetRow["Effective Date"] && <div className="grid grid-cols-2 gap-6 mb-8">
                 <Card className="p-6">
                     <h2 className="text-sm font-medium text-muted-foreground mb-2">Date Passed</h2>
                     <p className="text-sm">{new Date(targetRow["Date Passed"]).toLocaleDateString()}</p>
@@ -48,7 +49,7 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                     <h2 className="text-sm font-medium text-muted-foreground mb-2">Effective Date</h2>
                     <p className="text-sm">{new Date(targetRow["Effective Date"]).toLocaleDateString()}</p>
                 </Card>
-            </div>
+            </div>}
 
             {/* Main Content */}
             <div className="space-y-8">
@@ -69,7 +70,9 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                     <div className="space-y-4">
                         <div>
                             <h3 className="text-sm font-medium text-muted-foreground mb-2">Impact Level</h3>
-                            <Badge variant="secondary">
+                            <Badge variant="secondary" style={{
+                                backgroundColor: getRandomTailwindColor("Impact Level"),
+                            }}>
                                 {targetRow["Impact Level"]}
                             </Badge>
                         </div>
@@ -79,7 +82,9 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                                 <h3 className="text-sm font-medium text-muted-foreground mb-2">Keywords</h3>
                                 <div className="flex gap-2 flex-wrap">
                                     {targetRow["Keyword Tags"].split(",").map((tag: string) => (
-                                        <Badge key={tag} variant="outline">
+                                        <Badge key={tag} variant="secondary" style={{
+                                            backgroundColor: getRandomTailwindColor("Keyword Tags"),
+                                        }}>
                                             {tag.trim()}
                                         </Badge>
                                     ))}
@@ -92,7 +97,9 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                                 <h3 className="text-sm font-medium text-muted-foreground mb-2">Stakeholders</h3>
                                 <div className="flex gap-2 flex-wrap">
                                     {targetRow["Stakeholder Tags"].split(",").map((tag: string) => (
-                                        <Badge key={tag} variant="outline">
+                                        <Badge key={tag} variant="secondary" style={{
+                                            backgroundColor: getRandomTailwindColor("Stakeholder Tags"),
+                                        }}>
                                             {tag.trim()}
                                         </Badge>
                                     ))}
@@ -109,9 +116,6 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                             View Original Bill
                         </Link>
                     </Button>}
-                    {targetRow["Last Updated On"] && <p className="text-sm text-muted-foreground">
-                        Last updated: {targetRow["Last Updated On"]}
-                    </p>}
                 </div>
             </div>
         </div>

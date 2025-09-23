@@ -23,7 +23,9 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { getCsvData } from "@/lib/server-utils";
 import Filters from "@/components/filters";
-import { cn, getRandomTailwindColor } from "@/lib/utils";
+import { getRandomTailwindColor } from "@/lib/utils";
+
+const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
 export default async function DataPage({
   params,
@@ -46,7 +48,7 @@ export default async function DataPage({
   const tagKeys = Object.keys(csv[0]).filter((key) =>
     key.trim().endsWith("Tags"),
   );
-  const validKeys = Object.keys(csv[0]).filter((key) => !tagKeys.includes(key));
+  const validKeys = Object.keys(csv[0]).filter((key) => !tagKeys.includes(key) && !HIDDEN_KEYS.includes(key));
 
   const tags: Record<string, string[]> = {};
   for (const row of csv) {
@@ -71,7 +73,7 @@ export default async function DataPage({
       </h1>
       <h2 className="text-xl mt-4">{matchingFile.description}</h2>
       {path === "state-policies" && (
-        <div id="map" className="w-full h-full max-w-3xl mt-12">
+        <div id="map" className="w-full h-full max-w-5xl mt-12">
           <ServerMap />
         </div>
       )}
@@ -156,7 +158,7 @@ function CustomCell({
 }) {
   if (value.trim().startsWith("http")) {
     return (
-      <TableCell className="flex flex-row items-center translate-y-3 gap-1 underline underline-offset-4">
+      <TableCell className="flex flex-row items-center translate-y-3 gap-1 underline underline-offset-4 max-w-xl truncate">
         <a href={value} target="_blank" rel="noopener noreferrer">
           LINK
         </a>
@@ -165,9 +167,9 @@ function CustomCell({
     );
   }
 
-  if (value.length > 100) {
+  if (value.length > 250) {
     return (
-      <TableCell>
+      <TableCell className="max-w-xl truncate">
         <HoverCard>
           <HoverCardTrigger>{value.slice(0, 20)}...</HoverCardTrigger>
           <HoverCardContent className="w-96" align="start">
@@ -179,10 +181,10 @@ function CustomCell({
   }
 
   if (includeId) {
-    return <TableCell id={value.trim()}>{value}</TableCell>;
+    return <TableCell className="max-w-xl truncate" id={value.trim()}>{value}</TableCell>;
   }
 
-  return <TableCell>{value}</TableCell>;
+  return <TableCell className="max-w-xl truncate">{value}</TableCell>;
 }
 
 function TaggedCell({
@@ -195,12 +197,12 @@ function TaggedCell({
   tagKeys: string[];
 }) {
   return (
-    <TableCell>
+    <TableCell className="max-w-xl truncate">
       <Link href={`/policies/${encodeURIComponent(value)}`}>
         <span className="underline underline-offset-4 font-semibold">
           {value}
         </span>
-        <div className="flex flex-row gap-2 mt-2">
+        <div className="flex flex-row gap-2 mt-2 overflow-x-auto">
           {tagKeys.map((tagKey) => {
             const rawValue = row[tagKey];
             const semicolonDelimitedValues = rawValue.split(";");
