@@ -27,7 +27,7 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                     Policy Details
                 </h2>
                 <h1 className="text-4xl font-semibold tracking-tight">
-                    {targetRow["Policy Name/Number"]} – Artificial Intelligence Task Force
+                    {decodedPolicy}
                 </h1>
                 {targetRow["﻿State"] && targetRow["Policy Type"] && <div className="flex items-center gap-2">
                     <Badge variant="secondary" className="text-sm font-normal">

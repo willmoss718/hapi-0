@@ -25,6 +25,7 @@ import { getCsvData } from "@/lib/server-utils";
 import Filters from "@/components/filters";
 import { getRandomTailwindColor } from "@/lib/utils";
 import { SortableHeader } from "@/components/sortable-head";
+import HighlightedTableCell from "@/components/highlighted-table-cell";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
@@ -86,8 +87,10 @@ export default async function DataPage({
       </h1>
       <h2 className="text-xl mt-4">{matchingFile.description}</h2>
       {path === "state-policies" && (
-        <div id="map" className="w-full h-full max-w-5xl mt-12">
-          <ServerMap />
+        <div id="map" className="w-full h-full mt-12 flex flex-row justify-center items-center">
+          <div className="w-full h-full max-w-5xl">
+            <ServerMap />
+          </div>
         </div>
       )}
       <Filters availableTags={tags} />
@@ -96,7 +99,7 @@ export default async function DataPage({
         <TableBody>
           {sortedCsv.map((row, index) =>
             rowMatchesFilters(row, { q, t }, tagKeys) ? (
-              <TableRow key={index}>
+              <TableRow key={index} className="relative">
                 {Object.entries(row).map(([key, value], colIndex) =>
                   colIndex === 1 ? (
                     <TaggedCell
@@ -188,7 +191,7 @@ function CustomCell({
   }
 
   if (includeId) {
-    return <TableCell className="max-w-xl truncate" id={value.trim()}>{value}</TableCell>;
+    return <HighlightedTableCell id={value.trim()}>{value}</HighlightedTableCell>;
   }
 
   return <TableCell className="max-w-xl truncate">{value}</TableCell>;

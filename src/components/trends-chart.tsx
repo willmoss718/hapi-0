@@ -134,12 +134,16 @@ export default function TrendsChart({ data, tagData }: {
 
       <div className="w-full h-96">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={series} margin={{ left: 8, right: 16, top: 16, bottom: 8 }}>
+          <LineChart data={series} margin={{ left: 40, right: 16, top: 16, bottom: 8 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
+            <YAxis 
+              allowDecimals={false} 
+              tick={{ fontSize: 12 }}
+              label={{ value: 'Number of policies introduced', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+            />
             <Tooltip
-              formatter={(value: unknown) => [typeof value === 'number' ? value : Number(value), 'Count']}
+              formatter={(value: unknown) => [typeof value === 'number' ? value : Number(value), 'Policies introduced']}
               labelFormatter={(l) => `Month: ${l}`}
             />
             <Line type="monotone" dataKey="count" stroke="#2563eb" strokeWidth={2} dot={false} />

@@ -3,7 +3,6 @@
 import USAMap from "@mirawision/usa-map-react";
 import mapData from "@/assets/Map-Data.json";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 type CustomState = {
     fill?: string;
@@ -18,31 +17,15 @@ type MapProps = {
   statePolicyCounts: Record<string, number>;
 }
 
-const smoothScrollToSection = (sectionId: string) => {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
 export default function Map({ statePolicyCounts }: MapProps) {
   const router = useRouter();
-
-  useEffect(function prefetchAllStates() {
-    mapData["law-present"].forEach((state) => {
-      router.prefetch(`/data/state-policies#${state}`);
-    });
-    mapData["policies-no-law"].forEach((state) => {
-      router.prefetch(`/data/state-policies#${state}`);
-    });
-  }, [router]);
   
   const customStates: Record<string, CustomState> = {};
   mapData["law-present"].forEach((state) => {
     customStates[state] = {
       fill: '#30c48d',
       onClick: () => {
-        smoothScrollToSection(`${state}`);
+        router.push(`/data/state-policies#${state}`, { scroll: false });
       },
       tooltip: {
         enabled: true,
@@ -58,7 +41,7 @@ export default function Map({ statePolicyCounts }: MapProps) {
     customStates[state] = {
       fill: '#5a8def',
       onClick: () => {
-        smoothScrollToSection(`${state}`);
+        router.push(`/data/state-policies#${state}`, { scroll: false });
       },
       tooltip: {
         enabled: true,
