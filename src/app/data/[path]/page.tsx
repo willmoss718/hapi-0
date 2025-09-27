@@ -9,9 +9,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
 } from "@/components/ui/table";
 import {
   HoverCard,
@@ -19,13 +16,13 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { ArrowUpRightIcon } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
 import { getCsvData } from "@/lib/server-utils";
 import Filters from "@/components/filters";
-import { getRandomTailwindColor } from "@/lib/utils";
 import { SortableHeader } from "@/components/sortable-head";
 import HighlightedTableCell from "@/components/highlighted-table-cell";
+import { ExpandableRow } from "@/components/expandable-row";
+import { ExpandableTaggedCell } from "@/components/expandable-tagged-cell";
+import PolicyPreview from "@/components/policy-preview";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
@@ -99,10 +96,14 @@ export default async function DataPage({
         <TableBody>
           {sortedCsv.map((row, index) =>
             rowMatchesFilters(row, { q, t }, tagKeys) ? (
-              <TableRow key={index} className="relative">
+              <ExpandableRow
+                key={index}
+                className="relative"
+                expandedContent={<PolicyPreview data={row} />}
+              >
                 {Object.entries(row).map(([key, value], colIndex) =>
                   colIndex === 1 ? (
-                    <TaggedCell
+                    <ExpandableTaggedCell
                       key={key}
                       value={value}
                       row={row}
@@ -116,7 +117,7 @@ export default async function DataPage({
                     />
                   ) : null,
                 )}
-              </TableRow>
+              </ExpandableRow>
             ) : null,
           )}
         </TableBody>
@@ -197,40 +198,3 @@ function CustomCell({
   return <TableCell className="max-w-xl truncate">{value}</TableCell>;
 }
 
-function TaggedCell({
-  value,
-  row,
-  tagKeys,
-}: {
-  value: string;
-  row: Row;
-  tagKeys: string[];
-}) {
-  return (
-    <TableCell className="max-w-xl truncate">
-      <Link href={`/policies/${encodeURIComponent(value)}`}>
-        <span className="underline underline-offset-4 font-semibold">
-          {value}
-        </span>
-        <div className="flex flex-row gap-2 mt-2 overflow-x-auto">
-          {tagKeys.map((tagKey) => {
-            const rawValue = row[tagKey];
-            const semicolonDelimitedValues = rawValue.split(";");
-            return semicolonDelimitedValues.map((value) => (
-              <Badge
-                key={value}
-                variant="secondary"
-                className="empty:hidden"
-                style={{
-                  backgroundColor: getRandomTailwindColor(tagKey),
-                }}
-              >
-                {value}
-              </Badge>
-            ));
-          })}
-        </div>
-      </Link>
-    </TableCell>
-  );
-}
