@@ -4,7 +4,7 @@ import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import { Input } from "@/components/ui/input";
 import { Badge } from "./ui/badge";
 import { ListFilterIcon, SearchIcon } from "lucide-react";
-import { cn, getRandomTailwindColor } from "@/lib/utils";
+import { getRandomTailwindColor } from "@/lib/utils";
 
 export default function Filters(props: {
   availableTags: Record<string, string[]>;

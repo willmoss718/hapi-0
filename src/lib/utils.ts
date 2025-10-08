@@ -21,3 +21,17 @@ export function getRandomTailwindColor(seed?: string) {
 export function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+/**
+ * Safely get a column value from a row object with fallback column names
+ * Useful for handling CSV columns with inconsistent naming
+ * @param row - The row object to search
+ * @param columnNames - Column names to try in order
+ * @returns The first non-empty column value found, or undefined
+ */
+export function getColumnValue(row: Record<string, string>, ...columnNames: string[]): string | undefined {
+  for (const name of columnNames) {
+    if (name in row && row[name]) return row[name];
+  }
+  return undefined;
+}
