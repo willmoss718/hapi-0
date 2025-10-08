@@ -1,6 +1,16 @@
 {
   "updates": [
     {
+      "title": "Information for practitioners who provide virtual care",
+      "date": "October 7, 2025",
+      "path": "https://www.ahpra.gov.au/Resources/Information-for-practitioners-who-provide-virtual-care.aspx"
+    },
+    {
+      "title": "AB979 – California Cybersecurity Integration Center: Artificial Intelligence Safety and Security Advisory Board",
+      "date": "October 3, 2025",
+      "path": "https://legiscan.com/CA/text/AB979/2025"
+    },
+    {
       "title": "SB53 – Artificial Intelligence Models: Large Developers",
       "date": "September 29, 2025",
       "path": "https://legiscan.com/CA/text/SB53/2025"
@@ -14,17 +24,7 @@
       "title": "Digital Health Advisory Committee – Nov 6, 2025 Meeting (Generative AI-Enabled Digital Mental Health Devices)",
       "date": "September 12, 2025",
       "path": "https://www.federalregister.gov/documents/2025/09/12/2025-17651/digital-health-advisory-committee-notice-of-meeting-establishment-of-a-public-docket-request-for"
-    },
-    {
-      "title": "Section 6(b) Market Study – AI Companion Chatbots",
-      "date": "September 11, 2025",
-      "path": "https://www.ftc.gov/news-events/news/press-releases/2025/09/ftc-launches-inquiry-ai-chatbots-acting-companions"
-    },
-    {
-      "title": "AI Standards “Zero Drafts” Pilot – Extended Outline for Documentation of AI Datasets and Models",
-      "date": "September 10, 2025",
-      "path": "https://www.nist.gov/document/extended-outline-proposed-zero-draft-standard-documentation-ai-datasets-and-ai-models"
     }
   ],
-  "lastUpdated": "September 30, 2025"
+  "lastUpdated": "October 8, 2025"
 }
