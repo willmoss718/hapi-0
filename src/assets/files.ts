@@ -3,13 +3,13 @@ export const FILES = [
     name: "State Policies",
     path: "state-policies",
     description:
-      "Introduced and enacted U.S. state legislation related to AI in healthcare, with key dates and current status.",
+      "Passed U.S. state legislation with direct impacts on AI in healthcare.",
   },
   {
     name: "Federal Policies",
     path: "federal-policies",
     description:
-      "Enacted and proposed U.S. federal actions shaping AI in healthcare—from statutes to agency rulemaking and executive directives.",
+      "Issued and enacted U.S. federal actions shaping AI in healthcare.",
   },
   {
     name: "Sector Specific Regulations",

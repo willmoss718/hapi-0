@@ -16,7 +16,7 @@ interface ExpandableTaggedCellProps {
 
 export function ExpandableTaggedCell({ value, row, tagKeys, isExpanded }: ExpandableTaggedCellProps) {
   return (
-    <TableCell className="max-w-xl truncate">
+    <TableCell className="max-w-xl overflow-x-auto whitespace-nowrap">
       <div className="flex items-start gap-2">
         <button
           data-expand-trigger

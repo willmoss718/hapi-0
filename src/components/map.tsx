@@ -68,10 +68,10 @@ export default function Map({ statePolicyCounts }: MapProps) {
             <h3 className="uppercase font-medium tracking-wide">Explore by State</h3>
             <div className="flex flex-row justify-start items-center gap-2">
                 <div className="w-4 h-4 bg-green-500"></div>
-                <p>State Law Present</p>
+                <p>State Law(s) Present</p>
                 <div className="w-4 h-4 bg-blue-500"></div>
-                <p>State Policy, No Law</p>
-                <div className="w-4 h-4 bg-gray-500"></div>
+                <p>State Policies, No Law</p>
+                <div className="w-4 h-4 bg-[#D3D3D3]"></div>
                 <p>No State Policies</p>
             </div>
         </legend>

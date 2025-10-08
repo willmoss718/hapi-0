@@ -7,7 +7,7 @@ export default function About() {
             </p>
             <h2>Purpose & scope</h2>
             <ul>
-                <li>Audience: clinicians, health system leaders, compliance/legal teams, developers, payers, and policymakers.</li>
+                <li>Audience: clinicians, health system leaders, compliance/legal teams, developers, payers, lobbyists, and policymakers.</li>
                 <li>Focus: policies that materially affect the development, evaluation, deployment, or oversight of AI in healthcare.</li>
                 <li>Geographies: United States (state and federal), plus selected international frameworks with health relevance.</li>
             </ul>
@@ -29,24 +29,39 @@ export default function About() {
             <ul>
                 <li>Keyword Tags: Safety & Risk; Privacy & Data; Transparency & Governance; Clinical Quality & Efficacy; Equity & Bias.</li>
                 <li>Stakeholder Tags: Providers & Health Systems; Patients & Public; Payers & Purchasers; Developers & Vendors; Regulators & Government.</li>
+                <li>Impact: High; Medium; Low.
+                    <ul>
+                        <li>High Impact: directly governs, authorizes, or constrains AI in healthcare (binding law/reg or mandatory guidance).</li>
+                        <li>Medium Impact: materially influences practice but indirect (privacy expansions, reporting, procurement standards).</li>
+                        <li>Low Impact: exploratory/advisory (task forces, principles, studies).</li>
+                    </ul>
+                </li>
             </ul>
+            <h2>About the “State Policy, No Law” category</h2>
+            <p>This category includes formal state actions related to AI in healthcare — such as resolutions, executive orders, or commissions — that reflect policy intent or establish structures for further study or regulation. While these actions do not always create new statutory law, some (like joint resolutions) may still carry legal or administrative effect.</p>
             <h2>Status & updates</h2>
             <ul>
                 <li>Status: where available, items indicate proposal/adoption/effective phases or analogous lifecycle markers.</li>
-                <li>Updates: the database is periodically refreshed; “Last Updated” reflects the most recent editorial review of a specific entry.</li>
+                <li>Updates: the database is refreshed on a weekly basis.</li>
             </ul>
             <h2>Limitations</h2>
             <ul>
                 <li>Summaries are for awareness and do not constitute legal advice.</li>
                 <li>Coverage is selective; the index prioritizes clarity and practical relevance over exhaustiveness.</li>
             </ul>
+            <h2>Team &amp; Acknowledgements</h2>
+            <ul>
+                <li>As HAPI&rsquo;s Founder/Editor, Will Moss maintains the registry, translates dense rules into plain language, and tracks real-world impact on patients, providers, and developers. Will has a background in health policy and AI governance.</li>
+                <li>Clément Roze and Daniel Wei assisted with website development.</li>
+                <li>HAPI is entirely funded by the Windreich Department of Artificial Intelligence and Human Health, Mount Sinai.</li>
+            </ul>
             <h2>How to cite</h2>
             <p>
-                Please cite as: <i>Health & AI Policy Index (HAPI)</i>, Department for AI and Human Health, Mount Sinai. Include the item permalink and “Last Updated” date.
+                Please cite as: <i>Health & AI Policy Index (HAPI)</i>, Windreich Department of Artificial Intelligence and Human Health, Mount Sinai. Include the item permalink and “Last Updated” date.
             </p>
             <h2>Contact</h2>
             <p>
-                Questions, corrections, or suggested additions? Contact the Department for AI and Human Health at Mount Sinai.
+                Questions, corrections, or suggested additions? Reach out to william.moss@mssm.edu.
             </p>
         </article>
     )

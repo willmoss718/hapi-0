@@ -1,142 +1,123 @@
+import { FILES } from "@/assets/files";
+import { getCsvData } from "@/lib/server-utils";
+import neatCsv from "neat-csv";
+import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getRandomTailwindColor } from "@/lib/utils";
 
-type PolicyData = {
-  [key: string]: string;
-};
+export default async function PolicyPage({ params }: { params: Promise<{ policy: string }> }) {
+    const { policy } = await params;
+    const decodedPolicy = decodeURIComponent(policy);
 
-export default function PolicyPreview({ data }: { data: PolicyData }) {
-  return (
-    <div className="p-6 bg-gray-50 border-t">
-      <div className="max-w-4xl space-y-4">
-        {/* Header with state and type badges */}
-        {(data["﻿State"] || data["Policy Type"]) && (
-          <div className="flex items-center gap-2 flex-wrap">
-            {data["﻿State"] && (
-              <Badge variant="secondary" className="text-sm font-normal">
-                {data["﻿State"]}
-              </Badge>
-            )}
-            {data["Policy Type"] && (
-              <Badge variant="secondary" className="text-sm font-normal">
-                {data["Policy Type"]}
-              </Badge>
-            )}
-          </div>
-        )}
+    const allCsvFiles = await Promise.all(FILES.map((file) => getCsvData(file.path))).then((files) => files.filter((file) => file != null));
+    const allCsvData = await Promise.all(allCsvFiles.map((csv) => neatCsv(csv))).then((data) => data.flat());
+    const targetRow = allCsvData.find((row) => Object.values(row).some((value) => value === decodedPolicy));
+    if (!targetRow) {
+        return redirect('/');
+    }
 
-        {/* Dates in a compact grid */}
-        {(data["Date Passed"] || data["Effective Date"]) && (
-          <div className="grid grid-cols-2 gap-4 max-w-md">
-            {data["Date Passed"] && (
-              <div className="space-y-1">
-                <h3 className="text-xs font-medium text-muted-foreground">Date Passed</h3>
-                <p className="text-sm">{new Date(data["Date Passed"]).toLocaleDateString()}</p>
-              </div>
-            )}
-            {data["Effective Date"] && (
-              <div className="space-y-1">
-                <h3 className="text-xs font-medium text-muted-foreground">Effective Date</h3>
-                <p className="text-sm">{new Date(data["Effective Date"]).toLocaleDateString()}</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Summary and Healthcare Implications */}
-        <div className="space-y-3">
-          {data["Summary"] && (
-            <div>
-              <h3 className="text-sm font-semibold mb-1">Summary</h3>
-              <p className="text-sm text-gray-700 line-clamp-3">{data["Summary"]}</p>
+    return (
+        <div className="container mx-auto py-8 max-w-4xl">
+            {/* Header Section */}
+            <div className="space-y-4 mb-8">
+                <h2 className="text-lg font-medium text-muted-foreground mb-2">
+                    Policy Details
+                </h2>
+                <h1 className="text-4xl font-semibold tracking-tight">
+                    {decodedPolicy}
+                </h1>
+                {targetRow["�State"] && targetRow["Policy Type"] && <div className="flex items-center gap-2">
+                    <Badge variant="secondary" className="text-sm font-normal">
+                        {targetRow["�State"]}
+                    </Badge>
+                    <Badge variant="secondary" className="text-sm font-normal">
+                        {targetRow["Policy Type"]}
+                    </Badge>
+                </div>}
             </div>
-          )}
 
-          {data["Healthcare Implications"] && (
-            <div>
-              <h3 className="text-sm font-semibold mb-1">Healthcare Implications</h3>
-              <p className="text-sm text-gray-700 line-clamp-2">{data["Healthcare Implications"]}</p>
+            {/* Metadata Grid */}
+            {targetRow["Date Passed"] && targetRow["Effective Date"] && <div className="grid grid-cols-2 gap-6 mb-8">
+                <Card className="p-6">
+                    <h2 className="text-sm font-medium text-muted-foreground mb-2">Date Passed</h2>
+                    <p className="text-sm">{new Date(targetRow["Date Passed"]).toLocaleDateString()}</p>
+                </Card>
+                <Card className="p-6">
+                    <h2 className="text-sm font-medium text-muted-foreground mb-2">Effective Date</h2>
+                    <p className="text-sm">{new Date(targetRow["Effective Date"]).toLocaleDateString()}</p>
+                </Card>
+            </div>}
+
+            {/* Main Content */}
+            <div className="space-y-8">
+                <article className="leading-tight px-4">
+                    <h2 className="text-xl font-semibold mb-4">Summary</h2>
+                    <p className="text-gray-700 leading-relaxed">
+                        {targetRow["Summary"]}
+                    </p>
+
+                    <h2 className="text-xl font-semibold mb-4 mt-10">Healthcare Implications</h2>
+                    <p className="text-gray-700 leading-relaxed">
+                        {targetRow["Healthcare Implications"]}
+                    </p>
+                </article>
+
+                {/* Tags Section */}
+                <Card className="p-6">
+                    <div className="space-y-4">
+                        <div>
+                            <h3 className="text-sm font-medium text-muted-foreground mb-2">Impact Level</h3>
+                            <Badge variant="secondary" style={{
+                                backgroundColor: getRandomTailwindColor("Impact Level"),
+                            }}>
+                                {targetRow["Impact Level"]}
+                            </Badge>
+                        </div>
+                        
+                        {targetRow["Keyword Tags"] && (
+                            <div>
+                                <h3 className="text-sm font-medium text-muted-foreground mb-2">Keywords</h3>
+                                <div className="flex gap-2 flex-wrap">
+                                    {targetRow["Keyword Tags"].split(",").map((tag: string) => (
+                                        <Badge key={tag} variant="secondary" style={{
+                                            backgroundColor: getRandomTailwindColor("Keyword Tags"),
+                                        }}>
+                                            {tag.trim()}
+                                        </Badge>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {targetRow["Stakeholder Tags"] && (
+                            <div>
+                                <h3 className="text-sm font-medium text-muted-foreground mb-2">Stakeholders</h3>
+                                <div className="flex gap-2 flex-wrap">
+                                    {targetRow["Stakeholder Tags"].split(",").map((tag: string) => (
+                                        <Badge key={tag} variant="secondary" style={{
+                                            backgroundColor: getRandomTailwindColor("Stakeholder Tags"),
+                                        }}>
+                                            {tag.trim()}
+                                        </Badge>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </Card>
+
+                {/* Footer Section */}
+                <div className="flex items-center justify-between pt-4">
+                    {targetRow["Link To Bill"] && <Button asChild variant="outline">
+                        <Link href={targetRow["Link To Bill"]} target="_blank" rel="noopener noreferrer">
+                            View Original Bill
+                        </Link>
+                    </Button>}
+                </div>
             </div>
-          )}
         </div>
-
-        {/* Tags section */}
-        <div className="space-y-2">
-          {data["Impact Level"] && (
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-medium text-muted-foreground">Impact:</span>
-              <Badge 
-                variant="secondary" 
-                className="text-xs"
-                style={{
-                  backgroundColor: getRandomTailwindColor("Impact Level"),
-                }}
-              >
-                {data["Impact Level"]}
-              </Badge>
-            </div>
-          )}
-
-          {data["Keyword Tags"] && (
-            <div className="flex items-start gap-2">
-              <span className="text-xs font-medium text-muted-foreground mt-0.5">Keywords:</span>
-              <div className="flex gap-1 flex-wrap">
-                {data["Keyword Tags"].split(",").map((tag: string) => (
-                  <Badge 
-                    key={tag} 
-                    variant="secondary" 
-                    className="text-xs"
-                    style={{
-                      backgroundColor: getRandomTailwindColor("Keyword Tags"),
-                    }}
-                  >
-                    {tag.trim()}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {data["Stakeholder Tags"] && (
-            <div className="flex items-start gap-2">
-              <span className="text-xs font-medium text-muted-foreground mt-0.5">Stakeholders:</span>
-              <div className="flex gap-1 flex-wrap">
-                {data["Stakeholder Tags"].split(",").map((tag: string) => (
-                  <Badge 
-                    key={tag} 
-                    variant="secondary" 
-                    className="text-xs"
-                    style={{
-                      backgroundColor: getRandomTailwindColor("Stakeholder Tags"),
-                    }}
-                  >
-                    {tag.trim()}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Action buttons */}
-        <div className="flex items-center gap-2 pt-2">
-          <Button asChild size="sm" variant="default">
-            <Link href={`/policies/${encodeURIComponent(data[Object.keys(data)[1]])}`}>
-              View Full Details
-            </Link>
-          </Button>
-          {data["Link To Bill"] && (
-            <Button asChild size="sm" variant="outline">
-              <Link href={data["Link To Bill"]} target="_blank" rel="noopener noreferrer">
-                Original Bill
-              </Link>
-            </Button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

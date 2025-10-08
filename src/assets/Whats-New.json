@@ -1,30 +1,30 @@
 {
-    "updates": [
-        {
-            "title": "Artificial Intelligence (AI) Explained - Medical Devices",
-            "date": "August 29, 2025",
-            "path": "/policies/Artificial%20intelligence%20(AI)%20explained%20–%20Medical%20devices"
-        },
-        {
-            "title": "Regulation of software, including AI – SaMD rules and guidance",
-            "date": "August 13, 2025",
-            "path": "/policies/Regulation%20of%20software%2C%20including%20AI%20–%20SaMD%20rules%20and%20guidance"
-        },
-        {
-            "title": "MDCG 2019-11 – Guidance on Qualification and Classification of Software under MDR/IVDR",
-            "date": "June 1, 2025",
-            "path": "/policies/MDCG%202019-11%20–%20Guidance%20on%20Qualification%20and%20Classification%20of%20Software%20under%20MDR%2FIVDR"
-        },
-        {
-            "title": "Guidance on Machine Learning‑enabled Medical Devices (MLMD)",
-            "date": "February 5, 2025",
-            "path": "/policies/Guidance%20on%20Machine%20Learning‑enabled%20Medical%20Devices%20(MLMD)"
-        },
-        {
-            "title": "Good Machine Learning Practice for Medical Device Development – Guiding Principles (IMDRF/AIML WG/N88 FINAL:2025)",
-            "date": "January 30, 2025",
-            "path": "/policies/Good%20Machine%20Learning%20Practice%20for%20Medical%20Device%20Development%20–%20Guiding%20Principles%20(IMDRF%2FAIML%20WG%2FN88%20FINAL%3A2025)"
-        }
-    ],
-    "lastUpdated": "August 29, 2025"
+  "updates": [
+    {
+      "title": "SB53 – Artificial Intelligence Models: Large Developers",
+      "date": "September 29, 2025",
+      "path": "https://legiscan.com/CA/text/SB53/2025"
+    },
+    {
+      "title": "Computer Software Assurance for Production and Quality System Software",
+      "date": "September 24, 2025",
+      "path": "https://www.federalregister.gov/documents/2025/09/24/2025-18468/computer-software-assurance-for-production-and-quality-system-software-guidance-for-industry-and"
+    },
+    {
+      "title": "Digital Health Advisory Committee – Nov 6, 2025 Meeting (Generative AI-Enabled Digital Mental Health Devices)",
+      "date": "September 12, 2025",
+      "path": "https://www.federalregister.gov/documents/2025/09/12/2025-17651/digital-health-advisory-committee-notice-of-meeting-establishment-of-a-public-docket-request-for"
+    },
+    {
+      "title": "Section 6(b) Market Study – AI Companion Chatbots",
+      "date": "September 11, 2025",
+      "path": "https://www.ftc.gov/news-events/news/press-releases/2025/09/ftc-launches-inquiry-ai-chatbots-acting-companions"
+    },
+    {
+      "title": "AI Standards “Zero Drafts” Pilot – Extended Outline for Documentation of AI Datasets and Models",
+      "date": "September 10, 2025",
+      "path": "https://www.nist.gov/document/extended-outline-proposed-zero-draft-standard-documentation-ai-datasets-and-ai-models"
+    }
+  ],
+  "lastUpdated": "September 30, 2025"
 }

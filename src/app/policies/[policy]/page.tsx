@@ -29,9 +29,9 @@ export default async function PolicyPage({ params }: { params: Promise<{ policy:
                 <h1 className="text-4xl font-semibold tracking-tight">
                     {decodedPolicy}
                 </h1>
-                {targetRow["﻿State"] && targetRow["Policy Type"] && <div className="flex items-center gap-2">
+                {targetRow["�State"] && targetRow["Policy Type"] && <div className="flex items-center gap-2">
                     <Badge variant="secondary" className="text-sm font-normal">
-                        {targetRow["﻿State"]}
+                        {targetRow["�State"]}
                     </Badge>
                     <Badge variant="secondary" className="text-sm font-normal">
                         {targetRow["Policy Type"]}
