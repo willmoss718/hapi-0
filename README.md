@@ -7,7 +7,7 @@ bun install
 bun dev
 ```
 
-You can then preview changes locally at `localhost:3000`.
+You can then preview changes locally at `http://localhost:3000`.
 
 Assets to be continually updated are in `src/assets`.
 
