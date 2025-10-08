@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import { TrendFilter, TrendRecord, bucketByMonth, filterTrends } from "@/lib/trends-shared";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 
 
 export default function TrendsChart({ data, tagData }: {
@@ -27,6 +28,7 @@ export default function TrendsChart({ data, tagData }: {
   const [issuingBody, setIssuingBody] = useState<string>("");
   const [start, setStart] = useState<string>("");
   const [end, setEnd] = useState<string>("");
+  const [isCumulative, setIsCumulative] = useState<boolean>(false);
 
   const filtered = useMemo(() => {
     const f: TrendFilter = {
@@ -41,6 +43,17 @@ export default function TrendsChart({ data, tagData }: {
   }, [data, module, tagType, tagValue, issuingBody, start, end]);
 
   const series = useMemo(() => bucketByMonth(filtered), [filtered]);
+  
+  const displayData = useMemo(() => {
+    if (!isCumulative) return series;
+    
+    // Calculate cumulative values
+    let cumulative = 0;
+    return series.map(item => ({
+      ...item,
+      count: cumulative += item.count
+    }));
+  }, [series, isCumulative]);
 
   const issuingBodies = useMemo(() => {
     const set = new Set<string>();
@@ -131,19 +144,30 @@ export default function TrendsChart({ data, tagData }: {
           </div>
         </div>
       </div>
+      
+      <div className="flex items-center justify-end mb-4 pr-4 gap-2">
+        <label htmlFor="cumulative-switch" className="text-sm text-gray-600">
+          Show Cumulative
+        </label>
+        <Switch
+          id="cumulative-switch"
+          checked={isCumulative}
+          onCheckedChange={setIsCumulative}
+        />
+      </div>
 
       <div className="w-full h-96">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={series} margin={{ left: 40, right: 16, top: 16, bottom: 8 }}>
+          <LineChart data={displayData} margin={{ left: 40, right: 16, top: 16, bottom: 8 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
             <YAxis 
               allowDecimals={false} 
               tick={{ fontSize: 12 }}
-              label={{ value: 'Number of policies introduced', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
+              label={{ value: isCumulative ? 'Cumulative policies' : 'Number of policies introduced', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
             />
             <Tooltip
-              formatter={(value: unknown) => [typeof value === 'number' ? value : Number(value), 'Policies introduced']}
+              formatter={(value: unknown) => [typeof value === 'number' ? value : Number(value), isCumulative ? 'Total policies' : 'Policies introduced']}
               labelFormatter={(l) => `Month: ${l}`}
             />
             <Line type="monotone" dataKey="count" stroke="#2563eb" strokeWidth={2} dot={false} />
