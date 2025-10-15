@@ -29,9 +29,25 @@ export function wait(ms: number) {
  * @param columnNames - Column names to try in order
  * @returns The first non-empty column value found, or undefined
  */
-export function getColumnValue(row: Record<string, string>, ...columnNames: string[]): string | undefined {
+export function getColumnValue(
+  row: Record<string, string>,
+  ...columnNames: string[]
+): string | undefined {
   for (const name of columnNames) {
     if (name in row && row[name]) return row[name];
+  }
+  return undefined;
+}
+
+/**
+ * Same as getColumnValue, but returns the first column value that starts with the given string
+ */
+export function getColumnValueStartsWith(
+  row: Record<string, string>,
+  startsWith: string,
+): string | undefined {
+  for (const name of Object.keys(row)) {
+    if (name.startsWith(startsWith) && row[name]) return row[name];
   }
   return undefined;
 }
