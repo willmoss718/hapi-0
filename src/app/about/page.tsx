@@ -25,7 +25,7 @@ export default function About() {
                 <li>Curation: items are selected for clarity, materiality, and health relevance; marginal items may be excluded for signal-to-noise.</li>
             </ul>
             <h2>Fields & tags</h2>
-            <p>Each entry includes a concise summary, healthcare implications, dates, jurisdiction, and links to source text. Two tag families enable quick filtering:</p>
+            <p>Each entry includes a concise summary, healthcare implications, dates, jurisdiction, and links to source text. Three tag families enable quick filtering:</p>
             <ul>
                 <li>Keyword Tags: Safety & Risk; Privacy & Data; Transparency & Governance; Clinical Quality & Efficacy; Equity & Bias.</li>
                 <li>Stakeholder Tags: Providers & Health Systems; Patients & Public; Payers & Purchasers; Developers & Vendors; Regulators & Government.</li>
