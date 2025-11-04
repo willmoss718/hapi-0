@@ -131,34 +131,38 @@ function rowMatchesFilters(
   filters: { q: unknown; t: unknown },
   tagKeys: string[],
 ) {
+  // Text search
   const serializedRow = JSON.stringify(row);
   const matchesSearch =
     filters.q && typeof filters.q === "string"
       ? serializedRow.toLowerCase().includes(filters.q.toLowerCase())
       : true;
 
-  let matchesTags = false;
+  // Tag filtering: require ALL selected tags (AND)
   if (filters.t && typeof filters.t === "string") {
-    const queryFilterTags = filters.t.split(",");
-    for (const tag of queryFilterTags) {
-      for (const tagKey of tagKeys) {
-        const rawValue = row[tagKey];
-        const semicolonDelimitedValues = rawValue.split(";");
-        if (
-          semicolonDelimitedValues.some(
-            (value) => value.toLowerCase() === tag.toLowerCase(),
-          )
-        ) {
-          matchesTags = true;
-        }
-      }
-    }
-  } else {
-    matchesTags = true;
+    const queryFilterTags = filters.t
+      .split(",")
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
+
+    const matchesTags = queryFilterTags.every((tag) =>
+      tagKeys.some((tagKey) => {
+        const rawValue = String(row[tagKey] ?? "");
+        const values = rawValue
+          .split(";")
+          .map((v) => v.trim().toLowerCase())
+          .filter(Boolean);
+        return values.includes(tag);
+      }),
+    );
+
+    return matchesSearch && matchesTags;
   }
 
-  return matchesSearch && matchesTags;
+  // No tag filter → only search matters
+  return matchesSearch;
 }
+
 
 function CustomCell({
   value,
