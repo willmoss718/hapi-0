@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
       <article className="prose prose-lg leading-tight my-8">
         <h1 className="text-4xl mt-8 font-medium md:mt-16">
           About the Health &amp; AI Policy Index
