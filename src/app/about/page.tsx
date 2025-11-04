@@ -51,12 +51,11 @@ export default function About() {
             </ul>
             <h2>Team &amp; Acknowledgements</h2>
             <ul>
-                <li>As HAPI&rsquo;s Founder/Editor, Will Moss maintains the registry, translates dense rules into plain language, and tracks real-world impact on patients, providers, and developers. Will has a background in health policy and AI governance.</li>
-                <li>Clément Roze and Daniel Wei assisted with website development.</li>
+                <li>As HAPI&rsquo;s Founder/Editor, Will Moss maintains the registry, translates dense rules into plain language, and tracks real-world impact on patients, providers, and developers.</li>
             </ul>
             <h2>How to cite</h2>
             <p>
-                Please cite as: Health & AI Policy Index (HAPI). Include the item permalink and “Last Updated” date.
+                Please cite as: <i>Health & AI Policy Index (HAPI).<i> Include the item permalink and “Last Updated” date.
             </p>
             <h2>Contact</h2>
             <p>
