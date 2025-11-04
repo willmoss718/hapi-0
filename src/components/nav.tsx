@@ -20,23 +20,25 @@ export default function Nav() {
     const list = (
         <NavigationMenu>
             <NavigationMenuList className="flex flex-col md:flex-row md:justify-end gap-2 items-start md:items-center">
-                {FILES.map((file) => (
-                    <NavigationMenuItem key={file.path}>
-                        <NavigationMenuLink asChild>
-                            <Link href={`/data/${file.path}`}>{file.name}</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                ))}
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/trends">Trends</Link>
-                    </NavigationMenuLink>
+            <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                <Link href="/about">About / Methodology</Link>
+                </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            {FILES.map((file) => (
+                <NavigationMenuItem key={file.path}>
+                <NavigationMenuLink asChild>
+                    <Link href={`/data/${file.path}`}>{file.name}</Link>
+                </NavigationMenuLink>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink asChild>
-                        <Link href="/about">About / Methodology</Link>
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
+            ))}
+
+            <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                <Link href="/trends">Trends</Link>
+                </NavigationMenuLink>
+            </NavigationMenuItem>
             </NavigationMenuList>
         </NavigationMenu>
     )
