@@ -207,4 +207,3 @@ function CustomCell({
 
   return <TableCell className="max-w-xl truncate">{value}</TableCell>;
 }
-
