@@ -122,10 +122,12 @@ export default async function DataPage({
           )}
         </TableBody>
       </Table>
-      <p className="text-base text-gray-700 italic mt-1 mb-3 pl-4">
-        <span className="text-gray-800 font-semibold">*</span>{" "}
-        Some policies have multiple effective dates; only one primary date is displayed here.
-      </p>
+      {path === "state-policies" && (
+        <p className="text-base text-gray-700 italic mt-1 mb-3 pl-4">
+          <span className="text-gray-800 font-semibold">*</span>{" "}
+          Some policies have multiple effective dates; only one primary date is displayed here.
+        </p>
+      )}
     </>
   );
 }
