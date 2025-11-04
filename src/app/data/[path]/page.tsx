@@ -122,8 +122,9 @@ export default async function DataPage({
           )}
         </TableBody>
       </Table>
-      <p className="text-xs text-gray-400 italic mt-2">
-      * Some policies have multiple effective dates; only one primary date is displayed here.
+      <p className="text-base text-gray-700 italic mt-6 mb-4 text-center">
+        <span className="text-gray-800 font-semibold">*</span>{" "}
+        Some policies have multiple effective dates; only one primary date is displayed here.
       </p>
     </>
   );
