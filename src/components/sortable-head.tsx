@@ -23,27 +23,28 @@ export function SortableHeader({ validKeys }: { validKeys: string[] }) {
                             setSortByKey(header);
                             setSortOrder(sortOrder === "asc" ? "desc" : "asc");
                         }}>
-                            {/* Header label with optional info icon */}
-                            <span className="flex items-center gap-1">
-                            {header}
-                            {header.toLowerCase().includes("effective") && (
-                                <span
-                                title="Some policies have multiple effective dates; this table shows one primary date."
-                                className="cursor-help text-gray-400 text-xs"
-                                >
-                                ⓘ
-                                </span>
-                            )}
+                        {/* Header label with optional info icon */}
+                        <span className="inline-flex items-center gap-1">
+                        {header}
+                        {header.toLowerCase().includes("effective") && (
+                            <span
+                            title="Some policies have multiple effective dates; this table shows one primary date."
+                            aria-label="Effective date info"
+                            className="inline-block align-middle cursor-help opacity-60 text-xs leading-none"
+                            >
+                            ⓘ
                             </span>
+                        )}
+                        </span>
 
-                            {/* Sort icons */}
-                            {sortKey === header ? (
-                            sortOrder === "asc" ? (
-                                <ArrowUpIcon className="size-4" />
-                            ) : (
-                                <ArrowDownIcon className="size-4" />
-                            )
-                            ) : null}
+                        {/* Sort icons */}
+                        {sortKey === header ? (
+                        sortOrder === "asc" ? (
+                            <ArrowUpIcon className="size-4" />
+                        ) : (
+                            <ArrowDownIcon className="size-4" />
+                        )
+                        ) : null}
                     </TableHead>
                 ))}
             </TableRow>
