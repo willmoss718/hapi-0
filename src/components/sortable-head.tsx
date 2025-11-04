@@ -23,8 +23,27 @@ export function SortableHeader({ validKeys }: { validKeys: string[] }) {
                             setSortByKey(header);
                             setSortOrder(sortOrder === "asc" ? "desc" : "asc");
                         }}>
-                        {header}
-                        {sortByKey === header ? (sortOrder === "asc" ? <ArrowUpIcon className="size-4" /> : <ArrowDownIcon className="size-4" />) : null}
+                            {/* Header label with optional info icon */}
+                            <span className="flex items-center gap-1">
+                            {header}
+                            {header.toLowerCase().includes("effective") && (
+                                <span
+                                title="Some policies have multiple effective dates; this table shows one primary date."
+                                className="cursor-help text-gray-400 text-xs"
+                                >
+                                ⓘ
+                                </span>
+                            )}
+                            </span>
+
+                            {/* Sort icons */}
+                            {sortKey === header ? (
+                            sortOrder === "asc" ? (
+                                <ArrowUpIcon className="size-4" />
+                            ) : (
+                                <ArrowDownIcon className="size-4" />
+                            )
+                            ) : null}
                     </TableHead>
                 ))}
             </TableRow>
