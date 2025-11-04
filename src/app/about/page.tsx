@@ -53,11 +53,10 @@ export default function About() {
             <ul>
                 <li>As HAPI&rsquo;s Founder/Editor, Will Moss maintains the registry, translates dense rules into plain language, and tracks real-world impact on patients, providers, and developers. Will has a background in health policy and AI governance.</li>
                 <li>Clément Roze and Daniel Wei assisted with website development.</li>
-                <li>HAPI is entirely funded by the Windreich Department of Artificial Intelligence and Human Health, Mount Sinai.</li>
             </ul>
             <h2>How to cite</h2>
             <p>
-                Please cite as: <i>Health & AI Policy Index (HAPI)</i>, Windreich Department of Artificial Intelligence and Human Health, Mount Sinai. Include the item permalink and “Last Updated” date.
+                Please cite as: Health & AI Policy Index (HAPI). Include the item permalink and “Last Updated” date.
             </p>
             <h2>Contact</h2>
             <p>
