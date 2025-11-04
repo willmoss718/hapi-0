@@ -23,7 +23,12 @@ export function SortableHeader({ validKeys }: { validKeys: string[] }) {
                             setSortByKey(header);
                             setSortOrder(sortOrder === "asc" ? "desc" : "asc");
                         }}>
+                        <span className="flex items-center gap-1">
                         {header}
+                        {header.toLowerCase().includes("effective") && (
+                            <span className="text-gray-500 text-sm align-top">*</span>
+                        )}
+                        </span>
                         {sortByKey === header ? (sortOrder === "asc" ? <ArrowUpIcon className="size-4" /> : <ArrowDownIcon className="size-4" />) : null}
                     </TableHead>
                 ))}
