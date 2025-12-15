@@ -1,6 +1,16 @@
 {
   "updates": [
     {
+      "title": "OMB Memorandum M-26-04 – Increasing Public Trust in Artificial Intelligence Through Unbiased AI Principles",
+      "date": "December 11, 2025",
+      "path": "https://www.healthaipolicy.org/policies/OMB%20Memorandum%20M-26-04%20%E2%80%93%20Increasing%20Public%20Trust%20in%20Artificial%20Intelligence%20Through%20Unbiased%20AI%20Principles"
+    },
+    {
+      "title": "Ethics and Governance of AI for Health – Guidance on Large Multi‑Modal Models",
+      "date": "November 1, 2025",
+      "path": "https://www.healthaipolicy.org/policies/Ethics%20and%20Governance%20of%20AI%20for%20Health%20%E2%80%93%20Guidance%20on%20Large%20Multi%E2%80%91Modal%20Models"
+    },
+    {
       "title": "SB243 – Companion Chatbots",
       "date": "October 13, 2025",
       "path": "https://www.healthaipolicy.org/policies/SB243%20%E2%80%93%20Companion%20Chatbots"
@@ -15,16 +25,6 @@
       "date": "October 7, 2025",
       "path": "https://www.healthaipolicy.org/policies/Australian%20Health%20Practitioner%20Regulation%20Agency%20%26%20National%20Boards"
     },
-    {
-      "title": "AB979 – California Cybersecurity Integration Center: Artificial Intelligence",
-      "date": "October 3, 2025",
-      "path": "https://www.healthaipolicy.org/policies/AB979%20%E2%80%93%20California%20Cybersecurity%20Integration%20Center%3A%20Artificial%20Intelligence"
-    },
-    {
-      "title": "Executive Order 14355 – Unlocking Cures for Pediatric Cancer with Artificial Intelligence",
-      "date": "September 30, 2025",
-      "path": "https://www.healthaipolicy.org/policies/Executive%20Order%2014355%20%E2%80%93%20Unlocking%20Cures%20for%20Pediatric%20Cancer%20with%20Artificial%20Intelligence"
-    }
   ],
   "lastUpdated": "December 15, 2025"
 }
