@@ -22,12 +22,15 @@
         "IN",
         "IL",
         "KY",
+        "KS",
         "NY",
+        "ME",
         "NJ",
         "MD",
         "VT",
         "NH",
-        "HI"
+        "HI,"
+        "CT"
     ],
     "policies-no-law": [
         "PA",
