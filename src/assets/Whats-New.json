@@ -1,6 +1,11 @@
 {
   "updates": [
     {
+      "title": "Request for Information – Accelerating the Adoption and Use of Artificial Intelligence as Part of Clinical Care",
+      "date": "December 23, 2025",
+      "path": "https://www.healthaipolicy.org/policies/Request%20for%20Information%20%E2%80%93%20Accelerating%20the%20Adoption%20and%20Use%20of%20Artificial%20Intelligence%20as%20Part%20of%20Clinical%20Care"
+    }
+    {
       "title": "S06953 – Responsible AI Safety and Education (RAISE) Act",
       "date": "December 19, 2025",
       "path": "https://www.healthaipolicy.org/policies/S06953%20%E2%80%93%20Responsible%20AI%20Safety%20and%20Education%20(RAISE)%20Act"
@@ -20,11 +25,6 @@
       "date": "December 11, 2025",
       "path": "https://www.healthaipolicy.org/policies/Executive%20Order%2014365%20%E2%80%93%20Ensuring%20a%20National%20Policy%20Framework%20for%20Artificial%20Intelligence"
     },
-    {
-      "title": "Building a Healthier Future: Designing AI for Health Equity",
-      "date": "December 11, 2025",
-      "path": "https://www.healthaipolicy.org/policies/Building%20a%20Healthier%20Future%3A%20Designing%20AI%20for%20Health%20Equity"
-    }
   ],
   "lastUpdated": "January 6, 2025"
 }
