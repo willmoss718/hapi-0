@@ -1,6 +1,10 @@
 {
   "updates": [
     {
+      "title": "Use-Case Best Practice Guides and Testing & Evaluation Frameworks for Health AI",
+      "date": "December 24, 2025",
+      "path": "https://www.healthaipolicy.org/policies/Use-Case%20Best%20Practice%20Guides%20and%20Testing%20%26%20Evaluation%20Frameworks%20for%20Health%20AI"
+    },
       "title": "Request for Information – Accelerating the Adoption and Use of Artificial Intelligence as Part of Clinical Care",
       "date": "December 23, 2025",
       "path": "https://www.healthaipolicy.org/policies/Request%20for%20Information%20%E2%80%93%20Accelerating%20the%20Adoption%20and%20Use%20of%20Artificial%20Intelligence%20as%20Part%20of%20Clinical%20Care"
@@ -19,12 +23,7 @@
       "title": "OMB Memorandum M-26-04 – Increasing Public Trust in Artificial Intelligence Through Unbiased AI Principles",
       "date": "December 11, 2025",
       "path": "https://www.healthaipolicy.org/policies/OMB%20Memorandum%20M-26-04%20%E2%80%93%20Increasing%20Public%20Trust%20in%20Artificial%20Intelligence%20Through%20Unbiased%20AI%20Principles"
-    },
-    {
-      "title": "Executive Order 14365 – Ensuring a National Policy Framework for Artificial Intelligence",
-      "date": "December 11, 2025",
-      "path": "https://www.healthaipolicy.org/policies/Executive%20Order%2014365%20%E2%80%93%20Ensuring%20a%20National%20Policy%20Framework%20for%20Artificial%20Intelligence"
     }
-  ],
+   ],
   "lastUpdated": "February 3, 2026"
 }
