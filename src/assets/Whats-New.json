@@ -1,6 +1,11 @@
 {
   "updates": [
     {
+      "title": "Ethics and Governance of Artificial Intelligence for Health: Guidance on Large Multi-modal Models",
+      "date": "January 14, 2026",
+      "path": "https://www.healthaipolicy.org/policies/Ethics%20and%20Governance%20of%20Artificial%20Intelligence%20for%20Health%3A%20Guidance%20on%20Large%20Multi-modal%20Models"
+    },
+    {
       "title": "Use-Case Best Practice Guides and Testing & Evaluation Frameworks for Health AI",
       "date": "December 24, 2025",
       "path": "https://www.healthaipolicy.org/policies/Use-Case%20Best%20Practice%20Guides%20and%20Testing%20%26%20Evaluation%20Frameworks%20for%20Health%20AI"
@@ -19,12 +24,7 @@
       "title": "S07599 – Automated Decision-Making in Government Agencies",
       "date": "December 19, 2025",
       "path": "https://www.healthaipolicy.org/policies/S07599%20%E2%80%93%20Automated%20Decision-Making%20in%20Government%20Agencies"
-    },
-    {
-      "title": "OMB Memorandum M-26-04 – Increasing Public Trust in Artificial Intelligence Through Unbiased AI Principles",
-      "date": "December 11, 2025",
-      "path": "https://www.healthaipolicy.org/policies/OMB%20Memorandum%20M-26-04%20%E2%80%93%20Increasing%20Public%20Trust%20in%20Artificial%20Intelligence%20Through%20Unbiased%20AI%20Principles"
     }
    ],
-  "lastUpdated": "February 10, 2026"
+  "lastUpdated": "February 17, 2026"
 }
