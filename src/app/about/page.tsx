@@ -26,7 +26,7 @@ export default function About() {
         <p>An item is included when it satisfies both of the following criteria:</p>
         <ul>
           <li>AI relevance (such as explicit regulation of artificial intelligence or machine-learning systems).</li>
-          <li>health relevance (including effects on health care delivery, public health operations, or health-related data, safety, or equity).</li>
+          <li>Health relevance (including effects on health care delivery, public health operations, or health-related data, safety, or equity).</li>
         </ul>
         <p>Policies are excluded when AI is mentioned only in passing, duplicates an existing entry, or is expected to have an insignificant impact on health care.</p>
 
