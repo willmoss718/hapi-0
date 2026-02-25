@@ -23,12 +23,12 @@ export default function About() {
         </ul>
 
         <h2>Inclusion criteria</h2>
-        <p>An item is included when it meets at least one of the following:</p>
+        <p>An item is included when it satisfies both of the following criteria:</p>
         <ul>
-          <li>Directly regulates AI (e.g., safety, risk management, transparency, data governance, bias/equity).</li>
-          <li>Indirectly constrains or enables AI in clinical or administrative settings (e.g., HIPAA/OCR guidance, CMS coverage/coding, liability/credentialing).</li>
-          <li>Establishes widely referenced standards or guidance used by health organizations and vendors.</li>
+          <li>AI relevance (such as explicit regulation of artificial intelligence or machine-learning systems).</li>
+          <li>health relevance (including effects on health care delivery, public health operations, or health-related data, safety, or equity).</li>
         </ul>
+        <p>Policies are excluded when AI is mentioned only in passing, duplicates an existing entry, or is expected to have an insignificant impact on health care.</p>
 
         <h2>Data sources &amp; curation</h2>
         <ul>
