@@ -1,6 +1,11 @@
 {
   "updates": [
     {
+      "title": "Guiding Principles for Good AI Practice in Drug Development",
+      "date": "January 14, 2026",
+      "path": "https://www.healthaipolicy.org/policies/Guiding%20Principles%20for%20Good%20AI%20Practice%20in%20Drug%20Development"
+    },
+    {
       "title": "Ethics and Governance of Artificial Intelligence for Health: Guidance on Large Multi-modal Models",
       "date": "January 14, 2026",
       "path": "https://www.healthaipolicy.org/policies/Ethics%20and%20Governance%20of%20Artificial%20Intelligence%20for%20Health%3A%20Guidance%20on%20Large%20Multi-modal%20Models"
@@ -19,12 +24,7 @@
       "title": "S06953 – Responsible AI Safety and Education (RAISE) Act",
       "date": "December 19, 2025",
       "path": "https://www.healthaipolicy.org/policies/S06953%20%E2%80%93%20Responsible%20AI%20Safety%20and%20Education%20(RAISE)%20Act"
-    },
-    {
-      "title": "S07599 – Automated Decision-Making in Government Agencies",
-      "date": "December 19, 2025",
-      "path": "https://www.healthaipolicy.org/policies/S07599%20%E2%80%93%20Automated%20Decision-Making%20in%20Government%20Agencies"
     }
    ],
-  "lastUpdated": "February 17, 2026"
+  "lastUpdated": "February 25, 2026"
 }
