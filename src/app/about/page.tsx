@@ -74,7 +74,7 @@ export default function About() {
           <li>Coverage is selective; the index prioritizes clarity and practical relevance over exhaustiveness.</li>
         </ul>
 
-        <h2>Team &amp; Acknowledgements</h2>
+        <h2>Team &amp; acknowledgements</h2>
         <ul>
           <li>
             As HAPI’s Founder/Editor, Will Moss maintains the registry, translates dense rules into plain language, and tracks
