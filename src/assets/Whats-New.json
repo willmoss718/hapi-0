@@ -1,8 +1,13 @@
 {
   "updates": [
     {
+      "title": "AI for Care: The Artificial Intelligence Strategy for Healthcare in Ireland 2026-2030",
+      "date": "March 11, 2026",
+      "path": "https://www.healthaipolicy.org/policies/AI%20for%20Care%3A%20The%20Artificial%20Intelligence%20Strategy%20for%20Healthcare%20in%20Ireland%202026-2030"
+    },
+    {
       "title": "Strategy for Artificial Intelligence in Healthcare for India",
-      "date": "February 17, 2025",
+      "date": "February 17, 2026",
       "path": "https://www.healthaipolicy.org/policies/Strategy%20for%20Artificial%20Intelligence%20in%20Healthcare%20for%20India"
     },
     {
@@ -19,12 +24,7 @@
       "title": "Use-Case Best Practice Guides and Testing & Evaluation Frameworks for Health AI",
       "date": "December 24, 2025",
       "path": "https://www.healthaipolicy.org/policies/Use-Case%20Best%20Practice%20Guides%20and%20Testing%20%26%20Evaluation%20Frameworks%20for%20Health%20AI"
-    },
-    {
-      "title": "Request for Information – Accelerating the Adoption and Use of Artificial Intelligence as Part of Clinical Care",
-      "date": "December 23, 2025",
-      "path": "https://www.healthaipolicy.org/policies/Request%20for%20Information%20%E2%80%93%20Accelerating%20the%20Adoption%20and%20Use%20of%20Artificial%20Intelligence%20as%20Part%20of%20Clinical%20Care"
     }
    ],
-  "lastUpdated": "March 11, 2026"
+  "lastUpdated": "March 18, 2026"
 }
