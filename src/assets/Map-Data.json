@@ -13,7 +13,6 @@
         "AZ",
         "AR",
         "MS",
-        "AL",
         "FL",
         "NC",
         "VA",
@@ -32,12 +31,13 @@
         "HI",
         "DE",
         "RI",
-        "CT"
+        "CT",
+        "GA",
+        "NM"
     ],
     "policies-no-law": [
         "PA",
-        "NM",
-        "LA",
-        "GA"
+        "AL",
+        "LA"
     ]
 }
