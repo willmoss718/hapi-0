@@ -1,6 +1,21 @@
 {
   "updates": [
     {
+      "title": "SB5395 – Prior Authorization Determination Process",
+      "date": "March 23, 2026",
+      "path": "https://www.healthaipolicy.org/policies/SB5395%20%E2%80%93%20Prior%20Authorization%20Determination%20Process"
+    },
+    {
+      "title": "National Policy Framework for Artificial Intelligence: Legislative Recommendations",
+      "date": "March 20, 2026",
+      "path": "https://www.healthaipolicy.org/policies/National%20Policy%20Framework%20for%20Artificial%20Intelligence%3A%20Legislative%20Recommendations"
+    },
+    {
+      "title": "SB0319 – Health Insurance Preauthorization Amendments",
+      "date": "March 19, 2026",
+      "path": "https://www.healthaipolicy.org/policies/SB0319%20%E2%80%93%20Health%20Insurance%20Preauthorization%20Amendments"
+    },
+    {
       "title": "AI for Care: The Artificial Intelligence Strategy for Healthcare in Ireland 2026-2030",
       "date": "March 11, 2026",
       "path": "https://www.healthaipolicy.org/policies/AI%20for%20Care%3A%20The%20Artificial%20Intelligence%20Strategy%20for%20Healthcare%20in%20Ireland%202026-2030"
@@ -9,21 +24,6 @@
       "title": "Strategy for Artificial Intelligence in Healthcare for India",
       "date": "February 17, 2026",
       "path": "https://www.healthaipolicy.org/policies/Strategy%20for%20Artificial%20Intelligence%20in%20Healthcare%20for%20India"
-    },
-    {
-      "title": "Guiding Principles for Good AI Practice in Drug Development",
-      "date": "January 14, 2026",
-      "path": "https://www.healthaipolicy.org/policies/Guiding%20Principles%20for%20Good%20AI%20Practice%20in%20Drug%20Development"
-    },
-    {
-      "title": "Ethics and Governance of Artificial Intelligence for Health: Guidance on Large Multi-modal Models",
-      "date": "January 14, 2026",
-      "path": "https://www.healthaipolicy.org/policies/Ethics%20and%20Governance%20of%20Artificial%20Intelligence%20for%20Health%3A%20Guidance%20on%20Large%20Multi-modal%20Models"
-    },
-    {
-      "title": "Use-Case Best Practice Guides and Testing & Evaluation Frameworks for Health AI",
-      "date": "December 24, 2025",
-      "path": "https://www.healthaipolicy.org/policies/Use-Case%20Best%20Practice%20Guides%20and%20Testing%20%26%20Evaluation%20Frameworks%20for%20Health%20AI"
     }
    ],
   "lastUpdated": "March 18, 2026"
