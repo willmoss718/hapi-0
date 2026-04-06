@@ -40,7 +40,7 @@ export default function HighlightedTableCell({
 
       firstMatch?.scrollIntoView({
         behavior: "smooth",
-        block: "nearest",
+        block: "start",
       });
     }, 120);
 
