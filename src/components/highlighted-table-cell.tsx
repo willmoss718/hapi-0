@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useHash } from "@/lib/client-utils";
 import { TableCell } from "./ui/table";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,6 @@ export default function HighlightedTableCell({
   children: React.ReactNode;
   id: string;
 }) {
-  const cellRef = useRef<HTMLTableCellElement | null>(null);
   const { hash, clearHash, isActive } = useHash({ scroll: true });
 
   useEffect(() => {
@@ -35,25 +34,22 @@ export default function HighlightedTableCell({
     if (hash !== id) return;
 
     const timer = window.setTimeout(() => {
-      const el = cellRef.current;
-      if (!el) return;
+      const firstMatch = document.querySelector<HTMLElement>(
+        `td[data-state="${id}"]`
+      );
 
-      const rect = el.getBoundingClientRect();
-      const topOffset = 140;
-
-      window.scrollTo({
-        top: window.scrollY + rect.top - topOffset,
+      firstMatch?.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
-    }, 150);
+    }, 120);
 
     return () => window.clearTimeout(timer);
   }, [hash, id]);
 
   return (
     <TableCell
-      ref={cellRef}
-      id={id}
+      data-state={id}
       className="relative max-w-xl truncate scroll-mt-40"
     >
       <div
