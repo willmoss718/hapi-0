@@ -25,7 +25,7 @@ export default function Map({ statePolicyCounts }: MapProps) {
     customStates[state] = {
       fill: '#30c48d',
       onClick: () => {
-        router.push(`/data/state-policies#${state}`);
+        router.push(`/data/state-policies?sk=State&so=asc#${state}`);
       },
       tooltip: {
         enabled: true,
