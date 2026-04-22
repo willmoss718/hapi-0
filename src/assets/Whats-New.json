@@ -1,6 +1,16 @@
 {
   "updates": [
     {
+      "title": "AL SB63 – Health Care Plans; To Regulate The Use of Artificial Intelligence in Determinations of Coverage",
+      "date": "April 17, 2026",
+      "path": "https://www.healthaipolicy.org/policies/AL%20SB63%20%E2%80%93%20Health%20Care%20Plans%3B%20To%20Regulate%20The%20Use%20of%20Artificial%20Intelligence%20in%20Determinations%20of%20Coverage"
+    },
+    {
+      "title": "ME LD2082 – An Act to Regulate the Use of Artificial Intelligence in Providing Certain Mental Health Services",
+      "date": "April 13, 2026",
+      "path": "https://www.healthaipolicy.org/policies/ME%20LD2082%20%E2%80%93%20An%20Act%20to%20Regulate%20the%20Use%20of%20Artificial%20Intelligence%20in%20Providing%20Certain%20Mental%20Health%20Services"
+    },
+    {
       "title": "TN HB1470 – Qualified Mental Health Professional AI Misrepresentation",
       "date": "April 6, 2026",
       "path": "https://www.healthaipolicy.org/policies/TN%20HB1470%20%E2%80%93%20Qualified%20Mental%20Health%20Professional%20AI%20Misrepresentation"
@@ -14,17 +24,7 @@
       "title": "ID S1297 – Conversational AI Safety Act",
       "date": "March 31, 2026",
       "path": "https://www.healthaipolicy.org/policies/ID%20S1297%20%E2%80%93%20Conversational%20AI%20Safety%20Act"
-    },
-    {
-      "title": "NY S8828 – AI Model Developer Transparency Update",
-      "date": "March 27, 2026",
-      "path": "https://www.healthaipolicy.org/policies/NY%20S8828%20%E2%80%93%20AI%20Model%20Developer%20Transparency%20Update"
-    },
-    {
-      "title": "WA HB2225 – AI Companion Chatbots",
-      "date": "March 24, 2026",
-      "path": "https://www.healthaipolicy.org/policies/WA%20HB2225%20%E2%80%93%20AI%20Companion%20Chatbots"
     }
    ],
-  "lastUpdated": "April 16, 2026"
+  "lastUpdated": "April 22, 2026"
 }
