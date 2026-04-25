@@ -4,10 +4,10 @@ import WhatsNew from "@/components/whats-new";
 export default async function Home() {
   return (
     <>
-      <h1 className="text-4xl mt-8 md:text-6xl font-medium md:mt-16">
+      <h1 className="text-4xl mt-8 md:text-5xl font-medium md:mt-16">
         AI in Healthcare Policy: Laws, Regulations, and Standards (HAPI)
       </h1>
-      <h2 className="text-lg mt-4 text-balance max-w-4xl">
+      <h2 className="text-lg mt-4 text-balance w-full">
         The Health & AI Policy Index (HAPI) tracks laws, regulations, and standards shaping artificial intelligence in healthcare across U.S. states, federal agencies, and global frameworks. Explore policies, trends, and real-world implications for health systems, developers, and policymakers.
       </h2>
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 pr-8 my-8">
