@@ -4,7 +4,7 @@ import WhatsNew from "@/components/whats-new";
 export default async function Home() {
   return (
     <>
-      <h1 className="text-4xl mt-8 md:text-5xl font-medium md:mt-16">
+      <h1 className="text-4xl mt-6 md:text-5xl font-medium md:mt-10">
         AI in Healthcare Policy: Laws, Regulations, and Standards
       </h1>
       <h2 className="text-lg mt-4 text-balance w-full">
