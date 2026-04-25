@@ -29,7 +29,7 @@ export default function Nav() {
                 ))}
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
-                        <Link href="/ai-healthcare-policy">AI Policy</Link>
+                        <Link href="/ai-healthcare-policy">AI Policy Overview</Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
