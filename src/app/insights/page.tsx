@@ -4,46 +4,51 @@ export default function InsightsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
 
-      <h1 className="text-4xl md:text-5xl font-medium mb-6">
+      <h1 className="text-4xl md:text-5xl font-medium mb-4">
         Insights on AI in Healthcare Policy
       </h1>
 
-      <div className="space-y-6">
+      <p className="text-lg text-gray-700 mb-10">
+        Short analyses of how AI policy is translating into real-world healthcare practice.
+      </p>
 
-        <div>
+      <div className="space-y-8">
+
+        <div className="border rounded-lg p-5 hover:bg-gray-50 transition">
           <h2 className="text-xl font-semibold">
-            <Link href="/insights/hospital-governance" className="underline">
+            <Link href="/insights/hospital-governance" className="hover:underline">
               Hospitals Are Being Forced to Build AI Governance Themselves
             </Link>
           </h2>
-          <p className="text-gray-600">
-            Why responsibility for AI oversight is shifting to health systems.
+          <p className="text-gray-600 mt-1">
+            Why hospitals are becoming the primary site of AI oversight.
           </p>
         </div>
 
-        <div>
+        <div className="border rounded-lg p-5 hover:bg-gray-50 transition">
           <h2 className="text-xl font-semibold">
-            <Link href="/insights/wrong-layer" className="underline">
+            <Link href="/insights/wrong-layer" className="hover:underline">
               AI Regulation Is Targeting the Wrong Layer
             </Link>
           </h2>
-          <p className="text-gray-600">
-            Why most policies focus on process instead of clinical use.
+          <p className="text-gray-600 mt-1">
+            Why current policy focuses on process instead of clinical use.
           </p>
         </div>
 
-        <div>
+        <div className="border rounded-lg p-5 hover:bg-gray-50 transition">
           <h2 className="text-xl font-semibold">
-            <Link href="/insights/state-rules" className="underline">
+            <Link href="/insights/state-rules" className="hover:underline">
               States Are Quietly Setting the Rules for Clinical AI
             </Link>
           </h2>
-          <p className="text-gray-600">
-            How state-level policy is shaping real-world deployment.
+          <p className="text-gray-600 mt-1">
+            How state-level policy is shaping real-world deployment decisions.
           </p>
         </div>
 
       </div>
+
     </div>
   );
 }
