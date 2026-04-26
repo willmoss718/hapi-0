@@ -30,11 +30,11 @@ export default function Nav() {
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                         <Link href="/ai-healthcare-policy">AI Policy Overview</Link>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink asChild>
-                            <Link href="/insights">Insights</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
+                    </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                        <Link href="/insights">Insights</Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
