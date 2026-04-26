@@ -79,8 +79,8 @@ export default async function DataPage({
 
   return (
     <>
-      <h1 className="text-4xl mt-8 font-medium md:mt-16">
-        {matchingFile.title}
+      <h1 className="text-4xl mt-8 font-medium md:mt-16 text-red-500">
+        THIS PAGE IS WORKING
       </h1>
       <h2 className="text-xl mt-4">{matchingFile.description}</h2>
       {path === "state-policies" && (
