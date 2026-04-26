@@ -26,7 +26,9 @@ export default async function Home() {
           className="w-full md:w-96 h-full flex flex-col gap-6"
         >
           <WhatsNew />
-          <InsightsCarousel />
+          <div className="border p-4 bg-red-100">
+            INSIGHTS BLOCK
+          </div>
         </div>
 
       </div>
