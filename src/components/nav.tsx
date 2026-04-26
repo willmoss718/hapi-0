@@ -23,7 +23,7 @@ export default function Nav() {
                 {FILES.map((file) => (
                     <NavigationMenuItem key={file.path}>
                         <NavigationMenuLink asChild>
-                            <Link href={`/data/${file.path}`}>{file.name}</Link>
+                            <Link href={`/data/${file.path}`}>{file.navName}</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 ))}
