@@ -1,98 +1,93 @@
 export default function About() {
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-      <article className="prose prose-lg leading-tight my-8">
-        <h1 className="text-4xl mt-8 font-medium md:mt-16">
-          About the Health &amp; AI Policy Index
-        </h1>
+    <div className="max-w-4xl mx-auto px-4 py-8">
 
-        <p>
-          The Health &amp; AI Policy Index (HAPI) is a curated, research-oriented
-          registry of policies relevant to artificial intelligence in healthcare. It is
-          designed to help clinicians, health systems, payers, developers, and
-          policymakers track meaningful developments across U.S. states, federal
-          agencies, sector regulations, international frameworks, and voluntary
-          standards.
-        </p>
+      <h1 className="text-4xl md:text-5xl font-medium mb-6">
+        About the Health & AI Policy Index
+      </h1>
 
-        <h2>Purpose &amp; scope</h2>
-        <ul>
-          <li>Audience: clinicians, health system leaders, compliance/legal teams, developers, payers, lobbyists, and policymakers.</li>
-          <li>Focus: policies that materially affect the development, evaluation, deployment, or oversight of AI in healthcare.</li>
-          <li>Geographies: United States (state and federal), plus selected international frameworks with health relevance.</li>
-        </ul>
+      <p className="text-lg mb-6">
+        The Health & AI Policy Index (HAPI) is a curated, research-oriented registry of policies relevant to artificial intelligence in healthcare. It is designed to help clinicians, health systems, payers, developers, and policymakers track meaningful developments across U.S. states, federal agencies, sector regulations, international frameworks, and voluntary standards.
+      </p>
 
-        <h2>Inclusion criteria</h2>
-        <p>An item is included when it satisfies both of the following criteria:</p>
-        <ul>
-          <li>AI relevance (such as explicit regulation of artificial intelligence or machine-learning systems).</li>
-          <li>Health relevance (including effects on health care delivery, public health operations, or health-related data, safety, or equity).</li>
-        </ul>
-        <p>Policies are excluded when AI is mentioned only in passing, duplicates an existing entry, or is expected to have an insignificant impact on health care.</p>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Purpose & scope</h2>
+      <ul className="list-disc pl-6 space-y-2 mb-6">
+        <li>Audience: clinicians, health system leaders, compliance/legal teams, developers, payers, lobbyists, and policymakers.</li>
+        <li>Focus: policies that materially affect the development, evaluation, deployment, or oversight of AI in healthcare.</li>
+        <li>Geographies: United States (state and federal), plus selected international frameworks with health relevance.</li>
+      </ul>
 
-        <h2>Data sources &amp; curation</h2>
-        <ul>
-          <li>Primary sources: official statutes, bills, regulations, agency guidance, standards bodies, and public registers.</li>
-          <li>Secondary validation: reputable summaries (e.g., law firm memos, industry associations) to corroborate status/interpretation.</li>
-          <li>Curation: items are selected for clarity, materiality, and health relevance; marginal items may be excluded for signal-to-noise.</li>
-        </ul>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Inclusion criteria</h2>
+      <p className="mb-4">
+        An item is included when it satisfies both of the following criteria:
+      </p>
+      <ul className="list-disc pl-6 space-y-2 mb-4">
+        <li>AI relevance (such as explicit regulation of artificial intelligence or machine-learning systems).</li>
+        <li>Health relevance (including effects on health care delivery, public health operations, or health-related data, safety, or equity).</li>
+      </ul>
+      <p className="mb-6">
+        Policies are excluded when AI is mentioned only in passing, duplicates an existing entry, or is expected to have an insignificant impact on health care.
+      </p>
 
-        <h2>Fields &amp; tags</h2>
-        <p>
-          Each entry includes a concise summary, healthcare implications, dates, jurisdiction, and links to source text.
-          Three tag families enable quick filtering:
-        </p>
-        <ul>
-          <li>Keyword Tags: Safety &amp; Risk; Privacy &amp; Data; Transparency &amp; Governance; Clinical Quality &amp; Efficacy; Equity &amp; Bias.</li>
-          <li>Stakeholder Tags: Providers &amp; Health Systems; Patients &amp; Public; Payers &amp; Purchasers; Developers &amp; Vendors; Regulators &amp; Government.</li>
-          <li>
-            Impact: High; Medium; Low.
-            <ul>
-              <li>High Impact: directly governs, authorizes, or constrains AI in healthcare (binding law/reg or mandatory guidance).</li>
-              <li>Medium Impact: materially influences practice but indirect (privacy expansions, reporting, procurement standards).</li>
-              <li>Low Impact: exploratory/advisory (task forces, principles, studies).</li>
-            </ul>
-          </li>
-        </ul>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Data sources & curation</h2>
+      <ul className="list-disc pl-6 space-y-2 mb-6">
+        <li>Primary sources: official statutes, bills, regulations, agency guidance, standards bodies, and public registers.</li>
+        <li>Secondary validation: reputable summaries (e.g., law firm memos, industry associations) to corroborate status/interpretation.</li>
+        <li>Curation: items are selected for clarity, materiality, and health relevance; marginal items may be excluded for signal-to-noise.</li>
+      </ul>
 
-        <h2>About the “State Policy, No Law” category</h2>
-        <p>
-          This category includes formal state actions related to AI in healthcare — such as resolutions, executive orders, or
-          commissions — that reflect policy intent or establish structures for further study or regulation. While these actions do
-          not always create new statutory law, some (like joint resolutions) may still carry legal or administrative effect.
-        </p>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Fields & tags</h2>
+      <p className="mb-4">
+        Each entry includes a concise summary, healthcare implications, dates, jurisdiction, and links to source text. Three tag families enable quick filtering:
+      </p>
+      <ul className="list-disc pl-6 space-y-2 mb-4">
+        <li>Keyword Tags: Safety & Risk; Privacy & Data; Transparency & Governance; Clinical Quality & Efficacy; Equity & Bias.</li>
+        <li>Stakeholder Tags: Providers & Health Systems; Patients & Public; Payers & Purchasers; Developers & Vendors; Regulators & Government.</li>
+        <li>
+          Impact: High; Medium; Low.
+          <ul className="list-disc pl-6 mt-2 space-y-1">
+            <li>High Impact: directly governs, authorizes, or constrains AI in healthcare.</li>
+            <li>Medium Impact: materially influences practice but indirectly.</li>
+            <li>Low Impact: exploratory or advisory actions.</li>
+          </ul>
+        </li>
+      </ul>
 
-        <h2>Status &amp; updates</h2>
-        <ul>
-          <li>Status: where available, items indicate proposal/adoption/effective phases or analogous lifecycle markers.</li>
-          <li>Updates: the database is refreshed on a weekly basis.</li>
-        </ul>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">State Policy (No Law)</h2>
+      <p className="mb-6">
+        This category includes formal state actions related to AI in healthcare such as resolutions, executive orders, or commissions. While these actions do not always create statutory law, they reflect policy intent and can shape future regulation.
+      </p>
 
-        <h2>Limitations</h2>
-        <ul>
-          <li>Summaries are for awareness and do not constitute legal advice.</li>
-          <li>Coverage is selective; the index prioritizes clarity and practical relevance over exhaustiveness.</li>
-        </ul>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Status & updates</h2>
+      <ul className="list-disc pl-6 space-y-2 mb-6">
+        <li>Status: where available, items indicate proposal, adoption, or effective phases.</li>
+        <li>Updates: the database is refreshed weekly.</li>
+      </ul>
 
-        <h2>Team &amp; acknowledgements</h2>
-        <ul>
-          <li>
-            As HAPI’s Founder/Editor, Will Moss maintains the registry, translates dense rules into plain language, and tracks
-            real-world impact on patients, providers, and developers.
-          </li>
-        </ul>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Limitations</h2>
+      <ul className="list-disc pl-6 space-y-2 mb-6">
+        <li>Summaries are for awareness and do not constitute legal advice.</li>
+        <li>Coverage is selective and prioritizes clarity over exhaustiveness.</li>
+      </ul>
 
-        <h2>How to cite</h2>
-        <p>
-          Please cite as: <em>Health &amp; AI Policy Index (HAPI)</em>. Include the item permalink and “Last Updated” date.
-        </p>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Team</h2>
+      <p className="mb-6">
+        HAPI is maintained by Will Moss, who curates policies, translates complex rules into plain language, and tracks real-world implications for healthcare stakeholders.
+      </p>
 
-        <h2>Contact</h2>
-        <p>
-          Questions, corrections, or suggested additions? Reach out to{" "}
-          <a href="mailto:william.moss@mssm.edu">william.moss@mssm.edu</a>.
-        </p>
-      </article>
+      <h2 className="text-2xl font-semibold mt-8 mb-4">How to cite</h2>
+      <p className="mb-6">
+        Please cite as: <em>Health & AI Policy Index (HAPI)</em>. Include the item permalink and “Last Updated” date.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Contact</h2>
+      <p>
+        Questions or suggestions? Reach out to{" "}
+        <a href="mailto:william.moss@mssm.edu" className="underline">
+          william.moss@mssm.edu
+        </a>.
+      </p>
+
     </div>
   );
 }
