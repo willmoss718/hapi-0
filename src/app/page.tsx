@@ -26,7 +26,11 @@ export default async function Home() {
           className="w-full md:w-96 h-full flex flex-col gap-6"
         >
           <WhatsNew />
-          <InsightsCarousel />
+
+          {/* INSIGHTS (separate, clean placement) */}
+          <div className="w-full">
+            <InsightsCarousel />
+          </div>
         </div>
 
       </div>
