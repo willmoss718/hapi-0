@@ -42,10 +42,10 @@ export default function WhatsNew() {
             </Carousel>
 
             {/* LAST UPDATED + MODULE BUTTONS */}
-            <div className="flex flex-row flex-wrap gap-4 mt-2">
+            <div className="flex flex-row flex-wrap justify-between gap-y-4 mt-2">
 
-                {/* LAST UPDATED (now same width as modules) */}
-                <div className="w-40 h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center">
+                {/* LAST UPDATED */}
+                <div className="w-[48%] h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center">
                     <span className="text-gray-500 text-sm">
                         {whatsNew.lastUpdated}
                     </span>
@@ -54,12 +54,12 @@ export default function WhatsNew() {
                     </span>
                 </div>
 
-                {/* MODULE BUTTONS (uniform width) */}
+                {/* MODULE BUTTONS */}
                 {FILES.map((item) => (
                     <Link
                         key={item.path}
                         href={`/data/${item.path}`}
-                        className="group w-40 h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
+                        className="group w-[48%] h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
                     >
                         <span className="text-black">{item.name}</span>
                         <ArrowRightIcon className="w-4 h-4 text-gray-400 absolute right-4 bottom-4 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
