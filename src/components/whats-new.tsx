@@ -42,7 +42,7 @@ export default function WhatsNew() {
             </Carousel>
 
             {/* LAST UPDATED + MODULE BUTTONS */}
-            <div className="flex flex-row flex-wrap justify-between gap-y-4 mt-2">
+            <div className="flex flex-row flex-wrap justify-between gap-y-4 mt-0">
 
                 {/* LAST UPDATED */}
                 <div className="w-[48%] h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center">
