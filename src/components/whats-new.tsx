@@ -45,7 +45,7 @@ export default function WhatsNew() {
             <div className="flex flex-row flex-wrap justify-between gap-y-4 mt-0">
 
                 {/* LAST UPDATED */}
-                <div className="w-[48%] h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center items-center text-center gap-1">
+                <div className="w-[48%] h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center items-start gap-1">
                     <span className="text-gray-400 text-sm">
                         Last updated on
                     </span>
