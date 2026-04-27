@@ -23,7 +23,7 @@ export default async function Home() {
         {/* RIGHT PANEL */}
         <div
           id="about"
-          className="w-full md:w-96 h-full flex flex-col gap-6"
+          className="w-full md:w-96 h-full flex flex-col gap-4"
         >
           <WhatsNew />
 
