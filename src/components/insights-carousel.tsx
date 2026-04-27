@@ -24,7 +24,7 @@ const insights = [
 
 export default function InsightsCarousel() {
   return (
-    <Carousel className="w-full h-36 rounded-lg border border-gray-200 relative">
+    <Carousel className="w-full h-40 rounded-lg border border-gray-200 relative">
       
       <h4 className="text-2xl font-medium absolute top-6 left-6">
         Insights
