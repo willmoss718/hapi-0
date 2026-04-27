@@ -41,20 +41,25 @@ export default function WhatsNew() {
                 <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
             </Carousel>
 
-            {/* LAST UPDATED + MODULE BUTTONS (RESTORED LAYOUT) */}
-            <div className="flex flex-row flex-wrap gap-4">
+            {/* LAST UPDATED + MODULE BUTTONS */}
+            <div className="flex flex-row flex-wrap gap-4 mt-2">
 
-                <div className="w-48 h-20 rounded-lg border border-gray-200 p-4">
-                    <span className="text-gray-500">{whatsNew.lastUpdated}</span>
-                    <br />
-                    <span className="text-gray-500">Last Updated</span>
+                {/* LAST UPDATED (now same width as modules) */}
+                <div className="w-40 h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center">
+                    <span className="text-gray-500 text-sm">
+                        {whatsNew.lastUpdated}
+                    </span>
+                    <span className="text-gray-500 text-sm">
+                        Last Updated
+                    </span>
                 </div>
 
+                {/* MODULE BUTTONS (uniform width) */}
                 {FILES.map((item) => (
                     <Link
                         key={item.path}
                         href={`/data/${item.path}`}
-                        className="group odd:w-40 even:w-48 h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
+                        className="group w-40 h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
                     >
                         <span className="text-black">{item.name}</span>
                         <ArrowRightIcon className="w-4 h-4 text-gray-400 absolute right-4 bottom-4 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
