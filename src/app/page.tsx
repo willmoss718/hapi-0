@@ -23,7 +23,7 @@ export default async function Home() {
           {/* Strengthened but still controlled authorship line */}
           <Link href="/about" className="block mt-3">
             <p className="text-base text-gray-600 font-medium hover:underline">
-              Created and maintained by Will Moss · Windreich Department of Artificial Intelligence and Human Health, Mount Sinai
+              Created and maintained by Will Moss · Windreich Dept. of Artificial Intelligence and Human Health, Mount Sinai
             </p>
           </Link>
         </div>
