@@ -18,6 +18,11 @@ export default async function Home() {
         {/* LEFT: MAP */}
         <div id="map" className="w-full h-full">
           <ServerMap />
+
+          {/* Subtle authorship line */}
+          <p className="text-sm text-muted-foreground mt-3">
+            Created and maintained by Will Moss · Windreich Department of Artificial Intelligence and Human Health, Mount Sinai
+          </p>
         </div>
 
         {/* RIGHT PANEL */}
