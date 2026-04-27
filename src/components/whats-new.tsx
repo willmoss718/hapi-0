@@ -47,10 +47,10 @@ export default function WhatsNew() {
                 {/* LAST UPDATED */}
                 <div className="w-[48%] h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center">
                     <span className="text-gray-500 text-sm">
-                        {whatsNew.lastUpdated}
+                        Last updated on
                     </span>
                     <span className="text-gray-500 text-sm">
-                        Last Updated
+                        {whatsNew.lastUpdated}
                     </span>
                 </div>
 
