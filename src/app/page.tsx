@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ServerMap from "@/components/server-map";
 import WhatsNew from "@/components/whats-new";
 import InsightsCarousel from "@/components/insights-carousel";
@@ -21,7 +22,11 @@ export default async function Home() {
 
           {/* Subtle authorship line */}
           <p className="text-sm text-muted-foreground mt-3">
-            Created and maintained by Will Moss · Windreich Department of Artificial Intelligence and Human Health, Mount Sinai
+            Created and maintained by{" "}
+            <Link href="/about" className="hover:underline">
+              Will Moss
+            </Link>{" "}
+            · Mount Sinai
           </p>
         </div>
 
@@ -32,7 +37,7 @@ export default async function Home() {
         >
           <WhatsNew />
 
-          {/* INSIGHTS (separate, clean placement) */}
+          {/* INSIGHTS */}
           <div className="w-full">
             <InsightsCarousel />
           </div>
