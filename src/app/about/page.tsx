@@ -93,14 +93,6 @@ export default function About() {
         Please cite as: <em>Health & AI Policy Index (HAPI)</em>. Include the item permalink and “Last Updated” date.
       </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Contact</h2>
-      <p>
-        Questions or suggestions? Reach out to{" "}
-        <a href="mailto:william.moss@mssm.edu" className="underline">
-          william.moss@mssm.edu
-        </a>.
-      </p>
-
     </div>
   );
 }
