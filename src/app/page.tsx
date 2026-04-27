@@ -10,7 +10,7 @@ export default async function Home() {
       </h1>
 
       <h2 className="text-lg mt-4 text-balance w-full">
-        The Health & AI Policy Index (HAPI) tracks laws, regulations, and standards shaping artificial intelligence in healthcare across U.S. states, federal agencies, and global frameworks. Explore policies, trends, and real-world implications for health systems, developers, and policymakers.
+        The Health & AI Policy Index (HAPI) is a curated, research-driven registry of laws, regulations, and standards shaping artificial intelligence in healthcare, with a focus on real-world implications for health systems, developers, and policymakers.
       </h2>
 
       <div className="flex flex-col md:flex-row gap-6 md:gap-8 pr-8 my-8">
