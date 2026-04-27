@@ -20,14 +20,12 @@ export default async function Home() {
         <div id="map" className="w-full h-full">
           <ServerMap />
 
-          {/* Subtle authorship line */}
-          <p className="text-sm text-muted-foreground mt-3">
-            Created and maintained by{" "}
-            <Link href="/about" className="hover:underline">
-              Will Moss
-            </Link>{" "}
-            · Mount Sinai
-          </p>
+          {/* Strengthened but still controlled authorship line */}
+          <Link href="/about" className="block mt-3">
+            <p className="text-base text-gray-600 font-medium hover:underline">
+              Created and maintained by Will Moss · Windreich Department of Artificial Intelligence and Human Health, Mount Sinai
+            </p>
+          </Link>
         </div>
 
         {/* RIGHT PANEL */}
