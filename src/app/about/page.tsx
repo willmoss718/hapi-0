@@ -11,7 +11,7 @@ export default function About() {
         Will Moss is the founder and editor of the Health & AI Policy Index (HAPI), a public, nonpartisan registry tracking policies shaping artificial intelligence in healthcare. He works at the Windreich Department of Artificial Intelligence and Human Health at the Icahn School of Medicine at Mount Sinai, where he focuses on AI governance, health policy, and regulatory strategy.
       </p>
 
-      <p className="mb-6">
+      <p className=" text-lg mb-6">
         For questions, feedback, or collaboration inquiries related to AI policy in healthcare, contact:{" "}
         <a href="mailto:william.moss@mssm.edu" className="underline">
           william.moss@mssm.edu
