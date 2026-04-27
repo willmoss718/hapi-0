@@ -8,12 +8,10 @@ export default function About() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">About the Author</h2>
       <p className="text-lg mb-6">
-        Will Moss is the founder and editor of the Health & AI Policy Index (HAPI), a public, nonpartisan registry tracking policies shaping artificial intelligence in healthcare. He works at the Windreich Department of Artificial Intelligence and Human Health at the Icahn School of Medicine at Mount Sinai, where his work focuses on AI governance, health policy, and regulatory strategy.
-      </p>
-      <p className="mb-6">
-        He is the lead author of <em>Mapping AI Regulation in Health Care with the Health and AI Policy Index</em>, a peer-reviewed study analyzing the emerging landscape of AI policy across healthcare. His work centers on translating fragmented, technical policy developments into clear, actionable insights for health systems, policymakers, and developers.
+        Will Moss is the founder and editor of the Health & AI Policy Index (HAPI), a public, nonpartisan registry tracking policies shaping artificial intelligence in healthcare. He works at the Windreich Department of Artificial Intelligence and Human Health at the Icahn School of Medicine at Mount Sinai, where he focuses on AI governance, health policy, and regulatory strategy.
       </p>
 
+      <h2 className="text-2xl font-semibold mt-8 mb-4">About HAPI</h2>
       <p className="text-lg mb-6">
         The Health & AI Policy Index (HAPI) is a curated, research-oriented registry of policies relevant to artificial intelligence in healthcare. It is designed to help clinicians, health systems, payers, developers, and policymakers track meaningful developments across U.S. states, federal agencies, sector regulations, international frameworks, and voluntary standards.
       </p>
@@ -80,7 +78,7 @@ export default function About() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Team</h2>
       <p className="mb-6">
-        HAPI is maintained by Will Moss, who curates policies, translates complex rules into plain language, and tracks real-world implications for healthcare stakeholders.
+        HAPI is maintained by Will Moss.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">How to cite</h2>
