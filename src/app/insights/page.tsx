@@ -14,7 +14,7 @@ export default function InsightsPage() {
 
       {/* Subtle section byline */}
       <p className="text-sm text-muted-foreground mb-10">
-        By Will Moss · Mount Sinai
+        By Will Moss · Windreich Dept. of AI and Human Health, Mount Sinai
       </p>
 
       <div className="border-t pt-6">
