@@ -4,9 +4,23 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
-import insights from "@/assets/Insights.json"
-import Link from "next/link"
+} from "@/components/ui/carousel";
+import Link from "next/link";
+
+const insights = [
+  {
+    title: "Hospitals Are Being Forced to Build AI Governance Themselves",
+    path: "/insights/hospital-governance",
+  },
+  {
+    title: "AI Regulation Is Targeting the Wrong Layer",
+    path: "/insights/wrong-layer",
+  },
+  {
+    title: "States Are Quietly Setting the Rules for Clinical AI",
+    path: "/insights/state-rules",
+  },
+];
 
 export default function InsightsCarousel() {
   return (
@@ -17,7 +31,7 @@ export default function InsightsCarousel() {
       </h4>
 
       <CarouselContent>
-        {insights.insights.map((item) => (
+        {insights.map((item) => (
           <CarouselItem
             key={item.title}
             className="w-full h-full px-10 pt-18 flex flex-col gap-4"
@@ -35,5 +49,5 @@ export default function InsightsCarousel() {
       <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
 
     </Carousel>
-  )
+  );
 }
