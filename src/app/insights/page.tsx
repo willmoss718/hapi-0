@@ -8,8 +8,13 @@ export default function InsightsPage() {
         Insights on AI in Healthcare Policy
       </h1>
 
-      <p className="text-lg text-gray-700 mb-10">
+      <p className="text-lg text-gray-700 mb-2">
         Analysis of how AI policy translates into real-world healthcare practice.
+      </p>
+
+      {/* Subtle section byline */}
+      <p className="text-sm text-muted-foreground mb-10">
+        By Will Moss · Mount Sinai
       </p>
 
       <div className="border-t pt-6">
