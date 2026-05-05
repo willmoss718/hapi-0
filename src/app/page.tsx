@@ -6,7 +6,7 @@ import InsightsCarousel from "@/components/insights-carousel";
 export default async function Home() {
   return (
     <>
-      <h1 className="text-4xl mt-6 md:text-5xl font-medium md:mt-10">
+      <h1 className="text-4xl mt-6 md:text-5xl font-medium md:mt-10 text-red-600">
         AI in Healthcare Policy: Laws, Regulations, and Standards
       </h1>
 
