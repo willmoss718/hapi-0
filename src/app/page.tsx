@@ -14,6 +14,10 @@ export default async function Home() {
         The Health & AI Policy Index (HAPI) is a curated, research-driven registry of laws, regulations, and standards shaping artificial intelligence in healthcare, with a focus on real-world implications for health systems, developers, and policymakers.
       </h2>
 
+      <p className="text-sm mt-3 text-gray-600">
+        Testing preview: <Link href="/proxy/state-hover-preview" className="underline">state hover panel proxy</Link>
+      </p>
+
       <div className="flex flex-col md:flex-row gap-6 md:gap-8 pr-8 my-8">
         
         {/* LEFT: MAP */}
