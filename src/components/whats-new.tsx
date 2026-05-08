@@ -41,6 +41,19 @@ export default function WhatsNew() {
                 <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
             </Carousel>
 
+            <Link
+                href="https://healthaipolicy.substack.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
+            >
+                <span className="block text-black font-medium">HAPI Weekly</span>
+                <span className="mt-1 block pr-8 text-sm leading-tight text-gray-500">
+                    Weekly healthcare AI policy updates.
+                </span>
+                <ArrowRightIcon className="w-4 h-4 text-gray-400 absolute right-4 bottom-4 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
+            </Link>
+
             {/* LAST UPDATED + MODULE BUTTONS */}
             <div className="flex flex-row flex-wrap justify-between gap-y-4 mt-0">
 
