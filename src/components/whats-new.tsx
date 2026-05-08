@@ -51,16 +51,16 @@ export default function WhatsNew() {
                 <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
             </Carousel>
 
-            <section className="w-full rounded-lg border border-gray-200 p-5">
+            <section className="w-full rounded-lg border border-gray-200 px-5 py-4">
                 <h4 className="text-2xl font-medium">HAPI Weekly</h4>
-                <p className="mt-2 text-sm leading-5 text-gray-600">
-                    Get weekly updates on healthcare AI laws, regulations, standards, and emerging trends.
+                <p className="mt-1 text-sm leading-5 text-gray-600">
+                    Weekly updates on healthcare AI policy and governance.
                 </p>
                 <Link
                     href="https://healthaipolicy.substack.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 inline-flex h-10 items-center justify-center rounded-md border border-gray-900 bg-gray-900 px-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-gray-900"
+                    className="mt-3 inline-flex h-9 items-center justify-center rounded-md border border-gray-900 bg-gray-900 px-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-gray-900"
                 >
                     Subscribe →
                 </Link>
