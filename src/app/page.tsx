@@ -1,13 +1,10 @@
 import Link from "next/link";
-import neatCsv from "neat-csv";
 import whatsNew from "@/assets/Whats-New.json";
-import { FILES } from "@/assets/files";
 import ServerMap from "@/components/server-map";
 import WhatsNew from "@/components/whats-new";
-import { getCsvData } from "@/lib/server-utils";
 
 export default async function Home() {
-  const policyCount = await getPolicyCount();
+  const policyCount = 270;
 
   return (
     <>
@@ -50,16 +47,4 @@ export default async function Home() {
       </div>
     </>
   );
-}
-
-async function getPolicyCount() {
-  const counts = await Promise.all(
-    FILES.map(async (file) => {
-      const csv = await getCsvData(file.path);
-      if (!csv) return 0;
-      return (await neatCsv(csv)).length;
-    })
-  );
-
-  return counts.reduce((total, count) => total + count, 0);
 }
