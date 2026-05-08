@@ -51,18 +51,18 @@ export default function WhatsNew() {
                 <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
             </Carousel>
 
-            <section className="w-full rounded-lg border border-gray-200 p-6">
+            <section className="w-full rounded-lg border border-gray-200 p-5">
                 <h4 className="text-2xl font-medium">HAPI Weekly</h4>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
+                <p className="mt-2 text-sm leading-5 text-gray-600">
                     Get weekly updates on healthcare AI laws, regulations, standards, and emerging trends.
                 </p>
-                <div className="mt-5 w-full overflow-hidden rounded-md bg-white">
+                <div className="mt-4 w-full overflow-hidden rounded-md bg-white">
                     <iframe
                         src="https://healthaipolicy.substack.com/embed"
                         title="Subscribe to HAPI Weekly"
-                        width="100%"
-                        height="220"
-                        className="block h-[220px] w-full"
+                        width="480"
+                        height="150"
+                        className="block h-[150px] w-full"
                         style={{ border: "1px solid #EEE", background: "white" }}
                         frameBorder="0"
                         scrolling="no"
@@ -72,7 +72,7 @@ export default function WhatsNew() {
                     href="https://healthaipolicy.substack.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-block text-sm text-gray-500 hover:underline"
+                    className="mt-2 inline-block text-sm text-gray-500 hover:underline"
                 >
                     Open HAPI Weekly on Substack →
                 </Link>
