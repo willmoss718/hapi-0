@@ -6,13 +6,8 @@ import { TableCell } from "./ui/table";
 
 const removeStateHighlights = () => {
   document
-    .querySelectorAll<HTMLElement>(
-      ".state-row-highlight, .state-row-highlight-primary"
-    )
-    .forEach((row) => {
-      row.classList.remove("state-row-highlight");
-      row.classList.remove("state-row-highlight-primary");
-    });
+    .querySelectorAll<HTMLElement>(".state-row-highlight")
+    .forEach((row) => row.classList.remove("state-row-highlight"));
 };
 
 export default function HighlightedTableCell({
@@ -48,7 +43,6 @@ export default function HighlightedTableCell({
       removeStateHighlights();
 
       stateRows.forEach((row) => row.classList.add("state-row-highlight"));
-      targetRow.classList.add("state-row-highlight-primary");
 
       const rowTop = targetRow.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
