@@ -4,6 +4,17 @@ import { useEffect, useRef } from "react";
 import { useHash } from "@/lib/client-utils";
 import { TableCell } from "./ui/table";
 
+const removeStateHighlights = () => {
+  document
+    .querySelectorAll<HTMLElement>(
+      ".state-row-highlight, .state-row-highlight-primary"
+    )
+    .forEach((row) => {
+      row.classList.remove("state-row-highlight");
+      row.classList.remove("state-row-highlight-primary");
+    });
+};
+
 export default function HighlightedTableCell({
   children,
   id,
@@ -12,9 +23,14 @@ export default function HighlightedTableCell({
   id: string;
 }) {
   const cellRef = useRef<HTMLTableCellElement>(null);
-  const { hash, clearHash } = useHash({ scroll: false });
+  const { hash } = useHash({ scroll: false });
 
   useEffect(() => {
+    if (!hash) {
+      removeStateHighlights();
+      return;
+    }
+
     if (hash !== id) return;
 
     const timer = window.setTimeout(() => {
@@ -23,29 +39,26 @@ export default function HighlightedTableCell({
       );
       if (firstCell !== cellRef.current) return;
 
-      const targetRow = document.querySelector<HTMLElement>(
-        `tr[data-state-row="${id}"]`
+      const stateRows = Array.from(
+        document.querySelectorAll<HTMLElement>(`tr[data-state-row="${id}"]`)
       );
+      const targetRow = stateRows[0];
       if (!targetRow) return;
 
-      document
-        .querySelectorAll<HTMLElement>(".state-row-highlight")
-        .forEach((row) => row.classList.remove("state-row-highlight"));
+      removeStateHighlights();
 
-      targetRow.scrollIntoView({
+      stateRows.forEach((row) => row.classList.add("state-row-highlight"));
+      targetRow.classList.add("state-row-highlight-primary");
+
+      const rowTop = targetRow.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: Math.max(rowTop - 12, 0),
         behavior: "smooth",
-        block: "center",
       });
-      targetRow.classList.add("state-row-highlight");
-
-      window.setTimeout(() => {
-        targetRow.classList.remove("state-row-highlight");
-        clearHash();
-      }, 2200);
     }, 100);
 
     return () => window.clearTimeout(timer);
-  }, [hash, id, clearHash]);
+  }, [hash, id]);
 
   return (
     <TableCell
