@@ -122,12 +122,8 @@
 
 @layer components {
   .state-row-highlight > td {
-    background: oklch(0.975 0.018 252);
+    background: oklch(0.972 0.014 252);
     transition: background-color 700ms ease, box-shadow 700ms ease;
-  }
-
-  .state-row-highlight-primary > td {
-    background: oklch(0.945 0.035 252);
   }
 
   .state-row-highlight > td:first-child {
