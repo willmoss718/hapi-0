@@ -23,6 +23,7 @@ import HighlightedTableCell from "@/components/highlighted-table-cell";
 import { ExpandableRow } from "@/components/expandable-row";
 import { ExpandableTaggedCell } from "@/components/expandable-tagged-cell";
 import PolicyPreview from "@/components/policy-preview";
+import SelectedStateNotice from "@/components/selected-state-notice";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
@@ -91,6 +92,7 @@ export default async function DataPage({
         </div>
       )}
       <Filters availableTags={tags} />
+      {path === "state-policies" && <SelectedStateNotice />}
       <Table className="w-full my-12 border shadow">
         <SortableHeader validKeys={validKeys} />
         <TableBody>
@@ -99,6 +101,7 @@ export default async function DataPage({
               <ExpandableRow
                 key={index}
                 className="relative"
+                stateAnchor={path === "state-policies" ? String(row.State ?? "").trim() : undefined}
                 expandedContent={<PolicyPreview data={row} />}
               >
                 {Object.entries(row).map(([key, value], colIndex) =>
