@@ -10,13 +10,23 @@ import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 import { FILES } from "@/assets/files"
 
+const exploreLinks = [
+    ...FILES.map((file) => ({
+        name: file.name,
+        path: `/data/${file.path}`,
+    })),
+    {
+        name: "AI Policy Overview",
+        path: "/ai-healthcare-policy",
+    },
+]
+
 export default function WhatsNew() {
     return (
         <>
-            {/* WHATS NEW CAROUSEL */}
             <Carousel className="w-full h-48 rounded-lg border border-gray-200 relative">
                 <h4 className="text-2xl font-medium absolute top-6 left-6">
-                    Whats New
+                    Latest Policy Update
                 </h4>
 
                 <CarouselContent>
@@ -41,45 +51,46 @@ export default function WhatsNew() {
                 <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
             </Carousel>
 
-            <Link
-                href="https://healthaipolicy.substack.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group w-full h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
-            >
-                <span className="block text-black font-medium">HAPI Weekly</span>
-                <span className="mt-1 block pr-8 text-sm leading-tight text-gray-500">
-                    Weekly healthcare AI policy updates.
-                </span>
-                <ArrowRightIcon className="w-4 h-4 text-gray-400 absolute right-4 bottom-4 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
-            </Link>
-
-            {/* LAST UPDATED + MODULE BUTTONS */}
-            <div className="flex flex-row flex-wrap justify-between gap-y-4 mt-0">
-
-                {/* LAST UPDATED */}
-                <div className="w-[48%] h-20 rounded-lg border border-gray-200 p-4 flex flex-col justify-center items-start gap-1">
-                    <span className="text-gray-400 text-sm">
-                        Last updated on
-                    </span>
-                    <span className="text-gray-700 text-base font-medium">
-                        {whatsNew.lastUpdated}
-                    </span>
+            <section className="w-full rounded-lg border border-gray-200 p-6">
+                <h4 className="text-2xl font-medium">HAPI Weekly</h4>
+                <p className="mt-3 text-sm leading-6 text-gray-600">
+                    Get weekly updates on healthcare AI laws, regulations, standards, and emerging trends.
+                </p>
+                <div className="mt-5 w-full overflow-hidden rounded-md bg-white">
+                    <iframe
+                        src="https://healthaipolicy.substack.com/embed"
+                        title="Subscribe to HAPI Weekly"
+                        width="100%"
+                        height="220"
+                        className="block h-[220px] w-full"
+                        style={{ border: "1px solid #EEE", background: "white" }}
+                        frameBorder="0"
+                        scrolling="no"
+                    />
                 </div>
+                <Link
+                    href="https://healthaipolicy.substack.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-sm text-gray-500 hover:underline"
+                >
+                    Open HAPI Weekly on Substack →
+                </Link>
+            </section>
 
-                {/* MODULE BUTTONS */}
-                {FILES.map((item) => (
+            <section className="w-full overflow-hidden rounded-lg border border-gray-200">
+                <h4 className="px-6 py-5 text-2xl font-medium">Explore HAPI</h4>
+                {exploreLinks.map((item) => (
                     <Link
                         key={item.path}
-                        href={`/data/${item.path}`}
-                        className="group w-[48%] h-20 rounded-lg border border-gray-200 hover:border-gray-800 transition-all duration-300 p-4 relative"
+                        href={item.path}
+                        className="group flex min-h-12 items-center justify-between border-t border-gray-100 px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
                     >
                         <span className="text-black">{item.name}</span>
-                        <ArrowRightIcon className="w-4 h-4 text-gray-400 absolute right-4 bottom-4 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
+                        <ArrowRightIcon className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
                     </Link>
                 ))}
-
-            </div>
+            </section>
         </>
     )
 }
