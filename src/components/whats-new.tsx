@@ -26,7 +26,7 @@ export default function WhatsNew() {
         <>
             <Carousel className="w-full h-48 rounded-lg border border-gray-200 relative">
                 <h4 className="text-2xl font-medium absolute top-6 left-6">
-                    What's New
+                    What&apos;s New
                 </h4>
 
                 <CarouselContent>
