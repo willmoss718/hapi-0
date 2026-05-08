@@ -119,3 +119,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .state-row-highlight > td {
+    background: color-mix(in oklch, var(--chart-2) 12%, white);
+    transition: background-color 700ms ease, box-shadow 700ms ease;
+  }
+
+  .state-row-highlight > td:first-child {
+    box-shadow: inset 4px 0 0 color-mix(in oklch, var(--chart-2) 70%, black);
+  }
+}
