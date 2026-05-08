@@ -182,11 +182,16 @@ function CustomCell({
 }) {
   if (value.trim().startsWith("http")) {
     return (
-      <TableCell className="flex flex-row items-center translate-y-3 gap-1 underline underline-offset-4 max-w-xl truncate">
-        <a href={value} target="_blank" rel="noopener noreferrer">
+      <TableCell className="max-w-xl truncate underline underline-offset-4">
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1"
+        >
           LINK
+          <ArrowUpRightIcon className="w-4 h-4" />
         </a>
-        <ArrowUpRightIcon className="w-4 h-4" />
       </TableCell>
     );
   }
