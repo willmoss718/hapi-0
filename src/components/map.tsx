@@ -38,7 +38,7 @@ export default function Map({ statePolicyCounts, hoveredState, onStateHover }: M
       states[state] = {
         fill: isHovered ? getHoveredFill(baseFill) : baseFill,
         stroke: isHovered ? "#111827" : "#ffffff",
-        strokeWidth: isHovered ? 2.75 : 1,
+        strokeWidth: isHovered ? 2.25 : 1,
         onHover: () => onStateHover?.(state),
         onLeave: () => onStateHover?.(null),
         tooltip: { enabled: false },
@@ -56,7 +56,7 @@ export default function Map({ statePolicyCounts, hoveredState, onStateHover }: M
 
   return (
     <div
-      className="w-full h-full rounded-lg border border-gray-200"
+      className="w-full h-full overflow-hidden rounded-lg border border-gray-200"
       onMouseLeave={() => onStateHover?.(null)}
     >
       <USAMap className="w-full h-full p-8" customStates={customStates} />
