@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useState } from "react";
 import type { StateIntelligence } from "@/lib/state-policy-intelligence";
 import Map from "@/components/map";
@@ -31,6 +32,12 @@ export default function MapSidebarShell({
           statePolicyCounts={statePolicyCounts}
           onStateHover={handleStateHover}
         />
+
+        <Link href="/about" className="block mt-3">
+          <p className="text-base text-gray-600 font-medium hover:underline">
+            Created and maintained by Will Moss · Windreich Dept. of Artificial Intelligence and Human Health, Mount Sinai
+          </p>
+        </Link>
       </div>
 
       <div
