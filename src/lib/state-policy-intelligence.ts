@@ -1,3 +1,4 @@
+import { FILES } from "@/assets/files";
 import neatCsv from "neat-csv";
 import { getCsvData } from "@/lib/server-utils";
 
@@ -13,6 +14,7 @@ export type StateIntelligence = {
   totalPolicies: number;
   highImpactPolicies: number;
   firstPolicyDate: string | null;
+  latestPolicyDate: string | null;
   recentPolicies: StatePolicyPreview[];
   regulatoryThemes: string[];
   stakeholderThemes: string[];
@@ -24,6 +26,20 @@ type ParsedPolicyDate = {
   label: string | null;
   timestamp: number | null;
 };
+
+export async function getTotalCsvPolicyCount() {
+  const rowCounts = await Promise.all(
+    FILES.map(async (file) => {
+      const csvStr = await getCsvData(file.path);
+      if (!csvStr) return 0;
+
+      const rows = (await neatCsv(csvStr)) as CsvRow[];
+      return rows.filter((row) => Object.values(row).some((value) => cleanCell(value))).length;
+    })
+  );
+
+  return rowCounts.reduce((total, count) => total + count, 0);
+}
 
 export async function getStatePolicyIntelligence() {
   const csvStr = await getCsvData("state-policies");
@@ -83,6 +99,7 @@ export async function getStatePolicyIntelligence() {
 
   const policyBuckets: Record<string, StatePolicyPreview[]> = {};
   const earliestDates: Record<string, ParsedPolicyDate> = {};
+  const latestDates: Record<string, ParsedPolicyDate> = {};
   const regulatoryCounts: Record<string, Record<string, number>> = {};
   const stakeholderCounts: Record<string, Record<string, number>> = {};
 
@@ -105,6 +122,11 @@ export async function getStatePolicyIntelligence() {
       if (!currentEarliest || currentEarliest.timestamp === null || parsedDate.timestamp < currentEarliest.timestamp) {
         earliestDates[code] = parsedDate;
       }
+
+      const currentLatest = latestDates[code];
+      if (!currentLatest || currentLatest.timestamp === null || parsedDate.timestamp > currentLatest.timestamp) {
+        latestDates[code] = parsedDate;
+      }
     }
 
     if (title) {
@@ -122,6 +144,7 @@ export async function getStatePolicyIntelligence() {
 
   for (const code of Object.keys(summaries)) {
     summaries[code].firstPolicyDate = earliestDates[code]?.label || null;
+    summaries[code].latestPolicyDate = latestDates[code]?.label || null;
     summaries[code].recentPolicies = (policyBuckets[code] || [])
       .sort((a, b) => (b.timestamp ?? -1) - (a.timestamp ?? -1))
       .slice(0, 5);
@@ -148,6 +171,7 @@ function createEmptyStateSummaries() {
         totalPolicies: 0,
         highImpactPolicies: 0,
         firstPolicyDate: null,
+        latestPolicyDate: null,
         recentPolicies: [],
         regulatoryThemes: [],
         stakeholderThemes: [],
