@@ -30,10 +30,8 @@ type ParsedPolicyDate = {
 export async function getTotalCsvPolicyCount() {
   const rowCounts = await Promise.all(
     FILES.map(async (file) => {
-      const csvStr = await getCsvData(file.path);
-      if (!csvStr) return 0;
-
-      return countNonEmptyCsvDataRows(csvStr);
+      const rows = await getParsedRows(file.path);
+      return rows.length;
     })
   );
 
@@ -41,14 +39,9 @@ export async function getTotalCsvPolicyCount() {
 }
 
 export async function getStatePolicyIntelligence() {
-  const csvStr = await getCsvData("state-policies");
+  const rows = await getParsedRows("state-policies");
   const summaries = createEmptyStateSummaries();
 
-  if (!csvStr) {
-    return summaries;
-  }
-
-  const rows = (await neatCsv(csvStr)) as CsvRow[];
   if (rows.length === 0) {
     return summaries;
   }
@@ -160,14 +153,11 @@ export function getStatePolicyCounts(stateIntelligence: Record<string, StateInte
   ) as Record<string, number>;
 }
 
-function countNonEmptyCsvDataRows(csvStr: string) {
-  const rows = csvStr
-    .replace(/^\uFEFF/, "")
-    .split(/\r?\n/)
-    .map((row) => row.trim())
-    .filter(Boolean);
+async function getParsedRows(path: string) {
+  const csvStr = await getCsvData(path);
+  if (!csvStr) return [];
 
-  return Math.max(rows.length - 1, 0);
+  return (await neatCsv(csvStr)) as CsvRow[];
 }
 
 function createEmptyStateSummaries() {
