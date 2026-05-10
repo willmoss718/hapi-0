@@ -1,13 +1,15 @@
 import whatsNew from "@/assets/Whats-New.json";
 import HomeMapSection from "@/components/home-map-section";
-import { getStatePolicyIntelligence } from "@/lib/state-policy-intelligence";
+import {
+  getStatePolicyIntelligence,
+  getTotalCsvPolicyCount,
+} from "@/lib/state-policy-intelligence";
 
 export default async function Home() {
-  const stateIntelligence = await getStatePolicyIntelligence();
-  const policyCount = Object.values(stateIntelligence).reduce(
-    (total, state) => total + state.totalPolicies,
-    0
-  );
+  const [stateIntelligence, policyCount] = await Promise.all([
+    getStatePolicyIntelligence(),
+    getTotalCsvPolicyCount(),
+  ]);
 
   return (
     <>
