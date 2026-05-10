@@ -33,8 +33,7 @@ export async function getTotalCsvPolicyCount() {
       const csvStr = await getCsvData(file.path);
       if (!csvStr) return 0;
 
-      const rows = (await neatCsv(csvStr)) as CsvRow[];
-      return rows.filter((row) => Object.values(row).some((value) => cleanCell(value))).length;
+      return countNonEmptyCsvDataRows(csvStr);
     })
   );
 
@@ -159,6 +158,16 @@ export function getStatePolicyCounts(stateIntelligence: Record<string, StateInte
   return Object.fromEntries(
     Object.entries(stateIntelligence).map(([code, summary]) => [code, summary.totalPolicies])
   ) as Record<string, number>;
+}
+
+function countNonEmptyCsvDataRows(csvStr: string) {
+  const rows = csvStr
+    .replace(/^\uFEFF/, "")
+    .split(/\r?\n/)
+    .map((row) => row.trim())
+    .filter(Boolean);
+
+  return Math.max(rows.length - 1, 0);
 }
 
 function createEmptyStateSummaries() {
