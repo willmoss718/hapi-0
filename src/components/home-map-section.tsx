@@ -2,11 +2,14 @@ import Link from "next/link";
 import MapSidebarShell from "@/components/map-sidebar-shell";
 import {
   getStatePolicyCounts,
-  getStatePolicyIntelligence,
+  type StateIntelligence,
 } from "@/lib/state-policy-intelligence";
 
-export default async function HomeMapSection() {
-  const stateIntelligence = await getStatePolicyIntelligence();
+type HomeMapSectionProps = {
+  stateIntelligence: Record<string, StateIntelligence>;
+};
+
+export default function HomeMapSection({ stateIntelligence }: HomeMapSectionProps) {
   const statePolicyCounts = getStatePolicyCounts(stateIntelligence);
 
   return (
