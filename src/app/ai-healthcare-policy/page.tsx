@@ -1,79 +1,86 @@
+import Link from "next/link";
+
 export default function AIHealthcarePolicyPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <p className="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
-        TEST ROUTE ACTIVE
-      </p>
-
-      <h1 className="text-4xl md:text-5xl font-medium mb-6">
-        AI in Healthcare Policy: Laws, Regulations, and Standards
+    <main className="mx-auto max-w-3xl px-4 py-10">
+      <h1 className="mb-6 text-4xl font-medium md:text-5xl">
+        AI Policy Overview
       </h1>
 
-      <p className="text-lg mb-6">
-        Artificial intelligence is rapidly becoming part of how healthcare is delivered, from clinical decision support tools to administrative automation and patient-facing applications. As these systems expand, so do the policies that shape how they are developed, evaluated, and used.
-      </p>
+      <div className="space-y-5 text-base leading-8 text-slate-800 md:text-lg">
+        <p>
+          AI policy in healthcare is hard to follow because it does not come from one place.
+          Some policies come from state governments. Others come from federal agencies,
+          international bodies, professional organizations, or standards groups. Some are binding
+          laws or regulations, while others are guidance documents, frameworks, or voluntary standards.
+        </p>
 
-      <p className="mb-8">
-        AI in healthcare policy refers to the growing set of laws, regulations, guidance, and standards that govern these technologies across clinical, operational, and research settings.
-      </p>
+        <p>
+          Together, these policies shape how AI tools are developed, evaluated, deployed, and monitored
+          in healthcare. They may affect clinical decision support, administrative automation, patient-facing
+          tools, medical devices, health data, insurance decisions, or research.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Key Takeaways</h2>
-      <ul className="list-disc pl-6 space-y-2 mb-8">
-        <li><strong>AI healthcare policy is fragmented across multiple regulators and jurisdictions</strong></li>
-        <li><strong>Most policies do not directly regulate clinical use</strong></li>
-        <li><strong>Transparency, documentation, and governance dominate</strong></li>
-        <li><strong>States, regulators, and standards bodies all shape the rules</strong></li>
-        <li><strong>Health systems and developers carry most of the burden</strong></li>
-      </ul>
+        <p>
+          A major challenge is that the rules are fragmented. There is no single U.S. law that governs all
+          uses of AI in healthcare, and there is no single regulator responsible for the entire field. Instead,
+          health systems and developers often have to piece together expectations from many different sources.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">What Is AI in Healthcare Policy?</h2>
-      <p className="mb-6">
-        AI in healthcare policy is not a single law or framework. It includes state laws, federal regulations, agency guidance, sector-specific rules, international frameworks, and voluntary standards. Together, these define how AI systems are built, deployed, and governed in healthcare.
-      </p>
+        <p>
+          Many policies do not directly say whether a specific AI tool can or cannot be used. More often,
+          they focus on the process around AI use: disclosure, documentation, risk management, human oversight,
+          fairness, privacy, and governance. In practice, this means AI policy often shapes the systems and
+          safeguards around a tool before it directly shapes the tool itself.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Why the Landscape Is Fragmented</h2>
-      <p className="mb-6">
-        There is no single authority responsible for AI in healthcare. States, federal agencies, and standards bodies all operate independently. Policies overlap, evolve at different speeds, and are often difficult to interpret together.
-      </p>
+        <p>
+          HAPI was created to make this easier to navigate. The index brings healthcare AI policies into one
+          place and organizes them by jurisdiction, issuing body, policy type, impact level, keyword theme,
+          and stakeholder group. Each entry links back to source text where available.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Key Trends</h2>
-      <p className="mb-4">
-        <strong>Most policies do not regulate clinical use directly.</strong> Instead, they require disclosures, documentation, and governance processes.
-      </p>
-      <p className="mb-4">
-        <strong>Transparency and governance dominate.</strong> Organizations are expected to document and justify how AI is used.
-      </p>
-      <p className="mb-4">
-        <strong>Few policies are truly high-impact.</strong> Most are advisory or indirect, creating expectations without clear rules.
-      </p>
-      <p className="mb-6">
-        <strong>Policy activity is accelerating.</strong> More governments and organizations are issuing AI-related policies each year.
-      </p>
+        <p>
+          This resource is meant to be a starting point. It can help users see what exists, compare activity
+          across jurisdictions, and identify policies that may be relevant to a particular health system,
+          developer, policymaker, researcher, or member of the public.
+        </p>
+      </div>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">What This Means in Practice</h2>
-      <p className="mb-4">
-        For health systems, deploying AI is increasingly a compliance decision. Organizations must document use cases, establish oversight processes, and justify how tools are used.
-      </p>
-      <p className="mb-4">
-        For developers, expectations now include tracking performance, maintaining documentation, and aligning with evolving standards.
-      </p>
-      <p className="mb-6">
-        For clinicians, AI is shaped by governance decisions before it ever reaches the point of care.
-      </p>
+      <section className="mt-10 border-t border-slate-200 pt-6">
+        <h2 className="mb-4 text-2xl font-medium">Explore HAPI</h2>
+        <p className="mb-4 leading-7 text-slate-700">
+          The index is organized into five main policy modules:
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Explore Policies in HAPI</h2>
-      <p className="mb-6">
-        The Health & AI Policy Index (HAPI) provides a structured way to explore policies across jurisdictions and sectors. Use the modules below to navigate the landscape:
-      </p>
-
-      <ul className="list-disc pl-6 space-y-2">
-        <li>State Policies</li>
-        <li>Federal Policies</li>
-        <li>Sector-Specific Regulations</li>
-        <li>International Frameworks</li>
-        <li>Voluntary Standards</li>
-      </ul>
-
-    </div>
+        <ul className="list-disc space-y-2 pl-6 text-slate-800">
+          <li>
+            <Link href="/data/state-policies" className="underline underline-offset-4">
+              State Policies
+            </Link>
+          </li>
+          <li>
+            <Link href="/data/federal-policies" className="underline underline-offset-4">
+              Federal Policies
+            </Link>
+          </li>
+          <li>
+            <Link href="/data/sector-specific-regulations" className="underline underline-offset-4">
+              Sector-Specific Regulations
+            </Link>
+          </li>
+          <li>
+            <Link href="/data/international-frameworks" className="underline underline-offset-4">
+              International Frameworks
+            </Link>
+          </li>
+          <li>
+            <Link href="/data/voluntary-standards" className="underline underline-offset-4">
+              Voluntary Standards
+            </Link>
+          </li>
+        </ul>
+      </section>
+    </main>
   );
 }
