@@ -34,6 +34,11 @@ export default function Nav() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
+                        <Link href="/operational-implications">Operational Implications</Link>
+                    </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
                         <Link href="/insights">Insights</Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
