@@ -2,24 +2,13 @@ export type ModuleStats = {
   totalPolicies: number;
   highImpactPolicies: number;
   firstPolicy: string;
-  lastUpdated: string;
+  mostRecentPolicy: string;
   issuingBodies: number | null;
 };
 
 type CsvRow = Record<string, string | undefined>;
 
-const DATE_KEYS = [
-  "Last Updated",
-  "Updated",
-  "Date Updated",
-  "Date Issued/Significantly Updated",
-  "Date Issued",
-  "Date Passed",
-  "Effective Date",
-  "Date",
-];
-
-const FIRST_POLICY_DATE_KEYS = [
+const POLICY_DATE_KEYS = [
   "Date Issued/Significantly Updated",
   "Date Issued",
   "Date Passed",
@@ -36,21 +25,18 @@ const ISSUING_BODY_KEYS = [
   "Country/Region",
 ];
 
-export function getModuleStats(rows: CsvRow[], siteLastUpdated?: string): ModuleStats {
+export function getModuleStats(rows: CsvRow[]): ModuleStats {
   // These derived stats stay data-driven so weekly CSV updates automatically flow into the module headers.
   const policyDates = rows
-    .map((row) => parsePolicyDate(getFirstColumnValue(row, FIRST_POLICY_DATE_KEYS)))
-    .filter((date): date is Date => Boolean(date));
-  const fallbackUpdatedDates = rows
-    .map((row) => parsePolicyDate(getFirstColumnValue(row, DATE_KEYS)))
+    .map((row) => parsePolicyDate(getFirstColumnValue(row, POLICY_DATE_KEYS)))
     .filter((date): date is Date => Boolean(date));
   const issuingBodies = new Set(rows.flatMap(getIssuingBodies));
 
   return {
     totalPolicies: rows.length,
     highImpactPolicies: rows.filter(isHighImpactPolicy).length,
-    firstPolicy: formatYear(getEarliestDate(policyDates)),
-    lastUpdated: siteLastUpdated || formatMonthYear(getLatestDate(fallbackUpdatedDates)),
+    firstPolicy: formatMonthYear(getEarliestDate(policyDates)),
+    mostRecentPolicy: formatMonthYear(getLatestDate(policyDates)),
     issuingBodies: issuingBodies.size || null,
   };
 }
@@ -133,10 +119,6 @@ function parsePolicyDate(rawValue: string | undefined) {
   }
 
   return null;
-}
-
-function formatYear(date: Date | null) {
-  return date ? String(date.getUTCFullYear()) : "—";
 }
 
 function formatMonthYear(date: Date | null) {
