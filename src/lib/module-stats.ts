@@ -37,17 +37,14 @@ const ISSUING_BODY_KEYS = [
 ];
 
 export function getModuleStats(rows: CsvRow[], siteLastUpdated?: string): ModuleStats {
+  // These derived stats stay data-driven so weekly CSV updates automatically flow into the module headers.
   const policyDates = rows
     .map((row) => parsePolicyDate(getFirstColumnValue(row, FIRST_POLICY_DATE_KEYS)))
     .filter((date): date is Date => Boolean(date));
   const fallbackUpdatedDates = rows
     .map((row) => parsePolicyDate(getFirstColumnValue(row, DATE_KEYS)))
     .filter((date): date is Date => Boolean(date));
-  const issuingBodies = new Set(
-    rows
-      .map((row) => cleanCell(getFirstColumnValue(row, ISSUING_BODY_KEYS)))
-      .filter(Boolean),
-  );
+  const issuingBodies = new Set(rows.flatMap(getIssuingBodies));
 
   return {
     totalPolicies: rows.length,
@@ -64,6 +61,15 @@ function isHighImpactPolicy(row: CsvRow) {
   ).toLowerCase();
 
   return impact === "high" || impact === "high impact";
+}
+
+function getIssuingBodies(row: CsvRow) {
+  const value = cleanCell(getFirstColumnValue(row, ISSUING_BODY_KEYS));
+
+  return value
+    .split(";")
+    .map(cleanCell)
+    .filter(Boolean);
 }
 
 function getFirstColumnValue(row: CsvRow, keys: string[]) {
@@ -116,14 +122,14 @@ function parsePolicyDate(rawValue: string | undefined) {
     return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
   }
 
-  const yearMatch = raw.match(/\b(19\d{2}|20\d{2})\b/);
-  if (yearMatch) {
-    return new Date(Date.UTC(Number(yearMatch[1]), 0, 1));
-  }
-
   const fallbackTimestamp = Date.parse(raw);
   if (!Number.isNaN(fallbackTimestamp)) {
     return new Date(fallbackTimestamp);
+  }
+
+  const yearMatch = raw.match(/\b(19\d{2}|20\d{2})\b/);
+  if (yearMatch) {
+    return new Date(Date.UTC(Number(yearMatch[1]), 0, 1));
   }
 
   return null;
