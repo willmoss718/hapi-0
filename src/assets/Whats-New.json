@@ -1,6 +1,11 @@
 {
   "updates": [
     {
+      "title": "HB1563 – Emergency Department Services and Post-Acute Care – Coverage and Facility Studies",
+      "date": "April 28, 2026",
+      "path": "https://www.healthaipolicy.org/policies/HB1563%20%E2%80%93%20Emergency%20Department%20Services%20and%20Post-Acute%20Care%20%E2%80%93%20Coverage%20and%20Facility%20Studies"
+    },
+    {
       "title": "SCR184 – Requesting the Hawaii Civil Rights Commission to Examine Algorithmic Decision Systems",
       "date": "April 27, 2026",
       "path": "https://www.healthaipolicy.org/policies/SCR184%20%E2%80%93%20Requesting%20the%20Hawaii%20Civil%20Rights%20Commission%20to%20Examine%20Algorithmic%20Decision%20Systems"
@@ -19,12 +24,7 @@
       "title": "LB525 – Adopt the Agricultural Data Privacy Act and the Conversational Artificial Intelligence Safety Act",
       "date": "April 14, 2026",
       "path": "https://www.healthaipolicy.org/policies/LB525%20%E2%80%93%20Adopt%20the%20Agricultural%20Data%20Privacy%20Act%20and%20the%20Conversational%20Artificial%20Intelligence%20Safety%20Act"
-    },
-    {
-      "title": "ME LD2082 – An Act to Regulate the Use of Artificial Intelligence in Providing Certain Mental Health Services",
-      "date": "April 13, 2026",
-      "path": "https://www.healthaipolicy.org/policies/ME%20LD2082%20%E2%80%93%20An%20Act%20to%20Regulate%20the%20Use%20of%20Artificial%20Intelligence%20in%20Providing%20Certain%20Mental%20Health%20Services"
     }
    ],
-  "lastUpdated": "April 29, 2026"
+  "lastUpdated": "May 6, 2026"
 }

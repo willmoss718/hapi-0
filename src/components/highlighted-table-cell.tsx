@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useHash } from "@/lib/client-utils";
 import { TableCell } from "./ui/table";
-import { cn } from "@/lib/utils";
+
+const removeStateHighlights = () => {
+  document
+    .querySelectorAll<HTMLElement>(".state-row-highlight")
+    .forEach((row) => row.classList.remove("state-row-highlight"));
+};
 
 export default function HighlightedTableCell({
   children,
@@ -12,52 +17,49 @@ export default function HighlightedTableCell({
   children: React.ReactNode;
   id: string;
 }) {
-  const { hash, clearHash, isActive } = useHash({ scroll: true });
+  const cellRef = useRef<HTMLTableCellElement>(null);
+  const { hash } = useHash({ scroll: false });
 
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    if (hash === id) {
-      timeoutId = setTimeout(() => {
-        clearHash();
-      }, 4000);
+    if (!hash) {
+      removeStateHighlights();
+      return;
     }
 
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [hash, id, clearHash]);
-
-  useEffect(() => {
     if (hash !== id) return;
 
     const timer = window.setTimeout(() => {
-      const firstMatch = document.querySelector<HTMLElement>(
+      const firstCell = document.querySelector<HTMLElement>(
         `td[data-state="${id}"]`
       );
+      if (firstCell !== cellRef.current) return;
 
-      firstMatch?.scrollIntoView({
+      const stateRows = Array.from(
+        document.querySelectorAll<HTMLElement>(`tr[data-state-row="${id}"]`)
+      );
+      const targetRow = stateRows[0];
+      if (!targetRow) return;
+
+      removeStateHighlights();
+
+      stateRows.forEach((row) => row.classList.add("state-row-highlight"));
+
+      const rowTop = targetRow.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: Math.max(rowTop - 12, 0),
         behavior: "smooth",
-        block: "start",
       });
-    }, 120);
+    }, 100);
 
     return () => window.clearTimeout(timer);
   }, [hash, id]);
 
   return (
     <TableCell
+      ref={cellRef}
       data-state={id}
-      className="relative max-w-xl truncate scroll-mt-40"
+      className="max-w-xl truncate scroll-mt-40"
     >
-      <div
-        className={cn(
-          "absolute inset-0 pointer-events-none transition-all duration-300 z-10",
-          isActive(id) ? "bg-amber-100/40" : "bg-amber-100/0",
-        )}
-      />
       {children}
     </TableCell>
   );

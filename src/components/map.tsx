@@ -3,80 +3,88 @@
 import USAMap from "@mirawision/usa-map-react";
 import mapData from "@/assets/Map-Data.json";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+import type { ReactNode } from "react";
 
 type CustomState = {
-    fill?: string;
-    onClick?: () => void;
-    tooltip?: {
-      enabled: boolean;
-      render: (state: string) => React.ReactNode;
-    };
-}
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number;
+  onClick?: () => void;
+  onHover?: () => void;
+  onLeave?: () => void;
+  tooltip?: {
+    enabled: boolean;
+    render?: (state: string) => ReactNode;
+  };
+};
 
 type MapProps = {
   statePolicyCounts: Record<string, number>;
-}
+  hoveredState?: string | null;
+  onStateHover?: (state: string | null) => void;
+};
 
-export default function Map({ statePolicyCounts }: MapProps) {
+export default function Map({ statePolicyCounts, hoveredState, onStateHover }: MapProps) {
   const router = useRouter();
-  
-  const customStates: Record<string, CustomState> = {};
-  mapData["law-present"].forEach((state) => {
-    customStates[state] = {
-      fill: '#30c48d',
-      onClick: () => {
-        router.push(`/data/state-policies?sk=State&so=asc#${state}`);
-      },
-      tooltip: {
-        enabled: true,
-        render: (state) => (
-          <div>
-            {statePolicyCounts[state] || 0} state {statePolicyCounts[state] === 1 ? 'policy' : 'policies'}
-          </div>
-        )
-      }
-    };
-  });
-  mapData["policies-no-law"].forEach((state) => {
-    customStates[state] = {
-      fill: '#5a8def',
-      onClick: () => {
-        router.push(`/data/state-policies?sk=State&so=asc#${state}`);
-      },
-      tooltip: {
-        enabled: true,
-        render: (state) => (
-          <div>
-            {statePolicyCounts[state] || 0} state {statePolicyCounts[state] === 1 ? 'policy' : 'policies'}
-          </div>
-        )
-      }
-    };
-  });
-  for (const state of ALL_US_STATES) {
-    if (!customStates[state]) {
-      customStates[state] = {
-        tooltip: { enabled: true, render: () => <div>0 state policies</div> }
+
+  const customStates = useMemo(() => {
+    const states: Record<string, CustomState> = {};
+
+    for (const state of ALL_US_STATES) {
+      const baseFill = getStateFill(state);
+      const isHovered = hoveredState === state;
+
+      states[state] = {
+        fill: isHovered ? getHoveredFill(baseFill) : baseFill,
+        stroke: isHovered ? "#111827" : "#ffffff",
+        strokeWidth: isHovered ? 2.25 : 1,
+        onHover: () => onStateHover?.(state),
+        onLeave: () => onStateHover?.(null),
+        tooltip: { enabled: false },
       };
+
+      if (statePolicyCounts[state]) {
+        states[state].onClick = () => {
+          router.push(`/data/state-policies?sk=State&so=asc#${state}`);
+        };
+      }
     }
-  }
+
+    return states;
+  }, [hoveredState, onStateHover, router, statePolicyCounts]);
 
   return (
-    <div className="w-full h-full rounded-lg border border-gray-200">
-        <USAMap className="w-full h-full p-8" customStates={customStates} />
-        <legend className="flex flex-col justify-start items-start gap-1 p-8 border-t border-gray-200">
-            <h3 className="uppercase font-medium tracking-wide">Explore by State</h3>
-            <div className="flex flex-row justify-start items-center gap-2">
-                <div className="w-4 h-4 bg-green-500"></div>
-                <p>State Law(s) Present</p>
-                <div className="w-4 h-4 bg-blue-500"></div>
-                <p>State Policies, No Law</p>
-                <div className="w-4 h-4 bg-[#D3D3D3]"></div>
-                <p>No State Policies</p>
-            </div>
-        </legend>
+    <div
+      className="w-full h-full overflow-hidden rounded-lg border border-gray-200"
+      onMouseLeave={() => onStateHover?.(null)}
+    >
+      <USAMap className="w-full h-full p-8" customStates={customStates} />
+      <legend className="flex flex-col justify-start items-start gap-1 p-8 border-t border-gray-200">
+        <h3 className="uppercase font-medium tracking-wide">Explore by State</h3>
+        <div className="flex flex-row justify-start items-center gap-2">
+          <div className="w-4 h-4 bg-green-500"></div>
+          <p>State Law(s) Present</p>
+          <div className="w-4 h-4 bg-blue-500"></div>
+          <p>State Policies, No Law</p>
+          <div className="w-4 h-4 bg-[#D3D3D3]"></div>
+          <p>No State Policies</p>
+        </div>
+      </legend>
     </div>
   );
+}
+
+function getStateFill(state: string) {
+  if (mapData["law-present"].includes(state)) return "#30c48d";
+  if (mapData["policies-no-law"].includes(state)) return "#5a8def";
+  return "#D3D3D3";
+}
+
+function getHoveredFill(fill: string) {
+  if (fill === "#30c48d") return "#22d38f";
+  if (fill === "#5a8def") return "#3f7df4";
+  return "#b9c0ca";
 }
 
 const ALL_US_STATES = [

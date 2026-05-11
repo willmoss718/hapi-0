@@ -8,9 +8,10 @@ interface ExpandableRowProps {
   children: ReactNode;
   expandedContent: ReactNode;
   className?: string;
+  stateAnchor?: string;
 }
 
-export function ExpandableRow({ children, expandedContent, className }: ExpandableRowProps) {
+export function ExpandableRow({ children, expandedContent, className, stateAnchor }: ExpandableRowProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Pass the isExpanded state to ExpandableTaggedCell children
@@ -28,6 +29,7 @@ export function ExpandableRow({ children, expandedContent, className }: Expandab
       <TableRow 
         className={cn("relative", className)}
         data-expanded={isExpanded}
+        data-state-row={stateAnchor}
         onClick={(e) => {
           const target = e.target as HTMLElement;
           if (target.closest("[data-expand-trigger]")) {

@@ -23,6 +23,9 @@ import HighlightedTableCell from "@/components/highlighted-table-cell";
 import { ExpandableRow } from "@/components/expandable-row";
 import { ExpandableTaggedCell } from "@/components/expandable-tagged-cell";
 import PolicyPreview from "@/components/policy-preview";
+import SelectedStateNotice from "@/components/selected-state-notice";
+import ModuleStatsCard from "@/components/module-stats-card";
+import { getModuleStats } from "@/lib/module-stats";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
@@ -44,6 +47,7 @@ export default async function DataPage({
   }
 
   const csv = await neatCsv(csvStr);
+  const moduleStats = path === "state-policies" ? null : getModuleStats(csv);
   const tagKeys = Object.keys(csv[0]).filter((key) =>
     key.trim().endsWith("Tags") || key === "Impact Level",
   );
@@ -79,10 +83,19 @@ export default async function DataPage({
 
   return (
     <>
-      <h1 className="text-4xl mt-6 font-medium md:mt-10">
-        {matchingFile.name}
-      </h1>
-      <h2 className="text-xl mt-4">{matchingFile.description}</h2>
+      <div className="relative mt-6 md:mt-10 md:min-h-[5.75rem] md:pr-[23rem]">
+        <div className="min-w-0">
+          <h1 className="text-4xl font-medium">
+            {matchingFile.name}
+          </h1>
+          <h2 className="mt-4 text-xl">{matchingFile.description}</h2>
+        </div>
+        {moduleStats && (
+          <div className="mt-4 md:absolute md:right-8 md:top-0 md:mt-0">
+            <ModuleStatsCard stats={moduleStats} />
+          </div>
+        )}
+      </div>
       {path === "state-policies" && (
         <div id="map" className="w-full h-full mt-12 flex flex-row justify-center items-center">
           <div className="w-full h-full max-w-5xl">
@@ -91,6 +104,7 @@ export default async function DataPage({
         </div>
       )}
       <Filters availableTags={tags} />
+      {path === "state-policies" && <SelectedStateNotice />}
       <Table className="w-full my-12 border shadow">
         <SortableHeader validKeys={validKeys} />
         <TableBody>
@@ -99,6 +113,7 @@ export default async function DataPage({
               <ExpandableRow
                 key={index}
                 className="relative"
+                stateAnchor={path === "state-policies" ? String(row.State ?? "").trim() : undefined}
                 expandedContent={<PolicyPreview data={row} />}
               >
                 {Object.entries(row).map(([key, value], colIndex) =>
@@ -179,11 +194,16 @@ function CustomCell({
 }) {
   if (value.trim().startsWith("http")) {
     return (
-      <TableCell className="flex flex-row items-center translate-y-3 gap-1 underline underline-offset-4 max-w-xl truncate">
-        <a href={value} target="_blank" rel="noopener noreferrer">
+      <TableCell className="max-w-xl truncate underline underline-offset-4">
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1"
+        >
           LINK
+          <ArrowUpRightIcon className="w-4 h-4" />
         </a>
-        <ArrowUpRightIcon className="w-4 h-4" />
       </TableCell>
     );
   }
