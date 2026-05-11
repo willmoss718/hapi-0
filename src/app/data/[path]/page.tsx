@@ -1,4 +1,5 @@
 import { FILES } from "@/assets/files";
+import whatsNew from "@/assets/Whats-New.json";
 // import { Card } from '@/components/ui/card';
 
 import neatCsv, { Row } from "neat-csv";
@@ -24,6 +25,8 @@ import { ExpandableRow } from "@/components/expandable-row";
 import { ExpandableTaggedCell } from "@/components/expandable-tagged-cell";
 import PolicyPreview from "@/components/policy-preview";
 import SelectedStateNotice from "@/components/selected-state-notice";
+import ModuleStatsCard from "@/components/module-stats-card";
+import { getModuleStats } from "@/lib/module-stats";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
 
@@ -45,6 +48,7 @@ export default async function DataPage({
   }
 
   const csv = await neatCsv(csvStr);
+  const moduleStats = path === "state-policies" ? null : getModuleStats(csv, whatsNew.lastUpdated);
   const tagKeys = Object.keys(csv[0]).filter((key) =>
     key.trim().endsWith("Tags") || key === "Impact Level",
   );
@@ -80,10 +84,19 @@ export default async function DataPage({
 
   return (
     <>
-      <h1 className="text-4xl mt-6 font-medium md:mt-10">
-        {matchingFile.name}
-      </h1>
-      <h2 className="text-xl mt-4">{matchingFile.description}</h2>
+      <div className="relative mt-6 md:mt-10 md:min-h-[5.75rem] md:pr-[23rem]">
+        <div className="min-w-0">
+          <h1 className="text-4xl font-medium">
+            {matchingFile.name}
+          </h1>
+          <h2 className="mt-4 text-xl">{matchingFile.description}</h2>
+        </div>
+        {moduleStats && (
+          <div className="mt-4 md:absolute md:right-8 md:top-0 md:mt-0">
+            <ModuleStatsCard stats={moduleStats} />
+          </div>
+        )}
+      </div>
       {path === "state-policies" && (
         <div id="map" className="w-full h-full mt-12 flex flex-row justify-center items-center">
           <div className="w-full h-full max-w-5xl">
