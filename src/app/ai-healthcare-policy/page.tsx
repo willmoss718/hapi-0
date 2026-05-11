@@ -1,76 +1,68 @@
 export default function AIHealthcarePolicyPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-
+    <main className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-4xl md:text-5xl font-medium mb-6">
         AI in Healthcare Policy: Laws, Regulations, and Standards
       </h1>
 
-      <p className="text-lg mb-6">
-        Artificial intelligence is rapidly becoming part of how healthcare is delivered, from clinical decision support tools to administrative automation and patient-facing applications. As these systems expand, so do the policies that shape how they are developed, evaluated, and used.
-      </p>
+      <div className="space-y-5 text-base md:text-lg leading-8 text-slate-800">
+        <p>
+          Artificial intelligence is quickly becoming part of healthcare. It is being used in clinical decision support, imaging, documentation, operations, patient communication, research, and other areas of care delivery. As these tools become more common, policymakers, regulators, professional bodies, and health systems are trying to define how they should be developed, evaluated, monitored, and used.
+        </p>
 
-      <p className="mb-8">
-        AI in healthcare policy refers to the growing set of laws, regulations, guidance, and standards that govern these technologies across clinical, operational, and research settings.
-      </p>
+        <p>
+          AI in healthcare policy does not refer to one law or one regulatory framework. It is better understood as a growing collection of state laws, federal actions, agency guidance, sector-specific rules, international frameworks, and voluntary standards. These policies often address related concerns, including safety, transparency, privacy, fairness, accountability, documentation, and oversight.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Key Takeaways</h2>
-      <ul className="list-disc pl-6 space-y-2 mb-8">
-        <li><strong>AI healthcare policy is fragmented across multiple regulators and jurisdictions</strong></li>
-        <li><strong>Most policies do not directly regulate clinical use</strong></li>
-        <li><strong>Transparency, documentation, and governance dominate</strong></li>
-        <li><strong>States, regulators, and standards bodies all shape the rules</strong></li>
-        <li><strong>Health systems and developers carry most of the burden</strong></li>
-      </ul>
+        <p>
+          This landscape is fragmented. In the United States, there is no single health AI regulator and no single national law governing all uses of AI in healthcare. Instead, oversight is emerging across many institutions at once. State legislatures may pass laws affecting health plans or clinical settings. Federal agencies may issue guidance for specific sectors. Standards organizations may publish voluntary frameworks. Health systems and developers then have to interpret these signals together when deciding how AI tools should be deployed.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">What Is AI in Healthcare Policy?</h2>
-      <p className="mb-6">
-        AI in healthcare policy is not a single law or framework. It includes state laws, federal regulations, agency guidance, sector-specific rules, international frameworks, and voluntary standards. Together, these define how AI systems are built, deployed, and governed in healthcare.
-      </p>
+        <p>
+          Much of the current policy activity does not directly say which AI tools may or may not be used in clinical care. Instead, many policies focus on the conditions around use. They may require disclosure, documentation, risk management, human oversight, governance processes, or performance monitoring. In practice, this means that healthcare AI policy often shapes the organizational systems around AI before it shapes the clinical use of a specific tool.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Why the Landscape Is Fragmented</h2>
-      <p className="mb-6">
-        There is no single authority responsible for AI in healthcare. States, federal agencies, and standards bodies all operate independently. Policies overlap, evolve at different speeds, and are often difficult to interpret together.
-      </p>
+        <p>
+          This matters for health systems because AI adoption is becoming not only a technical decision, but also a governance and compliance decision. Hospitals and other healthcare organizations may need to know which policies apply to their state, which agencies are active in their area, what standards are becoming influential, and what expectations are emerging around oversight and accountability.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Key Trends</h2>
-      <p className="mb-4">
-        <strong>Most policies do not regulate clinical use directly.</strong> Instead, they require disclosures, documentation, and governance processes.
-      </p>
-      <p className="mb-4">
-        <strong>Transparency and governance dominate.</strong> Organizations are expected to document and justify how AI is used.
-      </p>
-      <p className="mb-4">
-        <strong>Few policies are truly high-impact.</strong> Most are advisory or indirect, creating expectations without clear rules.
-      </p>
-      <p className="mb-6">
-        <strong>Policy activity is accelerating.</strong> More governments and organizations are issuing AI-related policies each year.
-      </p>
+        <p>
+          It also matters for developers and vendors. As AI tools move into real-world healthcare settings, developers are increasingly expected to document how systems work, monitor performance, address safety and bias concerns, and align with evolving regulatory and professional expectations. Even when policies are not legally binding, they can still influence procurement decisions, institutional governance, and expectations for responsible deployment.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">What This Means in Practice</h2>
-      <p className="mb-4">
-        For health systems, deploying AI is increasingly a compliance decision. Organizations must document use cases, establish oversight processes, and justify how tools are used.
-      </p>
-      <p className="mb-4">
-        For developers, expectations now include tracking performance, maintaining documentation, and aligning with evolving standards.
-      </p>
-      <p className="mb-6">
-        For clinicians, AI is shaped by governance decisions before it ever reaches the point of care.
-      </p>
+        <p>
+          The Health & AI Policy Index (HAPI) was created to make this landscape easier to navigate. HAPI organizes healthcare AI policies across states, federal agencies, sector-specific regulators, international bodies, and standards organizations. Each policy is structured with consistent metadata, including dates, issuing bodies, impact levels, keyword tags, stakeholder tags, summaries, healthcare implications, and links to source text.
+        </p>
 
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Explore Policies in HAPI</h2>
-      <p className="mb-6">
-        The Health & AI Policy Index (HAPI) provides a structured way to explore policies across jurisdictions and sectors. Use the modules below to navigate the landscape:
-      </p>
+        <p>
+          The goal is not to replace legal advice or detailed regulatory interpretation. Rather, HAPI is meant to provide a clearer starting point for understanding how healthcare AI governance is developing, where activity is concentrated, and which policies may be most relevant to health systems, developers, researchers, policymakers, and the public.
+        </p>
+      </div>
 
-      <ul className="list-disc pl-6 space-y-2">
-        <li>State Policies</li>
-        <li>Federal Policies</li>
-        <li>Sector-Specific Regulations</li>
-        <li>International Frameworks</li>
-        <li>Voluntary Standards</li>
-      </ul>
+      <section className="mt-10 border-t border-slate-200 pt-6">
+        <h2 className="text-2xl font-medium mb-4">Explore the index</h2>
+        <p className="text-slate-700 leading-7 mb-4">
+          Use the HAPI modules to explore healthcare AI policies by jurisdiction, policy type, issuing body, impact level, keyword theme, and stakeholder group.
+        </p>
 
-    </div>
+        <div className="grid gap-2 text-slate-800">
+          <a href="/data/state-policies" className="underline underline-offset-4">
+            State Policies
+          </a>
+          <a href="/data/federal-policies" className="underline underline-offset-4">
+            Federal Policies
+          </a>
+          <a href="/data/sector-specific-regulations" className="underline underline-offset-4">
+            Sector-Specific Regulations
+          </a>
+          <a href="/data/international-frameworks" className="underline underline-offset-4">
+            International Frameworks
+          </a>
+          <a href="/data/voluntary-standards" className="underline underline-offset-4">
+            Voluntary Standards
+          </a>
+        </div>
+      </section>
+    </main>
   );
 }
