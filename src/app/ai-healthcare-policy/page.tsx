@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function AIHealthcarePolicyPage() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
@@ -46,21 +48,21 @@ export default function AIHealthcarePolicyPage() {
         </p>
 
         <div className="grid gap-2 text-slate-800">
-          <a href="/data/state-policies" className="underline underline-offset-4">
+          <Link href="/data/state-policies" className="underline underline-offset-4">
             State Policies
-          </a>
-          <a href="/data/federal-policies" className="underline underline-offset-4">
+          </Link>
+          <Link href="/data/federal-policies" className="underline underline-offset-4">
             Federal Policies
-          </a>
-          <a href="/data/sector-specific-regulations" className="underline underline-offset-4">
+          </Link>
+          <Link href="/data/sector-specific-regulations" className="underline underline-offset-4">
             Sector-Specific Regulations
-          </a>
-          <a href="/data/international-frameworks" className="underline underline-offset-4">
+          </Link>
+          <Link href="/data/international-frameworks" className="underline underline-offset-4">
             International Frameworks
-          </a>
-          <a href="/data/voluntary-standards" className="underline underline-offset-4">
+          </Link>
+          <Link href="/data/voluntary-standards" className="underline underline-offset-4">
             Voluntary Standards
-          </a>
+          </Link>
         </div>
       </section>
     </main>
