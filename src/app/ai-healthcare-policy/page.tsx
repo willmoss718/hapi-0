@@ -1,6 +1,9 @@
 export default function AIHealthcarePolicyPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <p className="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700">
+        TEST ROUTE ACTIVE
+      </p>
 
       <h1 className="text-4xl md:text-5xl font-medium mb-6">
         AI in Healthcare Policy: Laws, Regulations, and Standards
