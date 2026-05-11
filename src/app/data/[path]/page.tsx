@@ -1,5 +1,4 @@
 import { FILES } from "@/assets/files";
-import whatsNew from "@/assets/Whats-New.json";
 // import { Card } from '@/components/ui/card';
 
 import neatCsv, { Row } from "neat-csv";
@@ -48,7 +47,7 @@ export default async function DataPage({
   }
 
   const csv = await neatCsv(csvStr);
-  const moduleStats = path === "state-policies" ? null : getModuleStats(csv, whatsNew.lastUpdated);
+  const moduleStats = path === "state-policies" ? null : getModuleStats(csv);
   const tagKeys = Object.keys(csv[0]).filter((key) =>
     key.trim().endsWith("Tags") || key === "Impact Level",
   );
