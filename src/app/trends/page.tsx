@@ -1,17 +1,17 @@
 import { loadAllTrends } from "@/lib/trends";
 import TrendsChart from "@/components/trends-chart";
-import { FILES } from "@/assets/files";
-import { getCsvData } from "@/lib/server-utils";
-import neatCsv from "neat-csv";
+
+const IMPACT_LEVELS = ["Low", "Medium", "High"];
+
+function uniqueSorted(values: string[]): string[] {
+  return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
+}
 
 export default async function TrendsPage() {
   const data = await loadAllTrends();
 
-  const allCsvFiles = await Promise.all(FILES.map((file) => getCsvData(file.path))).then((files) => files.filter((file) => file != null));
-  const allCsvData = await Promise.all(allCsvFiles.map((csv) => neatCsv(csv))).then((data) => data.flat());
-  const allKeywordTags = Array.from(new Set(allCsvData.map((row) => row["Keyword Tags"]).flat().filter((tag) => tag != null)));
-  const allStakeholderTags = Array.from(new Set(allCsvData.map((row) => row["Stakeholder Tags"]).flat().filter((tag) => tag != null)));
-  const allImpactTags = Array.from(new Set(allCsvData.map((row) => row["Impact Level"]).flat().filter((tag) => tag != null)));
+  const allKeywordTags = uniqueSorted(data.flatMap((record) => record.tags.keyword));
+  const allStakeholderTags = uniqueSorted(data.flatMap((record) => record.tags.stakeholder));
 
   return (
     <div className="mt-8 md:mt-16">
@@ -20,7 +20,14 @@ export default async function TrendsPage() {
         Visualize policies over time by module, tags, and issuing body.
       </h2>
       <div className="my-8">
-        <TrendsChart data={data} tagData={{ keyword: allKeywordTags, stakeholder: allStakeholderTags, impact: allImpactTags }} />
+        <TrendsChart
+          data={data}
+          tagData={{
+            keyword: allKeywordTags,
+            stakeholder: allStakeholderTags,
+            impact: IMPACT_LEVELS,
+          }}
+        />
       </div>
     </div>
   );

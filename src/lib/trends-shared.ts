@@ -11,21 +11,27 @@ export type TrendRecord = {
 };
 
 export type TrendFilter = {
-  module?: TrendRecord['module'];
-  tagType?: 'keyword' | 'stakeholder' | 'impact';
-  tagValue?: string;
+  modules?: TrendRecord['module'][];
+  keywordTags?: string[];
+  stakeholderTags?: string[];
+  impactLevels?: string[];
   issuingBody?: string; // includes state name for state module
   start?: string; // ISO date
   end?: string; // ISO date
 };
 
+function matchesAny(recordValues: string[], selectedValues?: string[]): boolean {
+  if (!selectedValues?.length) return true;
+  const recordSet = new Set(recordValues.map((v) => v.toLowerCase()));
+  return selectedValues.some((value) => recordSet.has(value.toLowerCase()));
+}
+
 export function filterTrends(data: TrendRecord[], filter: TrendFilter): TrendRecord[] {
   return data.filter((r) => {
-    if (filter.module && r.module !== filter.module) return false;
-    if (filter.tagType && filter.tagValue) {
-      const set = new Set(r.tags[filter.tagType].map((v) => v.toLowerCase()));
-      if (!set.has(filter.tagValue.toLowerCase())) return false;
-    }
+    if (filter.modules?.length && !filter.modules.includes(r.module)) return false;
+    if (!matchesAny(r.tags.keyword, filter.keywordTags)) return false;
+    if (!matchesAny(r.tags.stakeholder, filter.stakeholderTags)) return false;
+    if (!matchesAny(r.tags.impact, filter.impactLevels)) return false;
     if (filter.issuingBody) {
       if (r.issuingBody.toLowerCase() !== filter.issuingBody.toLowerCase()) return false;
     }
@@ -45,5 +51,3 @@ export function bucketByMonth(data: TrendRecord[]): { month: string; count: numb
     .map(([month, count]) => ({ month, count }))
     .sort((a, b) => a.month.localeCompare(b.month));
 }
-
- 
