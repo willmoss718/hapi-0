@@ -8,7 +8,7 @@ export default function About() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Authorship</h2>
       <p className="text-lg mb-6">
-        Will Moss is the founder and editor of the Health & AI Policy Index (HAPI), a public, nonpartisan registry tracking policies shaping artificial intelligence in healthcare. He works at the Windreich Department of Artificial Intelligence and Human Health at Mount Sinai, where he focuses on AI governance, health policy, and regulatory strategy.
+        Will Moss leads HAPI as a public policy professional focused on AI governance in healthcare. His background includes government affairs experience at the state and federal levels, with a focus on AI health policy. Through HAPI, Will aims to make healthcare AI governance more accessible while supporting safer, more responsible policy development. He is interested in growing the project and collaborating with others working in this space.
       </p>
 
       <p className=" text-lg mb-6">
@@ -82,11 +82,6 @@ export default function About() {
         <li>Summaries are for awareness and do not constitute legal advice.</li>
         <li>Coverage is selective and prioritizes clarity over exhaustiveness.</li>
       </ul>
-
-      <h2 className="text-2xl font-semibold mt-8 mb-4">Team</h2>
-      <p className="mb-6">
-        HAPI is maintained by Will Moss.
-      </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">How to cite</h2>
       <p className="mb-6">
