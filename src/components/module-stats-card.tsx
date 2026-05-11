@@ -8,7 +8,7 @@ const STAT_ITEMS = [
   ["Total Policies", "totalPolicies"],
   ["High Impact", "highImpactPolicies"],
   ["First Policy", "firstPolicy"],
-  ["Last Updated", "lastUpdated"],
+  ["Most Recent Policy", "mostRecentPolicy"],
   ["Issuing Bodies", "issuingBodies"],
 ] as const;
 
