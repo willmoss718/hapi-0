@@ -25,7 +25,7 @@ export default function StateIntelligencePanel({ state }: StateIntelligencePanel
 
       <div className="mt-3 rounded-md border border-gray-100 bg-gray-50 px-3 py-2.5">
         <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
-          Latest Policy Date
+          Most Recent Policy
         </p>
         <p className="mt-0.5 text-xl font-semibold leading-6 text-gray-950">{latestPolicyDate}</p>
       </div>
