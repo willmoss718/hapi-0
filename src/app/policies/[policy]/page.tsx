@@ -12,6 +12,7 @@ import {
   getColumnValueStartsWith,
 } from "@/lib/utils";
 import Back from "./back";
+import RulePopup from "./rule-popup";
 
 export default async function PolicyPage({
   params,
@@ -60,6 +61,8 @@ export default async function PolicyPage({
   const impactLevel = getColumnValue(targetRow, "Impact Level");
   const keywordTags = getColumnValue(targetRow, "Keyword Tags");
   const stakeholderTags = getColumnValue(targetRow, "Stakeholder Tags");
+  const specificImplications = getColumnValue(targetRow, "Specific Implications");
+  const taxonomyRules = getColumnValue(targetRow, "Taxonomy Rules");
   const linkUrl = getColumnValue(
     targetRow,
     "Link to Text",
@@ -151,6 +154,29 @@ export default async function PolicyPage({
                 <p className="text-gray-700 leading-relaxed">
                   {healthcareImplications}
                 </p>
+              </>
+            )}
+
+            {specificImplications && (
+              <>
+                <h2 className="text-xl font-semibold mb-4 mt-10">
+                  Operational Implications
+                </h2>
+                <ul className="list-disc list-outside ml-5 space-y-2 text-gray-700 leading-relaxed">
+                  {specificImplications.split("|").map((item, i) => {
+                    const ruleTokens = taxonomyRules
+                      ? taxonomyRules.split("|").map((r) => r.trim())
+                      : [];
+                    const rule = ruleTokens[i];
+                    const validRule = rule && rule !== "None" ? rule : null;
+                    return (
+                      <li key={i}>
+                        {item.trim()}
+                        {validRule && <RulePopup rule={validRule} />}
+                      </li>
+                    );
+                  })}
+                </ul>
               </>
             )}
           </article>

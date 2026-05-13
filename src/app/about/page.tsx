@@ -8,7 +8,14 @@ export default function About() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Authorship</h2>
       <p className="text-lg mb-6">
-        Will Moss leads HAPI as a public policy professional focused on AI governance in healthcare. His background includes government affairs experience at the state and federal levels, with a focus on AI health policy. Through HAPI, Will aims to make healthcare AI governance more accessible while supporting safer, more responsible policy development. He is interested in growing the project and collaborating with others working in this space.
+        Will Moss leads HAPI as a public policy professional focused on AI governance in healthcare. 
+        His background includes government affairs experience at the state and federal levels, with a focus on AI health policy. 
+        Through HAPI, Will aims to make healthcare AI governance more accessible while supporting safer, more responsible policy development. 
+        He is interested in growing the project and collaborating with others working in this space.
+      </p>
+      <p className="text-lg mb-6">
+        Megan Lagerequist is a collaborator on HAPI and the primary author of the operational implications page. 
+        She has experience working in healthcare techology, with a focus on data governance in the EHR, and a background in frontier AI capabilities and governance.
       </p>
 
       <p className=" text-lg mb-6">
@@ -65,6 +72,13 @@ export default function About() {
           </ul>
         </li>
       </ul>
+
+      <h2 className="text-2xl font-semibold mt-8 mb-4">Operational Implications</h2>
+      <p className="mb-6">
+        For each policy, we surface key actions or rules that influence operations of healthcare providers, payers, vendors, and other stakeholders. 
+        A taxonomy of common rules was developed to compare policies across jurisdictions and surface meaningful trends. 
+        Not every policy will be the perfect fit for a common rule, so users of HAPI should refer to the specific implications on the policy page and the original text for details.
+      </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">State Policy (No Law)</h2>
       <p className="mb-6">

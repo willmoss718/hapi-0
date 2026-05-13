@@ -1,6 +1,7 @@
 import { FILES } from "@/assets/files";
 import neatCsv from "neat-csv";
 import { getCsvData } from "@/lib/server-utils";
+import { OPERATIONAL_CATEGORY_NAMES } from "@/lib/operational-categories";
 
 export type StatePolicyPreview = {
   title: string;
@@ -16,8 +17,7 @@ export type StateIntelligence = {
   firstPolicyDate: string | null;
   latestPolicyDate: string | null;
   recentPolicies: StatePolicyPreview[];
-  regulatoryThemes: string[];
-  stakeholderThemes: string[];
+  operationalImplications: string[];
 };
 
 type CsvRow = Record<string, string | undefined>;
@@ -70,30 +70,17 @@ export async function getStatePolicyIntelligence() {
     "Effective Date",
   ]);
   const impactKey = pickColumn(firstRow, ["Impact Level", "Impact", "High Impact"]);
-  const keywordKey = pickColumn(firstRow, [
-    "Keyword Tags",
-    "Keywords",
-    "Tags",
-    "Category",
-    "Categories",
-    "Regulatory Themes",
-  ]);
-  const stakeholderKey = pickColumn(firstRow, [
-    "Stakeholder Tags",
-    "Stakeholders",
-    "Stakeholder Groups",
-    "Audience",
-  ]);
 
   if (!stateKey) {
     return summaries;
   }
 
+  const taxonomyKey = pickColumn(firstRow, ["Taxonomy Rules"]);
+
   const policyBuckets: Record<string, StatePolicyPreview[]> = {};
   const earliestDates: Record<string, ParsedPolicyDate> = {};
   const latestDates: Record<string, ParsedPolicyDate> = {};
-  const regulatoryCounts: Record<string, Record<string, number>> = {};
-  const stakeholderCounts: Record<string, Record<string, number>> = {};
+  const operationalCategories: Record<string, Set<string>> = {};
 
   for (const row of rows) {
     const code = normalizeState(row[stateKey] || "");
@@ -129,9 +116,15 @@ export async function getStatePolicyIntelligence() {
       });
     }
 
-    // Theme chips are derived only from structured CSV tag/category fields.
-    addStructuredTagCounts(regulatoryCounts, code, keywordKey ? row[keywordKey] : undefined);
-    addStructuredTagCounts(stakeholderCounts, code, stakeholderKey ? row[stakeholderKey] : undefined);
+    if (taxonomyKey) {
+      const cats = (operationalCategories[code] ??= new Set<string>());
+      for (const rule of cleanCell(row[taxonomyKey]).split("|")) {
+        const trimmed = rule.trim();
+        if (!trimmed || trimmed.toLowerCase() === "none") continue;
+        const prefix = trimmed.match(/^([A-Z]+)/)?.[1];
+        if (prefix) cats.add(prefix);
+      }
+    }
   }
 
   for (const code of Object.keys(summaries)) {
@@ -140,8 +133,10 @@ export async function getStatePolicyIntelligence() {
     summaries[code].recentPolicies = (policyBuckets[code] || [])
       .sort((a, b) => (b.timestamp ?? -1) - (a.timestamp ?? -1))
       .slice(0, 5);
-    summaries[code].regulatoryThemes = topStructuredTags(regulatoryCounts[code]);
-    summaries[code].stakeholderThemes = topStructuredTags(stakeholderCounts[code]);
+    const cats = operationalCategories[code];
+    summaries[code].operationalImplications = cats
+      ? Object.keys(OPERATIONAL_CATEGORY_NAMES).filter((p) => cats.has(p)).map((p) => OPERATIONAL_CATEGORY_NAMES[p])
+      : [];
   }
 
   return summaries;
@@ -172,8 +167,7 @@ function createEmptyStateSummaries() {
         firstPolicyDate: null,
         latestPolicyDate: null,
         recentPolicies: [],
-        regulatoryThemes: [],
-        stakeholderThemes: [],
+        operationalImplications: [],
       } satisfies StateIntelligence,
     ])
   ) as Record<string, StateIntelligence>;
@@ -193,35 +187,6 @@ function cleanCell(value: string | undefined) {
   return (value || "").trim();
 }
 
-function addStructuredTagCounts(
-  countsByState: Record<string, Record<string, number>>,
-  code: string,
-  rawValue: string | undefined
-) {
-  const tags = splitStructuredTags(rawValue);
-  if (tags.length === 0) return;
-
-  const counts = (countsByState[code] ||= {});
-  for (const tag of tags) {
-    counts[tag] = (counts[tag] || 0) + 1;
-  }
-}
-
-function splitStructuredTags(rawValue: string | undefined) {
-  return cleanCell(rawValue)
-    .split(/[;|]/)
-    .map((tag) => tag.trim())
-    .filter(Boolean);
-}
-
-function topStructuredTags(counts: Record<string, number> | undefined) {
-  if (!counts) return [];
-
-  return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .slice(0, 2)
-    .map(([tag]) => tag);
-}
 
 function parsePolicyDate(rawValue: string | undefined): ParsedPolicyDate {
   const raw = cleanCell(rawValue);

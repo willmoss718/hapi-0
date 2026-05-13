@@ -13,7 +13,7 @@ export default function HomeMapSection({ stateIntelligence }: HomeMapSectionProp
   const statePolicyCounts = getStatePolicyCounts(stateIntelligence);
 
   const mapFooter = (
-    <Link href="/about" className="block mt-3">
+    <Link key="map-footer" href="/about" className="block mt-3">
       <p className="text-base text-gray-600 font-medium hover:underline">
         Created and maintained by Will Moss · Windreich Dept. of Artificial Intelligence and Human Health, Mount Sinai
       </p>

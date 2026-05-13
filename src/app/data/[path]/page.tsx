@@ -27,7 +27,7 @@ import SelectedStateNotice from "@/components/selected-state-notice";
 import ModuleStatsCard from "@/components/module-stats-card";
 import { getModuleStats } from "@/lib/module-stats";
 
-const HIDDEN_KEYS = ["Summary", "Healthcare Implications"];
+const HIDDEN_KEYS = ["Summary", "Healthcare Implications", "Taxonomy Rules", "Specific Implications", "Corrections"];
 
 export default async function DataPage({
   params,
@@ -83,15 +83,15 @@ export default async function DataPage({
 
   return (
     <>
-      <div className="relative mt-6 md:mt-10 md:min-h-[5.75rem] md:pr-[23rem]">
-        <div className="min-w-0">
+      <div className="mt-6 md:mt-10 flex flex-col md:flex-row md:items-start md:gap-8">
+        <div className="min-w-0 flex-1">
           <h1 className="text-4xl font-medium">
             {matchingFile.name}
           </h1>
           <h2 className="mt-4 text-xl">{matchingFile.description}</h2>
         </div>
         {moduleStats && (
-          <div className="mt-4 md:absolute md:right-8 md:top-0 md:mt-0">
+          <div className="mt-4 md:mt-0 shrink-0">
             <ModuleStatsCard stats={moduleStats} />
           </div>
         )}
