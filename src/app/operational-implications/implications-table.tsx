@@ -181,13 +181,19 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
         )}
       </div>
 
+      {view === "table" && (
+        <p className="text-sm text-muted-foreground mb-4">
+          Expand each category to view detailed rules, then click on a cell with a checkmark to read more about how that state implements the general rule in their policy.
+        </p>
+      )}
+
       {view === "table" ? (
         <div className="overflow-x-auto border rounded-lg shadow-sm">
           <table className="text-sm border-collapse min-w-max w-full">
             <thead>
               <tr className="bg-gray-100 border-b">
                 <th className="sticky left-0 z-10 bg-gray-100 text-left px-4 py-3 font-medium w-96 border-r">
-                  Rule Group
+                  Category
                 </th>
                 <th className="px-3 py-3 font-medium text-center text-xs w-16 border-r">
                   % States

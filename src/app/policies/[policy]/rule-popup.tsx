@@ -39,7 +39,7 @@ export default function RulePopup({ rule }: Props) {
           <p className="text-sm text-gray-700 leading-snug">
             This policy falls under the realm of{" "}
             <strong>{rule}</strong>{" "}
-            See what other states have a similar policy.{" "}
+            See other states with a similar policy.{" "}
             <Link
               href={`/operational-implications?rule=${encodeURIComponent(ruleCode)}`}
               className="inline-flex items-center gap-0.5 text-foreground underline underline-offset-2 hover:text-muted-foreground font-medium"

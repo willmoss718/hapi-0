@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import type { StateIntelligence } from "@/lib/state-policy-intelligence";
 import { getRandomTailwindColor } from "@/lib/utils";
 
@@ -60,16 +59,12 @@ export default function StateIntelligencePanel({ state }: StateIntelligencePanel
         )}
       </section>
 
-      <div className="mt-3 grid gap-3 border-t border-gray-100 pt-3">
+      <div className="mt-3 border-t border-gray-100 pt-3">
         <ThemeSection
-          title="Regulatory Themes"
-          values={state.regulatoryThemes}
-          colorSeed="Keyword Tags"
-        />
-        <ThemeSection
-          title="Stakeholder Themes"
-          values={state.stakeholderThemes}
-          colorSeed="Stakeholder Tags"
+          title="Operational Implications"
+          values={state.operationalImplications}
+          colorSeed="Operational Themes"
+          tagColor="#ede9fe"
         />
       </div>
     </aside>
@@ -104,10 +99,12 @@ function ThemeSection({
   title,
   values,
   colorSeed,
+  tagColor,
 }: {
   title: string;
   values: string[];
   colorSeed: string;
+  tagColor?: string;
 }) {
   return (
     <section>
@@ -118,7 +115,7 @@ function ThemeSection({
             <span
               key={value}
               className="rounded-md border border-gray-200 px-2 py-1 text-xs font-semibold text-gray-700"
-              style={getTagStyle(colorSeed)}
+              style={{ backgroundColor: tagColor ?? getRandomTailwindColor(colorSeed) }}
             >
               {value}
             </span>
@@ -131,8 +128,3 @@ function ThemeSection({
   );
 }
 
-function getTagStyle(seed: string): CSSProperties {
-  return {
-    backgroundColor: getRandomTailwindColor(seed),
-  };
-}

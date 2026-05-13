@@ -70,7 +70,7 @@ export default async function OperationalImplicationsPage({
       <div className="space-y-2 mb-8">
         <h1 className="text-4xl font-semibold tracking-tight">Operational Implications</h1>
         <p className="text-xl text-muted-foreground">
-          Common operational implications across state policies.
+          See common policies and which states have enacted them.
         </p>
       </div>
       <ImplicationsTable
