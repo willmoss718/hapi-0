@@ -27,15 +27,26 @@ type ParsedPolicyDate = {
   timestamp: number | null;
 };
 
+const POLICY_TITLE_COLUMNS = [
+  "Policy Name/Number",
+  "Regulation Name",
+  "Standard Name/Number",
+  "Policy Name/Title",
+  "Policy Name",
+  "Policy Title",
+  "Title",
+  "Name",
+];
+
 export async function getTotalCsvPolicyCount() {
-  const rowCounts = await Promise.all(
+  const policyKeysByFile = await Promise.all(
     FILES.map(async (file) => {
       const rows = await getParsedRows(file.path);
-      return rows.length;
+      return rows.map((row, index) => getPolicyCountKey(row, `${file.path}:${index}`));
     })
   );
 
-  return rowCounts.reduce((total, count) => total + count, 0);
+  return new Set(policyKeysByFile.flat()).size;
 }
 
 export async function getStatePolicyIntelligence() {
@@ -55,13 +66,7 @@ export async function getStatePolicyIntelligence() {
     "State / Territory",
     "State/ Territory",
   ]);
-  const titleKey = pickColumn(firstRow, [
-    "Policy Name/Number",
-    "Policy Name",
-    "Policy Title",
-    "Title",
-    "Name",
-  ]);
+  const titleKey = pickColumn(firstRow, POLICY_TITLE_COLUMNS);
   const dateKey = pickColumn(firstRow, [
     "Date Passed",
     "Date Enacted",
@@ -187,6 +192,20 @@ function cleanCell(value: string | undefined) {
   return (value || "").trim();
 }
 
+function getPolicyCountKey(row: CsvRow, fallbackKey: string) {
+  const titleKey = pickColumn(row, POLICY_TITLE_COLUMNS);
+  const title = cleanCell(titleKey ? row[titleKey] : undefined);
+
+  if (!title) {
+    return fallbackKey;
+  }
+
+  return title
+    .toLowerCase()
+    .replace(/[\u2010-\u2015]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function parsePolicyDate(rawValue: string | undefined): ParsedPolicyDate {
   const raw = cleanCell(rawValue);
