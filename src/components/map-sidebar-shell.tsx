@@ -5,16 +5,19 @@ import type { StateIntelligence } from "@/lib/state-policy-intelligence";
 import Map from "@/components/map";
 import StateIntelligencePanel from "@/components/state-intelligence-panel";
 import WhatsNew from "@/components/whats-new";
+import type { HomepagePolicyUpdate } from "@/lib/homepage-policies";
 
 type MapSidebarShellProps = {
   statePolicyCounts: Record<string, number>;
   stateIntelligence: Record<string, StateIntelligence>;
+  whatsNewUpdates: HomepagePolicyUpdate[];
   mapFooter?: ReactNode;
 };
 
 export default function MapSidebarShell({
   statePolicyCounts,
   stateIntelligence,
+  whatsNewUpdates,
   mapFooter,
 }: MapSidebarShellProps) {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
@@ -40,7 +43,7 @@ export default function MapSidebarShell({
         id="about"
         className="w-full flex-none md:w-96 md:min-w-[24rem] md:max-w-[24rem] h-full flex flex-col gap-4"
       >
-        {activeState ? <StateIntelligencePanel state={activeState} /> : <WhatsNew />}
+        {activeState ? <StateIntelligencePanel state={activeState} /> : <WhatsNew updates={whatsNewUpdates} />}
       </div>
     </div>
   );

@@ -4,12 +4,17 @@ import {
   getStatePolicyCounts,
   type StateIntelligence,
 } from "@/lib/state-policy-intelligence";
+import type { HomepagePolicyUpdate } from "@/lib/homepage-policies";
 
 type HomeMapSectionProps = {
   stateIntelligence: Record<string, StateIntelligence>;
+  whatsNewUpdates: HomepagePolicyUpdate[];
 };
 
-export default function HomeMapSection({ stateIntelligence }: HomeMapSectionProps) {
+export default function HomeMapSection({
+  stateIntelligence,
+  whatsNewUpdates,
+}: HomeMapSectionProps) {
   const statePolicyCounts = getStatePolicyCounts(stateIntelligence);
 
   const mapFooter = (
@@ -25,6 +30,7 @@ export default function HomeMapSection({ stateIntelligence }: HomeMapSectionProp
       <MapSidebarShell
         stateIntelligence={stateIntelligence}
         statePolicyCounts={statePolicyCounts}
+        whatsNewUpdates={whatsNewUpdates}
         mapFooter={mapFooter}
       />
     </div>

@@ -1,14 +1,15 @@
-import whatsNew from "@/assets/Whats-New.json";
 import HomeMapSection from "@/components/home-map-section";
+import { getHomepagePolicyData } from "@/lib/homepage-policies";
 import {
   getStatePolicyIntelligence,
   getTotalCsvPolicyCount,
 } from "@/lib/state-policy-intelligence";
 
 export default async function Home() {
-  const [stateIntelligence, policyCount] = await Promise.all([
+  const [stateIntelligence, policyCount, homepagePolicyData] = await Promise.all([
     getStatePolicyIntelligence(),
     getTotalCsvPolicyCount(),
+    getHomepagePolicyData({ limit: 5 }),
   ]);
 
   return (
@@ -23,13 +24,16 @@ export default async function Home() {
         </h2>
 
         <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-gray-500 md:absolute md:left-0 md:bottom-[-2rem] md:mt-0">
-          <span>Last updated {whatsNew.lastUpdated}</span>
+          <span>Last updated {homepagePolicyData.lastUpdated}</span>
           <span aria-hidden="true">·</span>
           <span>{policyCount.toLocaleString()} policies tracked</span>
         </div>
       </div>
 
-      <HomeMapSection stateIntelligence={stateIntelligence} />
+      <HomeMapSection
+        stateIntelligence={stateIntelligence}
+        whatsNewUpdates={homepagePolicyData.updates}
+      />
     </>
   );
 }
