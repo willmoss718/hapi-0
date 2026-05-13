@@ -5,10 +5,10 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import whatsNew from "@/assets/Whats-New.json"
 import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 import { FILES } from "@/assets/files"
+import type { HomepagePolicyUpdate } from "@/lib/homepage-policies"
 
 const exploreLinks = [
     ...FILES.map((file) => ({
@@ -21,7 +21,11 @@ const exploreLinks = [
     },
 ]
 
-export default function WhatsNew() {
+type WhatsNewProps = {
+    updates: HomepagePolicyUpdate[]
+}
+
+export default function WhatsNew({ updates }: WhatsNewProps) {
     return (
         <>
             <Carousel className="w-full h-48 rounded-lg border border-gray-200 relative">
@@ -30,7 +34,7 @@ export default function WhatsNew() {
                 </h4>
 
                 <CarouselContent>
-                    {whatsNew.updates.map((item) => (
+                    {updates.map((item) => (
                         <CarouselItem
                             key={item.title}
                             className="w-full h-full px-10 pt-18 flex flex-col gap-4"
@@ -41,7 +45,7 @@ export default function WhatsNew() {
                                 </h5>
                             </Link>
                             <p className="text-sm text-gray-500">
-                                {item.date}
+                                {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
                             </p>
                         </CarouselItem>
                     ))}
