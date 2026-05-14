@@ -27,7 +27,7 @@ const analysisLinks = [
 export default function Nav() {
     const desktopList = (
         <NavigationMenu viewport={false}>
-            <NavigationMenuList className="flex-row justify-end gap-2 items-center">
+            <NavigationMenuList className="flex-row justify-end gap-2 items-center whitespace-nowrap">
                 {FILES.map((file) => (
                     <NavigationMenuItem key={file.path}>
                         <NavigationMenuLink asChild>
@@ -35,6 +35,12 @@ export default function Nav() {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 ))}
+                <NavigationMenuItem
+                    aria-hidden="true"
+                    className="ml-3 lg:ml-5 flex select-none items-center px-1 text-sm opacity-40"
+                >
+                    ·
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                         <Link href="/operational-implications">Operational Implications</Link>
