@@ -114,8 +114,8 @@ export default async function DataPage({
         <div className="mt-8">
           <MapSidebarShell
             compactMap
-            className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_minmax(21rem,0.82fr)] md:items-start md:gap-6"
-            mapColumnClassName="h-full md:min-h-[25rem]"
+            className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_22rem] lg:grid-cols-[minmax(0,1fr)_24rem] md:items-start md:gap-6"
+            mapColumnClassName="md:min-h-[25rem]"
             sidebarClassName="md:w-auto md:min-w-0 md:max-w-none"
             stateIntelligence={stateIntelligence}
             statePolicyCounts={statePolicyCounts}
