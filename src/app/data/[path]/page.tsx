@@ -117,7 +117,7 @@ export default async function DataPage({
             compactMap
             className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_22rem] lg:grid-cols-[minmax(0,1fr)_24rem] md:items-start md:gap-6"
             mapColumnClassName="md:min-h-[25rem]"
-            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none md:-mt-16"
+            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none md:-mt-8"
             stateIntelligence={stateIntelligence}
             statePolicyCounts={statePolicyCounts}
             defaultPanel={<StatePolicyLandscapePanel stats={stateLandscapeStats} />}
