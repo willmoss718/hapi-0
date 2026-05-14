@@ -73,11 +73,11 @@ export default function Map({
       <div
         className={cn(
           "w-full",
-          compact ? "aspect-[2/1]" : "h-full",
+          compact ? "aspect-[1.72/1]" : "h-full",
         )}
       >
         <USAMap
-          className={cn("w-full h-full", compact ? "p-2 md:p-3" : "p-8")}
+          className={cn("w-full h-full", compact ? "p-1 md:p-2" : "p-8")}
           customStates={customStates}
         />
       </div>
