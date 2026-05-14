@@ -44,6 +44,7 @@ export default async function DataPage({
 }) {
   const { path } = await params;
   const { q, t, sk, so } = await searchParams;
+  const isStatePolicies = path === "state-policies";
 
   const csvStr = await getCsvData(path);
   const matchingFile = FILES.find((file) => file.path === path);
@@ -53,9 +54,9 @@ export default async function DataPage({
   }
 
   const csv = await neatCsv(csvStr);
-  const moduleStats = path === "state-policies" ? null : getModuleStats(csv);
+  const moduleStats = isStatePolicies ? null : getModuleStats(csv);
   const stateIntelligence =
-    path === "state-policies" ? await getStatePolicyIntelligence() : null;
+    isStatePolicies ? await getStatePolicyIntelligence() : null;
   const statePolicyCounts = stateIntelligence
     ? getStatePolicyCounts(stateIntelligence)
     : null;
@@ -110,59 +111,61 @@ export default async function DataPage({
           </div>
         )}
       </div>
-      {path === "state-policies" && stateIntelligence && statePolicyCounts && stateLandscapeStats && (
+      {isStatePolicies && stateIntelligence && statePolicyCounts && stateLandscapeStats && (
         <div className="mt-8">
           <MapSidebarShell
             compactMap
             className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_22rem] lg:grid-cols-[minmax(0,1fr)_24rem] md:items-start md:gap-6"
             mapColumnClassName="md:min-h-[25rem]"
-            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none"
+            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none md:-mt-16"
             stateIntelligence={stateIntelligence}
             statePolicyCounts={statePolicyCounts}
             defaultPanel={<StatePolicyLandscapePanel stats={stateLandscapeStats} />}
           />
         </div>
       )}
-      <Filters availableTags={tags} />
-      {path === "state-policies" && <SelectedStateNotice />}
-      <Table className="w-full my-12 border shadow">
-        <SortableHeader validKeys={validKeys} />
-        <TableBody>
-          {sortedCsv.map((row, index) =>
-            rowMatchesFilters(row, { q, t }, tagKeys) ? (
-              <ExpandableRow
-                key={index}
-                className="relative"
-                stateAnchor={path === "state-policies" ? String(row.State ?? "").trim() : undefined}
-                expandedContent={<PolicyPreview data={row} />}
-              >
-                {Object.entries(row).map(([key, value], colIndex) =>
-                  colIndex === 1 ? (
-                    <ExpandableTaggedCell
-                      key={key}
-                      value={value}
-                      row={row}
-                      tagKeys={tagKeys}
-                    />
-                  ) : validKeys.includes(key) ? (
-                    <CustomCell
-                      includeId={colIndex === 0}
-                      key={key}
-                      value={value}
-                    />
-                  ) : null,
-                )}
-              </ExpandableRow>
-            ) : null,
-          )}
-        </TableBody>
-      </Table>
-      {path === "state-policies" && (
-        <p className="text-base text-gray-700 italic mt-1 mb-3 pl-4">
-          <span className="text-gray-800 font-semibold">*</span>{" "}
-          Some policies have multiple effective dates; only one primary date is displayed here.
-        </p>
-      )}
+      <div className={isStatePolicies ? "-mt-12 md:-mt-14" : ""}>
+        <Filters availableTags={tags} />
+        {isStatePolicies && <SelectedStateNotice />}
+        <Table className="w-full my-12 border shadow">
+          <SortableHeader validKeys={validKeys} />
+          <TableBody>
+            {sortedCsv.map((row, index) =>
+              rowMatchesFilters(row, { q, t }, tagKeys) ? (
+                <ExpandableRow
+                  key={index}
+                  className="relative"
+                  stateAnchor={isStatePolicies ? String(row.State ?? "").trim() : undefined}
+                  expandedContent={<PolicyPreview data={row} />}
+                >
+                  {Object.entries(row).map(([key, value], colIndex) =>
+                    colIndex === 1 ? (
+                      <ExpandableTaggedCell
+                        key={key}
+                        value={value}
+                        row={row}
+                        tagKeys={tagKeys}
+                      />
+                    ) : validKeys.includes(key) ? (
+                      <CustomCell
+                        includeId={colIndex === 0}
+                        key={key}
+                        value={value}
+                      />
+                    ) : null,
+                  )}
+                </ExpandableRow>
+              ) : null,
+            )}
+          </TableBody>
+        </Table>
+        {isStatePolicies && (
+          <p className="text-base text-gray-700 italic mt-1 mb-3 pl-4">
+            <span className="text-gray-800 font-semibold">*</span>{" "}
+            Some policies have multiple effective dates; only one primary date is displayed here.
+          </p>
+        )}
+      </div>
     </>
   );
 }
