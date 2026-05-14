@@ -34,12 +34,14 @@ export default function StatePolicyLandscapePanel({
         <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
           Policies
         </p>
-        <p className="mt-1 text-2xl font-semibold leading-none text-gray-950">
-          {stats.totalPolicies.toLocaleString()}
-          <span className="ml-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            ({stats.highImpactPolicies.toLocaleString()} high impact)
+        <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-gray-600">
+          <span className="text-2xl leading-none text-gray-950">
+            {stats.totalPolicies.toLocaleString()}
           </span>
-        </p>
+          <span>policies</span>
+          <span aria-hidden="true">·</span>
+          <span>{stats.highImpactPolicies.toLocaleString()} high impact</span>
+        </div>
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-2">
