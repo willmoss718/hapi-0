@@ -64,13 +64,20 @@ export default function Map({
 
   return (
     <div
-      className="w-full h-full overflow-hidden rounded-lg border border-gray-200"
+      className="w-full overflow-hidden rounded-lg border border-gray-200"
       onMouseLeave={() => onStateHover?.(null)}
     >
-      <USAMap
-        className={cn("w-full h-full", compact ? "p-4 md:p-5" : "p-8")}
-        customStates={customStates}
-      />
+      <div
+        className={cn(
+          "w-full",
+          compact ? "aspect-[1.8/1]" : "aspect-[1.85/1] md:aspect-[1.95/1]",
+        )}
+      >
+        <USAMap
+          className={cn("w-full h-full", compact ? "p-4 md:p-5" : "p-8")}
+          customStates={customStates}
+        />
+      </div>
       <legend
         className={cn(
           "flex flex-col justify-start items-start gap-1 border-t border-gray-200",
