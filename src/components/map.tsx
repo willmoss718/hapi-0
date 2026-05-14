@@ -45,7 +45,8 @@ export default function Map({
       states[state] = {
         fill: isHovered ? getHoveredFill(baseFill) : baseFill,
         stroke: isHovered ? "#111827" : "#ffffff",
-        strokeWidth: isHovered ? 2.25 : 1,
+        // Keep stroke width fixed so hover never changes map geometry.
+        strokeWidth: 1.5,
         onHover: () => onStateHover?.(state),
         onLeave: () => onStateHover?.(null),
         tooltip: { enabled: false },
