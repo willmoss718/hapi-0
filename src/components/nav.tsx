@@ -28,18 +28,12 @@ export default function Nav() {
     const desktopList = (
         <NavigationMenu viewport={false}>
             <NavigationMenuList className="flex-row justify-end gap-2 items-center whitespace-nowrap">
-                {FILES.map((file) => (
-                    <NavigationMenuItem key={file.path}>
-                        <NavigationMenuLink asChild>
+                <NavigationMenuItem className="mr-2 flex items-center gap-1 rounded-full border border-slate-200/70 bg-slate-50/60 px-1.5 py-0.5">
+                    {FILES.map((file) => (
+                        <NavigationMenuLink asChild key={file.path}>
                             <Link href={`/data/${file.path}`}>{file.navName}</Link>
                         </NavigationMenuLink>
-                    </NavigationMenuItem>
-                ))}
-                <NavigationMenuItem
-                    aria-hidden="true"
-                    className="ml-3 lg:ml-5 flex select-none items-center px-1 text-sm opacity-40"
-                >
-                    ·
+                    ))}
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
@@ -47,7 +41,7 @@ export default function Nav() {
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger className="h-auto bg-transparent px-2 py-2">
+                    <NavigationMenuTrigger className="h-auto bg-transparent px-2 py-2 font-normal">
                         Analysis
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="z-50 w-56">
