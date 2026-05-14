@@ -16,7 +16,7 @@ const exploreLinks = [
         path: `/data/${file.path}`,
     })),
     {
-        name: "AI Policy Overview",
+        name: "Analysis",
         path: "/ai-healthcare-policy",
     },
 ]
