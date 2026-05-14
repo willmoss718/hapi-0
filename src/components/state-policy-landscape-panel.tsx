@@ -58,9 +58,10 @@ export default function StatePolicyLandscapePanel({
         </h4>
         <div className="mt-2 divide-y divide-gray-100 border-y border-gray-100">
           {stats.mostActiveStates.map((state, index) => (
-            <div
+            <Link
               key={state.code}
-              className="flex items-center justify-between gap-3 py-2.5"
+              href={`/data/state-policies?sk=State&so=asc#${state.code}`}
+              className="flex items-center justify-between gap-3 py-2.5 transition-colors hover:bg-gray-50"
             >
               <div className="flex min-w-0 items-center gap-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-gray-100 text-xs font-semibold text-gray-600">
@@ -73,7 +74,7 @@ export default function StatePolicyLandscapePanel({
               <p className="shrink-0 text-sm font-semibold text-gray-950">
                 {state.totalPolicies.toLocaleString()}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
