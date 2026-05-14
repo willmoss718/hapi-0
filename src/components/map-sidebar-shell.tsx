@@ -41,6 +41,7 @@ export default function MapSidebarShell({
   const fallbackPanel = defaultPanel ?? (
     whatsNewUpdates ? <WhatsNew updates={whatsNewUpdates} /> : null
   );
+  const preserveStaticSidebarHeight = Boolean(defaultPanel && fallbackPanel);
 
   return (
     <div className={cn("flex flex-col items-start gap-6 pr-8 md:flex-row md:gap-8", className)}>
@@ -61,7 +62,20 @@ export default function MapSidebarShell({
           sidebarClassName,
         )}
       >
-        {activeState ? <StateIntelligencePanel state={activeState} /> : fallbackPanel}
+        {preserveStaticSidebarHeight ? (
+          <div className="relative">
+            <div className={cn(activeState ? "invisible" : "")}>{fallbackPanel}</div>
+            {activeState && (
+              <div className="absolute inset-0">
+                <StateIntelligencePanel state={activeState} />
+              </div>
+            )}
+          </div>
+        ) : activeState ? (
+          <StateIntelligencePanel state={activeState} />
+        ) : (
+          fallbackPanel
+        )}
       </div>
     </div>
   );
