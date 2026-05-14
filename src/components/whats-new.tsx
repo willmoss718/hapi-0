@@ -37,16 +37,16 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
                     {updates.map((item) => (
                         <CarouselItem
                             key={item.title}
-                            className="relative w-full h-full px-10 pt-15 pb-4 flex flex-col gap-2"
+                            className="w-full h-full px-10 pt-15 pb-4 flex flex-col gap-2"
                         >
-                            <p className="absolute right-10 top-6 text-xs font-medium text-gray-500">
-                                {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
-                            </p>
                             <Link href={item.path}>
                                 <h5 className="leading-snug hover:underline line-clamp-2">
                                     {item.title}
                                 </h5>
                             </Link>
+                            <p className="text-xs font-medium text-gray-500">
+                                {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
+                            </p>
                         </CarouselItem>
                     ))}
                 </CarouselContent>
