@@ -30,10 +30,16 @@ export default function StatePolicyLandscapePanel({
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2">
-        <MetricTile label="Policies" value={stats.totalPolicies} />
-        <MetricTile label="States" value={stats.statesWithPolicies} />
-        <MetricTile label="High Impact" value={stats.highImpactPolicies} />
+      <div className="mt-4 rounded-md bg-gray-50 px-3 py-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
+          Policies
+        </p>
+        <p className="mt-1 text-2xl font-semibold leading-none text-gray-950">
+          {stats.totalPolicies.toLocaleString()}
+          <span className="ml-2 text-sm font-semibold uppercase tracking-wide text-gray-500">
+            ({stats.highImpactPolicies.toLocaleString()} high impact)
+          </span>
+        </p>
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-2">
@@ -87,19 +93,6 @@ export default function StatePolicyLandscapePanel({
         <ArrowRightIcon className="h-4 w-4 shrink-0" />
       </Link>
     </aside>
-  );
-}
-
-function MetricTile({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="rounded-md bg-gray-50 px-3 py-3">
-      <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
-        {label}
-      </p>
-      <p className="mt-1 text-2xl font-semibold leading-none text-gray-950">
-        {value.toLocaleString()}
-      </p>
-    </div>
   );
 }
 
