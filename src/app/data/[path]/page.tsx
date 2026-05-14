@@ -124,7 +124,7 @@ export default async function DataPage({
           />
         </div>
       )}
-      <div className={isStatePolicies ? "mt-2 md:mt-3" : ""}>
+      <div className={isStatePolicies ? "-mt-6 md:-mt-8" : ""}>
         <Filters availableTags={tags} />
         {isStatePolicies && <SelectedStateNotice />}
         <Table className="w-full my-12 border shadow">
