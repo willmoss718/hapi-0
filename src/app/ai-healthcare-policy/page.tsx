@@ -4,7 +4,6 @@ import { ArrowRightIcon } from "lucide-react";
 type ExploreLink = {
   name: string;
   path: string;
-  emphasized?: boolean;
 };
 
 const exploreSections: Array<{ label: string; links: ExploreLink[] }> = [
@@ -21,7 +20,7 @@ const exploreSections: Array<{ label: string; links: ExploreLink[] }> = [
   {
     label: "Operational Layer",
     links: [
-      { name: "Operational Implications", path: "/operational-implications", emphasized: true },
+      { name: "Operational Implications", path: "/operational-implications" },
     ],
   },
   {
@@ -96,7 +95,7 @@ export default function AIHealthcarePolicyPage() {
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`group flex min-h-11 items-center justify-between px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50 ${item.emphasized ? "bg-emerald-50/60" : ""}`}
+                  className="group flex min-h-11 items-center justify-between px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50"
                 >
                   <span className="text-black">{item.name}</span>
                   <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-800" />
