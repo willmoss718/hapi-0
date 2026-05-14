@@ -4,7 +4,6 @@ import { FILES } from "@/assets/files";
 import neatCsv, { Row } from "neat-csv";
 import { redirect } from "next/navigation";
 // import path from 'path';
-import ServerMap from "@/components/server-map";
 import {
   Table,
   TableBody,
@@ -26,6 +25,13 @@ import PolicyPreview from "@/components/policy-preview";
 import SelectedStateNotice from "@/components/selected-state-notice";
 import ModuleStatsCard from "@/components/module-stats-card";
 import { getModuleStats } from "@/lib/module-stats";
+import MapSidebarShell from "@/components/map-sidebar-shell";
+import StatePolicyLandscapePanel from "@/components/state-policy-landscape-panel";
+import {
+  getStatePolicyCounts,
+  getStatePolicyIntelligence,
+  getStatePolicyLandscapeStats,
+} from "@/lib/state-policy-intelligence";
 
 const HIDDEN_KEYS = ["Summary", "Healthcare Implications", "Taxonomy Rules", "Specific Implications", "Corrections"];
 
@@ -48,6 +54,14 @@ export default async function DataPage({
 
   const csv = await neatCsv(csvStr);
   const moduleStats = path === "state-policies" ? null : getModuleStats(csv);
+  const stateIntelligence =
+    path === "state-policies" ? await getStatePolicyIntelligence() : null;
+  const statePolicyCounts = stateIntelligence
+    ? getStatePolicyCounts(stateIntelligence)
+    : null;
+  const stateLandscapeStats = stateIntelligence
+    ? getStatePolicyLandscapeStats(stateIntelligence)
+    : null;
   const tagKeys = Object.keys(csv[0]).filter((key) =>
     key.trim().endsWith("Tags") || key === "Impact Level",
   );
@@ -96,11 +110,17 @@ export default async function DataPage({
           </div>
         )}
       </div>
-      {path === "state-policies" && (
-        <div id="map" className="w-full h-full mt-12 flex flex-row justify-center items-center">
-          <div className="w-full h-full max-w-5xl">
-            <ServerMap />
-          </div>
+      {path === "state-policies" && stateIntelligence && statePolicyCounts && stateLandscapeStats && (
+        <div className="mt-8">
+          <MapSidebarShell
+            compactMap
+            className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_minmax(21rem,0.82fr)] md:items-start md:gap-6"
+            mapColumnClassName="h-full md:min-h-[25rem]"
+            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none"
+            stateIntelligence={stateIntelligence}
+            statePolicyCounts={statePolicyCounts}
+            defaultPanel={<StatePolicyLandscapePanel stats={stateLandscapeStats} />}
+          />
         </div>
       )}
       <Filters availableTags={tags} />

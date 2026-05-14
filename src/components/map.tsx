@@ -5,6 +5,7 @@ import mapData from "@/assets/Map-Data.json";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 type CustomState = {
   fill?: string;
@@ -23,9 +24,15 @@ type MapProps = {
   statePolicyCounts: Record<string, number>;
   hoveredState?: string | null;
   onStateHover?: (state: string | null) => void;
+  compact?: boolean;
 };
 
-export default function Map({ statePolicyCounts, hoveredState, onStateHover }: MapProps) {
+export default function Map({
+  statePolicyCounts,
+  hoveredState,
+  onStateHover,
+  compact = false,
+}: MapProps) {
   const router = useRouter();
 
   const customStates = useMemo(() => {
@@ -59,16 +66,37 @@ export default function Map({ statePolicyCounts, hoveredState, onStateHover }: M
       className="w-full h-full overflow-hidden rounded-lg border border-gray-200"
       onMouseLeave={() => onStateHover?.(null)}
     >
-      <USAMap className="w-full h-full p-8" customStates={customStates} />
-      <legend className="flex flex-col justify-start items-start gap-1 p-8 border-t border-gray-200">
+      <USAMap
+        className={cn("w-full h-full", compact ? "p-4 md:p-5" : "p-8")}
+        customStates={customStates}
+      />
+      <legend
+        className={cn(
+          "flex flex-col justify-start items-start gap-1 border-t border-gray-200",
+          compact ? "p-4 text-sm" : "p-8",
+        )}
+      >
         <h3 className="uppercase font-medium tracking-wide">Explore by State</h3>
-        <div className="flex flex-row justify-start items-center gap-2">
-          <div className="w-4 h-4 bg-green-500"></div>
-          <p>State Law(s) Present</p>
-          <div className="w-4 h-4 bg-blue-500"></div>
-          <p>State Policies, No Law</p>
-          <div className="w-4 h-4 bg-[#D3D3D3]"></div>
-          <p>No State Policies</p>
+        <div
+          className={cn(
+            "flex justify-start gap-2",
+            compact
+              ? "flex-col items-start text-xs sm:flex-row sm:flex-wrap sm:items-center"
+              : "flex-row items-center",
+          )}
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-green-500"></div>
+            <p>State Law(s) Present</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-blue-500"></div>
+            <p>State Policies, No Law</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#D3D3D3]"></div>
+            <p>No State Policies</p>
+          </div>
         </div>
       </legend>
     </div>
