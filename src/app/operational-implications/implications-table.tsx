@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Table2,
-  Map as MapIcon,
   Check,
   X,
   ChevronRight,
@@ -25,6 +23,59 @@ const GROUP_NAMES: Record<string, string> = {
   PR: "Individual Rights Regarding AI",
   P: "Required AI Governance Procedures",
   G: "Legislative Governance Actions",
+};
+
+const STATE_NAMES: Record<string, string> = {
+  AK: "Alaska",
+  AL: "Alabama",
+  AR: "Arkansas",
+  AZ: "Arizona",
+  CA: "California",
+  CO: "Colorado",
+  CT: "Connecticut",
+  DE: "Delaware",
+  FL: "Florida",
+  GA: "Georgia",
+  HI: "Hawaii",
+  IA: "Iowa",
+  ID: "Idaho",
+  IL: "Illinois",
+  IN: "Indiana",
+  KS: "Kansas",
+  KY: "Kentucky",
+  LA: "Louisiana",
+  MA: "Massachusetts",
+  MD: "Maryland",
+  ME: "Maine",
+  MI: "Michigan",
+  MN: "Minnesota",
+  MO: "Missouri",
+  MS: "Mississippi",
+  MT: "Montana",
+  NC: "North Carolina",
+  ND: "North Dakota",
+  NE: "Nebraska",
+  NH: "New Hampshire",
+  NJ: "New Jersey",
+  NM: "New Mexico",
+  NV: "Nevada",
+  NY: "New York",
+  OH: "Ohio",
+  OK: "Oklahoma",
+  OR: "Oregon",
+  PA: "Pennsylvania",
+  RI: "Rhode Island",
+  SC: "South Carolina",
+  SD: "South Dakota",
+  TN: "Tennessee",
+  TX: "Texas",
+  UT: "Utah",
+  VA: "Virginia",
+  VT: "Vermont",
+  WA: "Washington",
+  WI: "Wisconsin",
+  WV: "West Virginia",
+  WY: "Wyoming",
 };
 
 export type PolicyMatch = {
@@ -50,7 +101,10 @@ function getRulePrefix(rule: string): string {
 }
 
 type ColSort = { kind: "rule" | "group"; key: string } | null;
-type SelectedCell = { rule: string; state: string } | null;
+type SelectedCell =
+  | { kind: "rule"; rule: string; state: string }
+  | { kind: "group"; prefix: string; state: string }
+  | null;
 
 interface Props {
   rules: string[];
@@ -66,7 +120,6 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
     : null;
   const initialGroup = initialRule ? getRulePrefix(initialRule) : null;
 
-  const [view, setView] = useState<"table" | "map">("table");
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
     initialGroup ? new Set([initialGroup]) : new Set()
   );
@@ -149,46 +202,39 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
   };
 
   const modalPolicies =
-    selectedCell ? (policyDetails[selectedCell.rule]?.[selectedCell.state] ?? []) : [];
-  const [modalRuleCode, ...modalDescParts] = (selectedCell?.rule ?? "").split(":");
+    selectedCell?.kind === "rule" ? (policyDetails[selectedCell.rule]?.[selectedCell.state] ?? []) : [];
+  const [modalRuleCode, ...modalDescParts] =
+    selectedCell?.kind === "rule" ? selectedCell.rule.split(":") : [""];
   const modalRuleDesc = modalDescParts.join(":").trim();
+  const modalState = selectedCell?.state ?? "";
+  const modalStateLabel = modalState
+    ? `${STATE_NAMES[modalState] ?? modalState} (${modalState})`
+    : "";
+  const selectedGroupRules =
+    selectedCell?.kind === "group"
+      ? getRulesForGroup(selectedCell.prefix).filter((rule) =>
+          (matrix[rule] ?? []).includes(selectedCell.state),
+        )
+      : [];
+  const selectedGroupPolicies =
+    selectedCell?.kind === "group"
+      ? getAggregatedPolicies(selectedGroupRules, selectedCell.state, policyDetails)
+      : [];
 
   return (
     <div>
-      <div className="flex gap-2 mb-6 items-center justify-between">
-        <div className="flex gap-2">
-          <Button
-            variant={view === "table" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setView("table")}
-          >
-            <Table2 className="w-4 h-4 mr-2" />
-            Table
-          </Button>
-          <Button
-            variant={view === "map" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setView("map")}
-          >
-            <MapIcon className="w-4 h-4 mr-2" />
-            Map
-          </Button>
-        </div>
-        {view === "table" && (
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-muted-foreground">
+          Expand categories to view detailed operational requirements. Click a checkmarked cell to see the policies behind that state/category match.
+        </p>
+        <div className="shrink-0">
           <Button variant="outline" size="sm" onClick={toggleAll}>
             {allExpanded ? "Collapse All" : "Expand All"}
           </Button>
-        )}
+        </div>
       </div>
 
-      {view === "table" && (
-        <p className="text-sm text-muted-foreground mb-4">
-          Expand each category to view detailed rules, then click on a cell with a checkmark to read more about how that state implements the general rule in their policy.
-        </p>
-      )}
-
-      {view === "table" ? (
-        <div className="overflow-x-auto border rounded-lg shadow-sm">
+      <div className="overflow-x-auto border rounded-lg shadow-sm">
           <table className="text-sm border-collapse min-w-max w-full">
             <thead>
               <tr className="bg-gray-100 border-b">
@@ -266,8 +312,9 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                         return (
                           <td
                             key={state}
-                            className="px-1 py-3 text-center"
+                            className={`px-1 py-3 text-center transition-colors ${hasCheck ? "cursor-pointer hover:brightness-95" : ""}`}
                             style={{ backgroundColor: bg }}
+                            onClick={() => hasCheck && setSelectedCell({ kind: "group", prefix, state })}
                           >
                             {hasCheck ? (
                               <Check className="w-3.5 h-3.5 text-green-600 mx-auto" strokeWidth={2.5} />
@@ -280,7 +327,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                     </tr>
 
                     {isExpanded &&
-                      groupRules.map((rule, i) => {
+                      groupRules.map((rule) => {
                         const statesWithRule = new Set(matrix[rule]);
                         const count = states.filter((s) => statesWithRule.has(s)).length;
                         const pct = Math.round((count / states.length) * 100);
@@ -321,7 +368,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                                   key={state}
                                   className={`px-1 py-3 text-center transition-colors ${hasRule ? "cursor-pointer hover:brightness-95" : ""}`}
                                   style={{ backgroundColor: bg }}
-                                  onClick={() => hasRule && setSelectedCell({ rule, state })}
+                                  onClick={() => hasRule && setSelectedCell({ kind: "rule", rule, state })}
                                 >
                                   {hasRule ? (
                                     <Check className="w-3.5 h-3.5 text-green-600 mx-auto" strokeWidth={2.5} />
@@ -339,12 +386,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
               })}
             </tbody>
           </table>
-        </div>
-      ) : (
-        <div className="flex items-center justify-center h-64 border rounded-lg text-muted-foreground">
-          Map view coming soon
-        </div>
-      )}
+      </div>
 
       {/* Policy detail modal */}
       {selectedCell && (
@@ -361,12 +403,21 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">
-                    {selectedCell.state}
+                    {modalStateLabel}
                   </p>
-                  <h2 className="font-semibold text-base leading-snug">
-                    <span className="mr-1">{modalRuleCode.trim()}</span>
-                    <span className="text-muted-foreground font-normal">— {modalRuleDesc}</span>
-                  </h2>
+                  {selectedCell.kind === "group" ? (
+                    <h2 className="font-semibold text-base leading-snug">
+                      <span className="mr-1">{selectedCell.prefix}</span>
+                      <span className="text-muted-foreground font-normal">
+                        — {GROUP_NAMES[selectedCell.prefix]}
+                      </span>
+                    </h2>
+                  ) : (
+                    <h2 className="font-semibold text-base leading-snug">
+                      <span className="mr-1">{modalRuleCode.trim()}</span>
+                      <span className="text-muted-foreground font-normal">— {modalRuleDesc}</span>
+                    </h2>
+                  )}
                 </div>
                 <button
                   className="text-muted-foreground hover:text-foreground shrink-0 mt-0.5"
@@ -379,41 +430,151 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
 
             {/* Body */}
             <div className="overflow-y-auto px-6 py-4 space-y-6">
-              {modalPolicies.map((policy, i) => (
-                <div key={i} className="space-y-3">
-                  <div className="flex items-start gap-2">
-                    {policy.link ? (
-                      <Link
-                        href={`/policies/${encodeURIComponent(policy.name)}`}
-                        className="font-medium text-sm underline underline-offset-2 hover:text-muted-foreground leading-snug"
-                        onClick={() => setSelectedCell(null)}
-                      >
-                        {policy.name}
-                      </Link>
-                    ) : (
-                      <span className="font-medium text-sm leading-snug">{policy.name}</span>
-                    )}
-                    {policy.link && (
-                      <a
-                        href={policy.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground shrink-0 mt-0.5"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
+              {selectedCell.kind === "group" && (
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      Matching subcategories
+                    </h3>
+                    <div className="mt-2 space-y-2">
+                      {selectedGroupRules.map((rule) => {
+                        const [ruleCode, ...descParts] = rule.split(":");
+                        return (
+                          <div key={rule} className="text-sm leading-snug">
+                            <span className="font-semibold">{ruleCode.trim()}</span>
+                            <span className="text-muted-foreground">
+                              {" "}— {descParts.join(":").trim()}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
+                  <hr />
+                </div>
+              )}
+
+              {(selectedCell.kind === "group" ? selectedGroupPolicies : modalPolicies).map((policy, i, policies) => (
+                <div key={`${policy.name}-${policy.link}-${i}`} className="space-y-3">
+                  <PolicyLink policy={policy} onNavigate={() => setSelectedCell(null)} />
+                  {isAggregatedPolicy(policy) && (
+                    <div className="space-y-1.5">
+                      {policy.matchedRules.map((match) => (
+                        <div key={`${match.code}-${match.specificImplication ?? ""}`} className="text-xs text-muted-foreground">
+                          <span className="font-semibold text-gray-700">{match.code}</span>
+                          <span> — {match.description}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   {policy.specificImplication && (
                     <p className="text-sm text-gray-700">{policy.specificImplication}</p>
                   )}
-                  {i < modalPolicies.length - 1 && <hr className="mt-4" />}
+                  {isAggregatedPolicy(policy) &&
+                    policy.matchedRules
+                      .filter((match) => match.specificImplication)
+                      .map((match) => (
+                        <p key={`${match.code}-note`} className="text-sm text-gray-700">
+                          <span className="font-medium">{match.code}:</span>{" "}
+                          {match.specificImplication}
+                        </p>
+                      ))}
+                  {i < policies.length - 1 && <hr className="mt-4" />}
                 </div>
               ))}
             </div>
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+type AggregatedPolicyMatch = PolicyMatch & {
+  matchedRules: Array<{
+    code: string;
+    description: string;
+    specificImplication: string | null;
+  }>;
+};
+
+function isAggregatedPolicy(policy: PolicyMatch | AggregatedPolicyMatch): policy is AggregatedPolicyMatch {
+  return "matchedRules" in policy;
+}
+
+function getAggregatedPolicies(
+  rules: string[],
+  state: string,
+  policyDetails: Record<string, Record<string, PolicyMatch[]>>,
+) {
+  const policies = new Map<string, AggregatedPolicyMatch>();
+
+  for (const rule of rules) {
+    const [ruleCode, ...descParts] = rule.split(":");
+    const code = ruleCode.trim();
+    const description = descParts.join(":").trim();
+
+    for (const policy of policyDetails[rule]?.[state] ?? []) {
+      const key = `${policy.name}|${policy.link}`;
+      const existing =
+        policies.get(key) ??
+        {
+          ...policy,
+          specificImplication: null,
+          matchedRules: [],
+        };
+
+      if (
+        !existing.matchedRules.some(
+          (match) =>
+            match.code === code &&
+            match.specificImplication === policy.specificImplication,
+        )
+      ) {
+        existing.matchedRules.push({
+          code,
+          description,
+          specificImplication: policy.specificImplication,
+        });
+      }
+
+      policies.set(key, existing);
+    }
+  }
+
+  return [...policies.values()];
+}
+
+function PolicyLink({
+  policy,
+  onNavigate,
+}: {
+  policy: PolicyMatch;
+  onNavigate: () => void;
+}) {
+  return (
+    <div className="flex items-start gap-2">
+      {policy.name ? (
+        <Link
+          href={`/policies/${encodeURIComponent(policy.name)}`}
+          className="font-medium text-sm underline underline-offset-2 hover:text-muted-foreground leading-snug"
+          onClick={onNavigate}
+        >
+          {policy.name}
+        </Link>
+      ) : (
+        <span className="font-medium text-sm leading-snug">Policy</span>
+      )}
+      {policy.link && (
+        <a
+          href={policy.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-foreground shrink-0 mt-0.5"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
       )}
     </div>
   );
