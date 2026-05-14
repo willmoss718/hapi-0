@@ -6,19 +6,30 @@ import Map from "@/components/map";
 import StateIntelligencePanel from "@/components/state-intelligence-panel";
 import WhatsNew from "@/components/whats-new";
 import type { HomepagePolicyUpdate } from "@/lib/homepage-policies";
+import { cn } from "@/lib/utils";
 
 type MapSidebarShellProps = {
   statePolicyCounts: Record<string, number>;
   stateIntelligence: Record<string, StateIntelligence>;
-  whatsNewUpdates: HomepagePolicyUpdate[];
+  whatsNewUpdates?: HomepagePolicyUpdate[];
+  defaultPanel?: ReactNode;
   mapFooter?: ReactNode;
+  compactMap?: boolean;
+  className?: string;
+  mapColumnClassName?: string;
+  sidebarClassName?: string;
 };
 
 export default function MapSidebarShell({
   statePolicyCounts,
   stateIntelligence,
   whatsNewUpdates,
+  defaultPanel,
   mapFooter,
+  compactMap = false,
+  className,
+  mapColumnClassName,
+  sidebarClassName,
 }: MapSidebarShellProps) {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
 
@@ -27,11 +38,15 @@ export default function MapSidebarShell({
   }, []);
 
   const activeState = hoveredState ? stateIntelligence[hoveredState] : null;
+  const fallbackPanel = defaultPanel ?? (
+    whatsNewUpdates ? <WhatsNew updates={whatsNewUpdates} /> : null
+  );
 
   return (
-    <div className="flex flex-col items-start gap-6 pr-8 md:flex-row md:gap-8">
-      <div id="map" className="w-full min-w-0 flex-1 h-full">
+    <div className={cn("flex flex-col items-start gap-6 pr-8 md:flex-row md:gap-8", className)}>
+      <div id="map" className={cn("w-full min-w-0 flex-1 h-full", mapColumnClassName)}>
         <Map
+          compact={compactMap}
           hoveredState={hoveredState}
           statePolicyCounts={statePolicyCounts}
           onStateHover={handleStateHover}
@@ -41,9 +56,12 @@ export default function MapSidebarShell({
 
       <div
         id="about"
-        className="w-full flex-none md:w-96 md:min-w-[24rem] md:max-w-[24rem] h-full flex flex-col gap-4"
+        className={cn(
+          "w-full flex-none md:w-96 md:min-w-[24rem] md:max-w-[24rem] h-full flex flex-col gap-4",
+          sidebarClassName,
+        )}
       >
-        {activeState ? <StateIntelligencePanel state={activeState} /> : <WhatsNew updates={whatsNewUpdates} />}
+        {activeState ? <StateIntelligencePanel state={activeState} /> : fallbackPanel}
       </div>
     </div>
   );

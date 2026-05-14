@@ -15,9 +15,30 @@ export type StateIntelligence = {
   totalPolicies: number;
   highImpactPolicies: number;
   firstPolicyDate: string | null;
+  firstPolicyTimestamp: number | null;
   latestPolicyDate: string | null;
+  latestPolicyTimestamp: number | null;
   recentPolicies: StatePolicyPreview[];
   operationalImplications: string[];
+};
+
+export type StatePolicyLandscapeStats = {
+  totalPolicies: number;
+  statesWithPolicies: number;
+  highImpactPolicies: number;
+  firstPolicy: string | null;
+  mostRecentPolicy: string | null;
+  topOperationalAreas: {
+    label: string;
+    fullLabel: string;
+    stateCount: number;
+    percentage: number;
+  }[];
+  mostActiveStates: {
+    code: string;
+    name: string;
+    totalPolicies: number;
+  }[];
 };
 
 type CsvRow = Record<string, string | undefined>;
@@ -134,7 +155,9 @@ export async function getStatePolicyIntelligence() {
 
   for (const code of Object.keys(summaries)) {
     summaries[code].firstPolicyDate = earliestDates[code]?.label || null;
+    summaries[code].firstPolicyTimestamp = earliestDates[code]?.timestamp ?? null;
     summaries[code].latestPolicyDate = latestDates[code]?.label || null;
+    summaries[code].latestPolicyTimestamp = latestDates[code]?.timestamp ?? null;
     summaries[code].recentPolicies = (policyBuckets[code] || [])
       .sort((a, b) => (b.timestamp ?? -1) - (a.timestamp ?? -1))
       .slice(0, 5);
@@ -145,6 +168,51 @@ export async function getStatePolicyIntelligence() {
   }
 
   return summaries;
+}
+
+export function getStatePolicyLandscapeStats(
+  stateIntelligence: Record<string, StateIntelligence>,
+): StatePolicyLandscapeStats {
+  const states = Object.values(stateIntelligence);
+  const datedFirstPolicies = states.filter(
+    (state) => state.firstPolicyTimestamp !== null,
+  );
+  const datedRecentPolicies = states.filter(
+    (state) => state.latestPolicyTimestamp !== null,
+  );
+  const firstPolicy = datedFirstPolicies.sort(
+    (a, b) => (a.firstPolicyTimestamp ?? 0) - (b.firstPolicyTimestamp ?? 0),
+  )[0];
+  const mostRecentPolicy = datedRecentPolicies.sort(
+    (a, b) => (b.latestPolicyTimestamp ?? 0) - (a.latestPolicyTimestamp ?? 0),
+  )[0];
+
+  return {
+    totalPolicies: states.reduce((sum, state) => sum + state.totalPolicies, 0),
+    statesWithPolicies: states.filter((state) => state.totalPolicies > 0).length,
+    highImpactPolicies: states.reduce(
+      (sum, state) => sum + state.highImpactPolicies,
+      0,
+    ),
+    firstPolicy: firstPolicy?.firstPolicyDate ?? null,
+    mostRecentPolicy: mostRecentPolicy?.latestPolicyDate ?? null,
+    topOperationalAreas: getTopOperationalAreas(states),
+    mostActiveStates: states
+      .filter((state) => state.totalPolicies > 0)
+      .sort((a, b) => {
+        if (b.totalPolicies !== a.totalPolicies) {
+          return b.totalPolicies - a.totalPolicies;
+        }
+
+        return a.name.localeCompare(b.name);
+      })
+      .slice(0, 3)
+      .map((state) => ({
+        code: state.code,
+        name: state.name,
+        totalPolicies: state.totalPolicies,
+      })),
+  };
 }
 
 export function getStatePolicyCounts(stateIntelligence: Record<string, StateIntelligence>) {
@@ -170,7 +238,9 @@ function createEmptyStateSummaries() {
         totalPolicies: 0,
         highImpactPolicies: 0,
         firstPolicyDate: null,
+        firstPolicyTimestamp: null,
         latestPolicyDate: null,
+        latestPolicyTimestamp: null,
         recentPolicies: [],
         operationalImplications: [],
       } satisfies StateIntelligence,
@@ -190,6 +260,28 @@ function normalizeColumnName(value: string) {
 
 function cleanCell(value: string | undefined) {
   return (value || "").trim();
+}
+
+function getTopOperationalAreas(states: StateIntelligence[]) {
+  return Object.values(OPERATIONAL_CATEGORY_NAMES)
+    .map((category) => {
+      const stateCount = states.filter((state) =>
+        state.operationalImplications.includes(category),
+      ).length;
+
+      return {
+        label: OPERATIONAL_AREA_SHORT_LABELS[category] || category,
+        fullLabel: category,
+        stateCount,
+        percentage: Math.round((stateCount / states.length) * 100),
+      };
+    })
+    .filter((category) => category.stateCount > 0)
+    .sort((a, b) => {
+      if (b.stateCount !== a.stateCount) return b.stateCount - a.stateCount;
+      return a.fullLabel.localeCompare(b.fullLabel);
+    })
+    .slice(0, 3);
 }
 
 function getPolicyCountKey(row: CsvRow, fallbackKey: string) {
@@ -326,3 +418,15 @@ const STATE_ABBR: Record<string, string> = Object.fromEntries(
 );
 
 const ALL_US_STATES = Object.keys(STATE_NAMES);
+
+const OPERATIONAL_AREA_SHORT_LABELS: Record<string, string> = {
+  "Identity and Disclosure of AI": "AI Disclosure",
+  "Coverage, Claims, and Utilization Decisions": "Coverage & Claims",
+  "Required AI Governance Procedures": "Governance Procedures",
+  "Human Oversight in Decision-Making": "Human Oversight",
+  "Data Handling and Infrastructure": "Data & Infrastructure",
+  "Safety and Crisis Response": "Safety & Crisis Response",
+  "Equity and Non-Discrimination": "Equity & Non-Discrimination",
+  "Individual Rights Regarding AI": "Individual Rights",
+  "Legislative Governance Actions": "Legislative Governance",
+};
