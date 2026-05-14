@@ -28,8 +28,8 @@ type WhatsNewProps = {
 export default function WhatsNew({ updates }: WhatsNewProps) {
     return (
         <>
-            <Carousel className="w-full h-48 rounded-lg border border-gray-200 relative">
-                <h4 className="text-2xl font-medium absolute top-6 left-6">
+            <Carousel className="w-full h-40 rounded-lg border border-gray-200 relative">
+                <h4 className="text-2xl font-medium absolute top-5 left-6">
                     What&apos;s New
                 </h4>
 
@@ -37,16 +37,16 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
                     {updates.map((item) => (
                         <CarouselItem
                             key={item.title}
-                            className="w-full h-full px-10 pt-18 flex flex-col gap-4"
+                            className="relative w-full h-full px-10 pt-15 pb-4 flex flex-col gap-2"
                         >
+                            <p className="absolute right-10 top-6 text-xs font-medium text-gray-500">
+                                {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
+                            </p>
                             <Link href={item.path}>
-                                <h5 className="leading-tight hover:underline line-clamp-3">
+                                <h5 className="leading-snug hover:underline line-clamp-2">
                                     {item.title}
                                 </h5>
                             </Link>
-                            <p className="text-sm text-gray-500">
-                                {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
-                            </p>
                         </CarouselItem>
                     ))}
                 </CarouselContent>
@@ -55,11 +55,11 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
                 <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
             </Carousel>
 
-            <section className="flex w-full flex-col gap-3 rounded-lg border border-gray-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <section className="flex w-full flex-col gap-2 rounded-lg border border-gray-200 px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <div className="min-w-0">
                     <h4 className="text-xl font-medium leading-tight">Operational Implications</h4>
                     <p className="mt-1 text-sm leading-5 text-gray-600">
-                        Translate policy into operational impact across healthcare AI governance.
+                        Compare detailed operational impacts across U.S. states.
                     </p>
                 </div>
                 <Link
