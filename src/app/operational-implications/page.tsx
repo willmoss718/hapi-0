@@ -16,6 +16,14 @@ function parseRuleCode(code: string): { prefix: string; num: number; suffix: str
   return { prefix: match[1], num: parseInt(match[2]), suffix: match[3] };
 }
 
+function getRuleCode(rule: string) {
+  return rule.split(":")[0].trim();
+}
+
+function getRuleDescription(rule: string) {
+  return rule.split(":").slice(1).join(":").trim();
+}
+
 export default async function OperationalImplicationsPage({
   searchParams,
 }: {
@@ -27,6 +35,7 @@ export default async function OperationalImplicationsPage({
 
   const ruleToStates: Record<string, Set<string>> = {};
   const policyDetails: Record<string, Record<string, PolicyMatch[]>> = {};
+  const ruleDescriptions: Record<string, string> = {};
 
   for (const row of rows) {
     const state = (row["State"] ?? "").trim();
@@ -41,10 +50,16 @@ export default async function OperationalImplicationsPage({
     for (let idx = 0; idx < ruleTokens.length; idx++) {
       const rule = ruleTokens[idx];
       if (!rule || rule === "None") continue;
+      const ruleCode = getRuleCode(rule);
+      const ruleDescription = getRuleDescription(rule);
+      ruleDescriptions[ruleCode] ??= ruleDescription;
+      const canonicalRule = ruleDescriptions[ruleCode]
+        ? `${ruleCode}: ${ruleDescriptions[ruleCode]}`
+        : ruleCode;
 
-      (ruleToStates[rule] ??= new Set()).add(state);
+      (ruleToStates[canonicalRule] ??= new Set()).add(state);
 
-      const byState = (policyDetails[rule] ??= {});
+      const byState = (policyDetails[canonicalRule] ??= {});
       (byState[state] ??= []).push({
         name: policyName,
         link,
