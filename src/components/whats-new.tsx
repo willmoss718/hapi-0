@@ -57,18 +57,16 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
 
             <section className="flex w-full flex-col gap-3 rounded-lg border border-gray-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <div className="min-w-0">
-                    <h4 className="text-xl font-medium leading-tight">HAPI Weekly</h4>
+                    <h4 className="text-xl font-medium leading-tight">Operational Implications</h4>
                     <p className="mt-1 text-sm leading-5 text-gray-600">
-                        Weekly updates on healthcare AI policy and governance.
+                        Translate policy into operational impact across healthcare AI governance.
                     </p>
                 </div>
                 <Link
-                    href="https://healthaipolicy.substack.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/operational-implications"
                     className="inline-flex h-10 shrink-0 items-center justify-center rounded-md border border-gray-900 bg-gray-900 px-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-gray-900"
                 >
-                    Subscribe →
+                    Explore →
                 </Link>
             </section>
 
