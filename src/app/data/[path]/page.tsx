@@ -117,14 +117,14 @@ export default async function DataPage({
             compactMap
             className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_22rem] lg:grid-cols-[minmax(0,1fr)_24rem] md:items-start md:gap-6"
             mapColumnClassName="md:min-h-[25rem]"
-            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none md:-mt-8"
+            sidebarClassName="md:w-auto md:min-w-0 md:max-w-none"
             stateIntelligence={stateIntelligence}
             statePolicyCounts={statePolicyCounts}
             defaultPanel={<StatePolicyLandscapePanel stats={stateLandscapeStats} />}
           />
         </div>
       )}
-      <div className={isStatePolicies ? "-mt-12 md:-mt-14" : ""}>
+      <div className={isStatePolicies ? "mt-4 md:mt-6" : ""}>
         <Filters availableTags={tags} />
         {isStatePolicies && <SelectedStateNotice />}
         <Table className="w-full my-12 border shadow">
