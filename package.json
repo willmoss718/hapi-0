@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:h1": "node scripts/check-h1-counts.mjs"
   },
   "dependencies": {
     "@mirawision/usa-map-react": "^2.0.2",
