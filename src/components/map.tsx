@@ -64,13 +64,16 @@ export default function Map({
 
   return (
     <div
-      className="w-full overflow-hidden rounded-lg border border-gray-200"
+      className={cn(
+        "w-full overflow-hidden rounded-lg border border-gray-200",
+        !compact && "h-full",
+      )}
       onMouseLeave={() => onStateHover?.(null)}
     >
       <div
         className={cn(
           "w-full",
-          compact ? "aspect-[1.8/1]" : "aspect-[1.85/1] md:aspect-[1.95/1]",
+          compact ? "aspect-[1.8/1]" : "h-full",
         )}
       >
         <USAMap
@@ -81,7 +84,7 @@ export default function Map({
       <legend
         className={cn(
           "flex flex-col justify-start items-start gap-1 border-t border-gray-200",
-          compact ? "p-4 text-sm" : "p-8",
+          compact ? "p-4 text-base" : "p-8",
         )}
       >
         <h3 className="uppercase font-medium tracking-wide">Explore by State</h3>
@@ -89,7 +92,7 @@ export default function Map({
           className={cn(
             "flex justify-start gap-2",
             compact
-              ? "flex-col items-start text-xs sm:flex-row sm:flex-wrap sm:items-center"
+              ? "flex-col items-start text-sm sm:flex-row sm:flex-wrap sm:items-center"
               : "flex-row items-center",
           )}
         >
