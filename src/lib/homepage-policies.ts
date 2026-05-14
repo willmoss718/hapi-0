@@ -1,5 +1,6 @@
 import { FILES } from "@/assets/files";
 import { getCsvData } from "@/lib/server-utils";
+import { execFileSync } from "node:child_process";
 import neatCsv from "neat-csv";
 
 type CsvRow = Record<string, string | undefined>;
@@ -74,14 +75,19 @@ const EXCLUDED_STATUS_PATTERNS = [
 ];
 
 export async function getHomepagePolicyData({ limit = 5 } = {}) {
-  const { policies, lastUpdatedTimestamps } = await getHomepagePolicySourceData();
+  const { files, policies, lastUpdatedTimestamps } = await getHomepagePolicySourceData();
+  const latestCsvCommitDate = getLatestCsvCommitDate(files.map((file) => file.path));
 
   return {
     updates: policies
       .sort((a, b) => b.timestamp - a.timestamp || a.title.localeCompare(b.title))
       .slice(0, limit)
       .map(toHomepagePolicyUpdate),
-    lastUpdated: getHomepageLastUpdated(policies, lastUpdatedTimestamps),
+    lastUpdated: getHomepageLastUpdated(
+      policies,
+      lastUpdatedTimestamps,
+      latestCsvCommitDate,
+    ),
   };
 }
 
@@ -151,6 +157,7 @@ async function getHomepagePolicySourceData() {
     {
       policies: [] as PolicyCandidate[],
       lastUpdatedTimestamps: [] as number[],
+      files,
     },
   );
 }
@@ -158,7 +165,12 @@ async function getHomepagePolicySourceData() {
 function getHomepageLastUpdated(
   policies: PolicyCandidate[],
   lastUpdatedTimestamps: number[],
+  latestCsvCommitDate: Date | null,
 ) {
+  if (latestCsvCommitDate !== null) {
+    return formatFullDate(latestCsvCommitDate);
+  }
+
   const newestLastUpdated = getNewestTimestamp(lastUpdatedTimestamps);
 
   if (newestLastUpdated !== null) {
@@ -170,6 +182,32 @@ function getHomepageLastUpdated(
   );
 
   return newestPolicyDate === null ? "N/A" : formatFullDate(new Date(newestPolicyDate));
+}
+
+function getLatestCsvCommitDate(filePaths: string[]) {
+  const csvPaths = filePaths.flatMap((path) => [
+    `src/assets/${path}.csv`,
+    `src/assets/${path}-supplement.csv`,
+  ]);
+
+  try {
+    const latestCommitDate = execFileSync(
+      "git",
+      ["log", "-1", "--format=%cI", "--", ...csvPaths],
+      {
+        cwd: process.cwd(),
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+      },
+    ).trim();
+
+    if (!latestCommitDate) return null;
+
+    const date = new Date(latestCommitDate);
+    return Number.isNaN(date.getTime()) ? null : date;
+  } catch {
+    return null;
+  }
 }
 
 function isExcludedStatus(row: CsvRow) {
