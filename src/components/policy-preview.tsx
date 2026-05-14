@@ -14,6 +14,11 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
   const effectiveDate = getColumnValue(data, "Effective Date");
   const summary = getColumnValue(data, "Summary");
   const healthcareImplications = getColumnValue(data, "Healthcare Implications");
+  const operationalImplications = (getColumnValue(data, "Specific Implications") ?? "")
+    .split("|")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .join(" ");
   const impactLevel = getColumnValue(data, "Impact Level");
   const keywordTags = getColumnValue(data, "Keyword Tags");
   const stakeholderTags = getColumnValue(data, "Stakeholder Tags");
@@ -72,6 +77,13 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
             <div>
               <h3 className="text-sm font-semibold mb-1">Healthcare Implications</h3>
               <p className="text-sm text-gray-700 line-clamp-2">{healthcareImplications}</p>
+            </div>
+          )}
+
+          {operationalImplications && (
+            <div>
+              <h3 className="text-sm font-semibold mb-1">Operational Implications</h3>
+              <p className="text-sm text-gray-700 line-clamp-2">{operationalImplications}</p>
             </div>
           )}
         </div>
