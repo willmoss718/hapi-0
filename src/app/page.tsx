@@ -11,6 +11,7 @@ export default async function Home() {
     getTotalCsvPolicyCount(),
     getHomepagePolicyData({ limit: 5 }),
   ]);
+  const buildStamp = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || "local";
 
   return (
     <>
@@ -27,6 +28,8 @@ export default async function Home() {
           <span>Last updated {homepagePolicyData.lastUpdated}</span>
           <span aria-hidden="true">·</span>
           <span>{policyCount.toLocaleString()} policies tracked</span>
+          <span aria-hidden="true">·</span>
+          <span className="font-mono text-[11px] uppercase tracking-wide">build {buildStamp}</span>
         </div>
       </div>
 
