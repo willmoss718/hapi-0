@@ -1,17 +1,40 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 
-const exploreLinks = [
-  { name: "State Policies", path: "/data/state-policies" },
-  { name: "Federal Policies", path: "/data/federal-policies" },
-  { name: "Sector-Specific Regulations", path: "/data/sector-specific-regulations" },
-  { name: "International Frameworks", path: "/data/international-frameworks" },
-  { name: "Voluntary Standards", path: "/data/voluntary-standards" },
-  { name: "Operational Implications", path: "/operational-implications" },
-  { name: "Trends", path: "/trends" },
-  { name: "Insights", path: "/insights" },
-  { name: "About/Methodology", path: "/about" },
+type ExploreLink = {
+  name: string;
+  path: string;
+  emphasized?: boolean;
+};
+
+const exploreSections: Array<{ label: string; links: ExploreLink[] }> = [
+  {
+    label: "Policy Modules",
+    links: [
+      { name: "State Policies", path: "/data/state-policies" },
+      { name: "Federal Policies", path: "/data/federal-policies" },
+      { name: "Sector-Specific Regulations", path: "/data/sector-specific-regulations" },
+      { name: "International Frameworks", path: "/data/international-frameworks" },
+      { name: "Voluntary Standards", path: "/data/voluntary-standards" },
+    ],
+  },
+  {
+    label: "Operational Layer",
+    links: [
+      { name: "Operational Implications", path: "/operational-implications", emphasized: true },
+    ],
+  },
+  {
+    label: "Analysis",
+    links: [
+      { name: "AI Policy Overview", path: "/ai-healthcare-policy" },
+      { name: "Trends", path: "/trends" },
+      { name: "Insights", path: "/insights" },
+    ],
+  },
 ];
+
+const aboutLink = { name: "About/Methodology", path: "/about" };
 
 export default function AIHealthcarePolicyPage() {
   return (
@@ -64,16 +87,30 @@ export default function AIHealthcarePolicyPage() {
               Use the HAPI modules to explore healthcare AI policies by jurisdiction, policy type, issuing body, impact level, keyword theme, and stakeholder group.
             </p>
           </div>
-          {exploreLinks.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className="group flex min-h-12 items-center justify-between border-t border-gray-100 px-6 py-3 text-sm font-medium transition-colors hover:bg-gray-50"
-            >
-              <span className="text-black">{item.name}</span>
-              <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-800" />
-            </Link>
+          {exploreSections.map((section) => (
+            <div key={section.label} className="border-t border-gray-100">
+              <div className="px-6 pb-1.5 pt-3 text-[11px] font-medium uppercase tracking-wide text-gray-500">
+                {section.label}
+              </div>
+              {section.links.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`group flex min-h-11 items-center justify-between px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50 ${item.emphasized ? "bg-emerald-50/60" : ""}`}
+                >
+                  <span className="text-black">{item.name}</span>
+                  <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-800" />
+                </Link>
+              ))}
+            </div>
           ))}
+          <Link
+            href={aboutLink.path}
+            className="group flex min-h-11 items-center justify-between border-t border-gray-100 px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50"
+          >
+            <span className="text-black">{aboutLink.name}</span>
+            <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-800" />
+          </Link>
         </section>
       </aside>
     </main>
