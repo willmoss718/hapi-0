@@ -30,13 +30,13 @@ export default function StatePolicyLandscapePanel({
         </div>
       </div>
 
-      <div className="mt-4 rounded-md bg-gray-50 px-3 py-3">
+      <div className="mt-2 rounded-md border border-gray-100 px-3 py-2.5">
         <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
           Policies
         </p>
-        <div className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-semibold text-gray-600">
-          <span>{stats.totalPolicies.toLocaleString()} total</span>
-          <span>{stats.highImpactPolicies.toLocaleString()} high impact</span>
+        <div className="mt-1 flex items-baseline gap-4">
+          <PolicyCount label="Total" value={stats.totalPolicies.toLocaleString()} />
+          <PolicyCount label="High impact" value={stats.highImpactPolicies.toLocaleString()} />
         </div>
       </div>
 
@@ -91,6 +91,15 @@ export default function StatePolicyLandscapePanel({
         <ArrowRightIcon className="h-4 w-4 shrink-0" />
       </Link>
     </aside>
+  );
+}
+
+function PolicyCount({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline gap-1.5">
+      <span className="text-2xl font-semibold leading-none text-gray-950">{value}</span>
+      <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</span>
+    </div>
   );
 }
 
