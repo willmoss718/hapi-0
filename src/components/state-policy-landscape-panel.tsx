@@ -10,53 +10,51 @@ export default function StatePolicyLandscapePanel({
   stats,
 }: StatePolicyLandscapePanelProps) {
   return (
-    <aside className="w-full rounded-lg border border-gray-200 bg-white px-5 py-5 text-gray-950 shadow-sm">
-      <div className="flex flex-col items-start justify-between gap-4 border-b border-gray-100 pb-4 sm:flex-row">
+    <aside className="w-full rounded-lg border border-gray-200 bg-white px-4 py-4 text-gray-950 shadow-sm">
+      <div className="border-b border-gray-100 pb-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
             National Intelligence
           </p>
-          <h3 className="mt-1 text-2xl font-semibold leading-tight">
+          <h3 className="mt-1 whitespace-nowrap text-xl font-semibold leading-tight">
             State Policy Landscape
           </h3>
         </div>
-        <div className="rounded-md bg-emerald-50 px-3 py-2 text-left sm:text-right">
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-            Active States
-          </p>
-          <p className="text-lg font-semibold text-emerald-950">
-            {stats.statesWithPolicies}
-          </p>
-        </div>
       </div>
 
-      <div className="mt-2 rounded-md border border-gray-100 px-3 py-2.5">
-        <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
-          Policies
-        </p>
-        <div className="mt-1 flex items-baseline gap-4">
-          <PolicyCount label="Total" value={stats.totalPolicies.toLocaleString()} />
-          <PolicyCount label="High impact" value={stats.highImpactPolicies.toLocaleString()} />
-        </div>
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        <PolicyCount
+          label="Total Policies"
+          value={stats.totalPolicies.toLocaleString()}
+        />
+        <PolicyCount
+          label="High Impact"
+          value={stats.highImpactPolicies.toLocaleString()}
+        />
+        <PolicyCount
+          label="Active States"
+          value={stats.statesWithPolicies.toLocaleString()}
+          accent
+        />
       </div>
 
-      <div className="mt-3 grid grid-cols-2 gap-2">
+      <div className="mt-2 grid grid-cols-2 gap-2">
         <TimelineTile label="First Policy" value={stats.firstPolicy || "—"} />
         <TimelineTile label="Most Recent" value={stats.mostRecentPolicy || "—"} />
       </div>
 
-      <section className="mt-5">
+      <section className="mt-4">
         <h4 className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
           Most Common Operational Areas
         </h4>
-        <div className="mt-2 space-y-2.5">
+        <div className="mt-2 space-y-2">
           {stats.topOperationalAreas.map((area) => (
             <OperationalAreaRow key={area.fullLabel} area={area} />
           ))}
         </div>
       </section>
 
-      <section className="mt-5">
+      <section className="mt-4">
         <h4 className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
           Most Active States
         </h4>
@@ -85,7 +83,7 @@ export default function StatePolicyLandscapePanel({
 
       <Link
         href="/operational-implications"
-        className="mt-5 flex items-center justify-between gap-3 rounded-lg bg-gray-950 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+        className="mt-4 flex items-center justify-between gap-3 rounded-lg bg-gray-950 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
       >
         <span>Explore Operational Implications</span>
         <ArrowRightIcon className="h-4 w-4 shrink-0" />
@@ -94,18 +92,30 @@ export default function StatePolicyLandscapePanel({
   );
 }
 
-function PolicyCount({ label, value }: { label: string; value: string }) {
+function PolicyCount({
+  label,
+  value,
+  accent = false,
+}: {
+  label: string;
+  value: string;
+  accent?: boolean;
+}) {
   return (
-    <div className="flex items-baseline gap-1.5">
-      <span className="text-2xl font-semibold leading-none text-gray-950">{value}</span>
-      <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">{label}</span>
+    <div className={`min-w-0 rounded-md border px-2.5 py-2 ${accent ? "border-emerald-100 bg-emerald-50" : "border-gray-100"}`}>
+      <p className={accent ? "text-xl font-semibold leading-none text-emerald-950" : "text-xl font-semibold leading-none text-gray-950"}>
+        {value}
+      </p>
+      <p className={accent ? "mt-1 truncate text-[10px] font-semibold uppercase tracking-wide text-emerald-700" : "mt-1 truncate text-[10px] font-semibold uppercase tracking-wide text-gray-500"}>
+        {label}
+      </p>
     </div>
   );
 }
 
 function TimelineTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-gray-100 px-3 py-3">
+    <div className="rounded-md border border-gray-100 px-3 py-2.5">
       <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
         {label}
       </p>
