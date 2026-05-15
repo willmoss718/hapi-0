@@ -125,7 +125,7 @@ function formatMonthYear(date: Date | null) {
   if (!date) return "—";
 
   return new Intl.DateTimeFormat("en-US", {
-    month: "long",
+    month: "short",
     year: "numeric",
     timeZone: "UTC",
   }).format(date);
