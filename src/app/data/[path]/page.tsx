@@ -132,12 +132,12 @@ export default async function DataPage({
           />
         </div>
       )}
-      <div className={isStatePolicies ? "-mt-6 md:-mt-8" : ""}>
+      <div className={isStatePolicies ? "-mt-10 md:-mt-12" : ""}>
         <Filters
           availableTags={tags}
           className={isStatePolicies ? undefined : "mt-8"}
           compact={!isStatePolicies}
-          hideSearchLabel={!isStatePolicies}
+          hideSearchLabel
         />
         {isStatePolicies && <SelectedStateNotice />}
         <Table className={`w-full border shadow ${isStatePolicies ? "my-12" : "my-6"}`}>
