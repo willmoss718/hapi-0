@@ -98,15 +98,23 @@ export default async function DataPage({
 
   return (
     <>
-      <div className="mt-6 md:mt-10 flex flex-col md:flex-row md:items-start md:gap-8">
+      <div
+        className={
+          isStatePolicies
+            ? "mt-6 md:mt-10 flex flex-col md:flex-row md:items-start md:gap-8"
+            : "mt-6 md:mt-8 flex flex-col md:flex-row md:items-start md:gap-6"
+        }
+      >
         <div className="min-w-0 flex-1">
           <h1 className="text-4xl font-medium">
             {matchingFile.name}
           </h1>
-          <h2 className="mt-4 text-xl">{matchingFile.description}</h2>
+          <h2 className={isStatePolicies ? "mt-4 text-xl" : "mt-2.5 text-lg leading-7"}>
+            {matchingFile.description}
+          </h2>
         </div>
         {moduleStats && (
-          <div className="mt-4 md:mt-0 shrink-0">
+          <div className="mt-4 md:mt-1 shrink-0">
             <ModuleStatsCard stats={moduleStats} />
           </div>
         )}
@@ -125,9 +133,9 @@ export default async function DataPage({
         </div>
       )}
       <div className={isStatePolicies ? "-mt-6 md:-mt-8" : ""}>
-        <Filters availableTags={tags} />
+        <Filters availableTags={tags} className={isStatePolicies ? undefined : "mt-6"} />
         {isStatePolicies && <SelectedStateNotice />}
-        <Table className="w-full my-12 border shadow">
+        <Table className={`w-full border shadow ${isStatePolicies ? "my-12" : "my-6"}`}>
           <SortableHeader validKeys={validKeys} />
           <TableBody>
             {sortedCsv.map((row, index) =>
