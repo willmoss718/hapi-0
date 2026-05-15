@@ -132,7 +132,7 @@ export default async function DataPage({
           />
         </div>
       )}
-      <div className={isStatePolicies ? "-mt-10 md:-mt-12" : ""}>
+      <div className={isStatePolicies ? "-mt-4 md:-mt-6" : ""}>
         <Filters
           availableTags={tags}
           className={isStatePolicies ? undefined : "mt-8"}
