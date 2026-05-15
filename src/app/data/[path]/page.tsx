@@ -102,7 +102,7 @@ export default async function DataPage({
         className={
           isStatePolicies
             ? "mt-6 md:mt-10 flex flex-col md:flex-row md:items-start md:gap-8"
-            : "mt-6 md:mt-8 flex flex-col md:flex-row md:items-start md:gap-6"
+            : "mt-6 md:mt-8 flex flex-col md:flex-row md:items-start md:gap-7"
         }
       >
         <div className="min-w-0 flex-1">
@@ -114,7 +114,7 @@ export default async function DataPage({
           </h2>
         </div>
         {moduleStats && (
-          <div className="mt-4 md:mt-1 shrink-0">
+          <div className="mt-4 md:mt-9 shrink-0">
             <ModuleStatsCard stats={moduleStats} />
           </div>
         )}
@@ -133,7 +133,12 @@ export default async function DataPage({
         </div>
       )}
       <div className={isStatePolicies ? "-mt-6 md:-mt-8" : ""}>
-        <Filters availableTags={tags} className={isStatePolicies ? undefined : "mt-6"} />
+        <Filters
+          availableTags={tags}
+          className={isStatePolicies ? undefined : "mt-8"}
+          compact={!isStatePolicies}
+          hideSearchLabel={!isStatePolicies}
+        />
         {isStatePolicies && <SelectedStateNotice />}
         <Table className={`w-full border shadow ${isStatePolicies ? "my-12" : "my-6"}`}>
           <SortableHeader validKeys={validKeys} />
