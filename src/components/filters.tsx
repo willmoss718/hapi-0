@@ -8,6 +8,7 @@ import { getRandomTailwindColor } from "@/lib/utils";
 
 export default function Filters(props: {
   availableTags: Record<string, string[]>;
+  className?: string;
 }) {
   const [search, setSearch] = useQueryState(
     "q",
@@ -21,7 +22,7 @@ export default function Filters(props: {
   );
 
   return (
-    <div className="flex flex-col gap-4 mt-12">
+    <div className={`flex flex-col gap-4 ${props.className ?? "mt-12"}`}>
       <div className="flex flex-row gap-2 items-center justify-start text-muted-foreground">
         <SearchIcon className="size-4" />
         <div className="text-xs font-medium whitespace-nowrap">
