@@ -168,7 +168,7 @@ function getHomepageLastUpdated(
   latestCsvCommitDate: Date | null,
 ) {
   if (latestCsvCommitDate !== null) {
-    return formatFullDate(latestCsvCommitDate);
+    return formatFullDate(latestCsvCommitDate, "America/New_York");
   }
 
   const newestLastUpdated = getNewestTimestamp(lastUpdatedTimestamps);
@@ -285,12 +285,12 @@ function getNewestTimestamp(timestamps: Array<number | null>) {
   return validTimestamps.length === 0 ? null : Math.max(...validTimestamps);
 }
 
-function formatFullDate(date: Date) {
+function formatFullDate(date: Date, timeZone = "UTC") {
   return new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
-    timeZone: "UTC",
+    timeZone,
   }).format(date);
 }
 
