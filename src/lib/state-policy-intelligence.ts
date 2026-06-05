@@ -63,7 +63,9 @@ export async function getTotalCsvPolicyCount() {
   const policyKeysByFile = await Promise.all(
     FILES.map(async (file) => {
       const rows = await getParsedRows(file.path);
-      return rows.map((row, index) => getPolicyCountKey(row, `${file.path}:${index}`));
+      return rows
+        .filter((row) => !isBlankCsvRow(row))
+        .map((row, index) => getPolicyCountKey(row, `${file.path}:${index}`));
     })
   );
 
@@ -260,6 +262,10 @@ function normalizeColumnName(value: string) {
 
 function cleanCell(value: string | undefined) {
   return (value || "").trim();
+}
+
+function isBlankCsvRow(row: CsvRow) {
+  return Object.values(row).every((value) => !cleanCell(value));
 }
 
 function getTopOperationalAreas(states: StateIntelligence[]) {
