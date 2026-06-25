@@ -34,7 +34,7 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
                 </h4>
 
                 <CarouselContent>
-                    {updates.map((item) => (
+                    {updates.map((item, index) => (
                         <CarouselItem
                             key={item.title}
                             className="w-full h-full px-10 pt-15 pb-4 flex flex-col gap-2"
@@ -45,7 +45,7 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
                                 </h5>
                             </Link>
                             <p className="text-xs font-medium text-gray-500">
-                                {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
+                                {[index === 0 ? "June 24, 2026" : item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
                             </p>
                         </CarouselItem>
                     ))}
