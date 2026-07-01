@@ -74,6 +74,8 @@ const EXCLUDED_STATUS_PATTERNS = [
   "not passed",
 ];
 
+const HOMEPAGE_LAST_UPDATED = createUtcDate(2026, 6, 24);
+
 export async function getHomepagePolicyData({ limit = 5 } = {}) {
   const { files, policies, lastUpdatedTimestamps } = await getHomepagePolicySourceData();
   const latestCsvCommitDate = getLatestCsvCommitDate(files.map((file) => file.path));
@@ -167,6 +169,10 @@ function getHomepageLastUpdated(
   lastUpdatedTimestamps: number[],
   latestCsvCommitDate: Date | null,
 ) {
+  if (HOMEPAGE_LAST_UPDATED !== null) {
+    return formatFullDate(HOMEPAGE_LAST_UPDATED);
+  }
+
   if (latestCsvCommitDate !== null) {
     return formatFullDate(latestCsvCommitDate, "America/New_York");
   }
