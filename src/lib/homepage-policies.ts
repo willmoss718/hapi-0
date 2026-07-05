@@ -74,7 +74,12 @@ const EXCLUDED_STATUS_PATTERNS = [
   "not passed",
 ];
 
-const HOMEPAGE_LAST_UPDATED = createUtcDate(2026, 6, 24);
+// Internal escape hatch: set enabled/date to force the homepage date.
+// Leave disabled or blank so CSV upload dates drive "Last updated" automatically.
+const HOMEPAGE_LAST_UPDATED_OVERRIDE = {
+  enabled: false,
+  date: "",
+};
 
 export async function getHomepagePolicyData({ limit = 5 } = {}) {
   const { files, policies, lastUpdatedTimestamps } = await getHomepagePolicySourceData();
@@ -169,8 +174,10 @@ function getHomepageLastUpdated(
   lastUpdatedTimestamps: number[],
   latestCsvCommitDate: Date | null,
 ) {
-  if (HOMEPAGE_LAST_UPDATED !== null) {
-    return formatFullDate(HOMEPAGE_LAST_UPDATED);
+  const manualOverrideDate = getManualLastUpdatedOverride();
+
+  if (manualOverrideDate !== null) {
+    return formatFullDate(manualOverrideDate);
   }
 
   if (latestCsvCommitDate !== null) {
@@ -188,6 +195,14 @@ function getHomepageLastUpdated(
   );
 
   return newestPolicyDate === null ? "N/A" : formatFullDate(new Date(newestPolicyDate));
+}
+
+function getManualLastUpdatedOverride() {
+  if (!HOMEPAGE_LAST_UPDATED_OVERRIDE.enabled) {
+    return null;
+  }
+
+  return parsePolicyDate(HOMEPAGE_LAST_UPDATED_OVERRIDE.date);
 }
 
 function getLatestCsvCommitDate(filePaths: string[]) {
