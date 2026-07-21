@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <>
       <div className="relative">
-        <h1 className="text-4xl mt-6 md:text-5xl font-medium md:mt-10">
+        <h1 className="text-4xl mt-4 md:text-5xl font-medium md:mt-7">
           AI in Healthcare Policy: Laws, Regulations, and Standards
         </h1>
 
@@ -23,10 +23,21 @@ export default async function Home() {
           The Health & AI Policy Index (HAPI) is a curated, research-driven registry of laws, regulations, and standards shaping artificial intelligence in healthcare, with a focus on real-world implications for health systems, developers, and policymakers.
         </h2>
 
-        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-gray-500 md:absolute md:left-0 md:bottom-[-2rem] md:mt-0">
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-base font-medium text-gray-500 md:absolute md:left-0 md:bottom-[-2rem] md:mt-0 md:text-lg lg:flex-nowrap">
           <span>Last updated {homepagePolicyData.lastUpdated}</span>
-          <span aria-hidden="true">·</span>
+          <span aria-hidden="true" className="hidden h-4 w-px bg-gray-300 lg:inline-block" />
           <span>{policyCount.toLocaleString()} policies tracked</span>
+          <span aria-hidden="true" className="hidden h-4 w-px bg-gray-300 lg:inline-block" />
+          <span>Published in npj Digital Medicine</span>
+          <span aria-hidden="true" className="hidden h-4 w-px bg-gray-300 lg:inline-block" />
+          <a
+            href="https://doi.org/10.1038/s41746-026-02734-y"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            Read paper ↗
+          </a>
         </div>
       </div>
 
