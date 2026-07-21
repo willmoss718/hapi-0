@@ -36,7 +36,7 @@ export default async function Home() {
             href="https://doi.org/10.1038/s41746-026-02734-y"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 hover:underline"
+            className="featured-publication-link text-gray-600 hover:text-gray-900 hover:underline"
           >
             Featured in <em>npj Digital Medicine</em> ↗
           </a>
