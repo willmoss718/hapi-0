@@ -129,4 +129,46 @@
   .state-row-highlight > td:first-child {
     box-shadow: inset 5px 0 0 oklch(0.48 0.12 252);
   }
+
+  .featured-publication-link {
+    background: linear-gradient(
+      110deg,
+      oklch(0.446 0.043 257.281) 0%,
+      oklch(0.446 0.043 257.281) 38%,
+      oklch(0.72 0.12 162) 48%,
+      oklch(0.446 0.043 257.281) 58%,
+      oklch(0.446 0.043 257.281) 100%
+    );
+    background-size: 240% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: publication-shimmer 4.5s ease-in-out infinite;
+  }
+
+  .featured-publication-link:hover {
+    animation-duration: 2.6s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .featured-publication-link {
+      animation: none;
+      background: none;
+      color: oklch(0.446 0.043 257.281);
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+}
+
+@keyframes publication-shimmer {
+  0%,
+  45% {
+    background-position: 125% 50%;
+  }
+
+  75%,
+  100% {
+    background-position: -45% 50%;
+  }
 }
