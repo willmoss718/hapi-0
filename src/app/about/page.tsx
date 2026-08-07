@@ -20,8 +20,8 @@ export default function About() {
 
       <p className=" text-lg mb-6">
         For questions, feedback, or collaboration inquiries related to AI policy in healthcare, contact:{" "}
-        <a href="mailto:william.moss@mssm.edu" className="underline">
-          william.moss@mssm.edu
+        <a href="mailto:wlm74@cornell.edu" className="underline">
+          wlm74@cornell.edu
         </a>
       </p>
 
