@@ -1,7 +1,6 @@
 "use client";
 
 import USAMap from "@mirawision/usa-map-react";
-import mapData from "@/assets/Map-Data.json";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import type { ReactNode } from "react";
@@ -22,6 +21,7 @@ type CustomState = {
 
 type MapProps = {
   statePolicyCounts: Record<string, number>;
+  stateLawPresence: Record<string, boolean>;
   hoveredState?: string | null;
   onStateHover?: (state: string | null) => void;
   compact?: boolean;
@@ -29,6 +29,7 @@ type MapProps = {
 
 export default function Map({
   statePolicyCounts,
+  stateLawPresence,
   hoveredState,
   onStateHover,
   compact = false,
@@ -39,7 +40,7 @@ export default function Map({
     const states: Record<string, CustomState> = {};
 
     for (const state of ALL_US_STATES) {
-      const baseFill = getStateFill(state);
+      const baseFill = getStateFill(state, statePolicyCounts, stateLawPresence);
       const isHovered = hoveredState === state;
 
       states[state] = {
@@ -60,7 +61,7 @@ export default function Map({
     }
 
     return states;
-  }, [hoveredState, onStateHover, router, statePolicyCounts]);
+  }, [hoveredState, onStateHover, router, statePolicyCounts, stateLawPresence]);
 
   return (
     <div
@@ -114,9 +115,13 @@ export default function Map({
   );
 }
 
-function getStateFill(state: string) {
-  if (mapData["law-present"].includes(state)) return "#30c48d";
-  if (mapData["policies-no-law"].includes(state)) return "#5a8def";
+function getStateFill(
+  state: string,
+  statePolicyCounts: Record<string, number>,
+  stateLawPresence: Record<string, boolean>,
+) {
+  if (stateLawPresence[state]) return "#30c48d";
+  if (statePolicyCounts[state] > 0) return "#5a8def";
   return "#D3D3D3";
 }
 
