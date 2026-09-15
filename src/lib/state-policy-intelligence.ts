@@ -13,6 +13,7 @@ export type StateIntelligence = {
   code: string;
   name: string;
   totalPolicies: number;
+  hasLaw: boolean;
   highImpactPolicies: number;
   firstPolicyDate: string | null;
   firstPolicyTimestamp: number | null;
@@ -60,16 +61,16 @@ const POLICY_TITLE_COLUMNS = [
 ];
 
 export async function getTotalCsvPolicyCount() {
-  const policyKeysByFile = await Promise.all(
+  const countsByFile = await Promise.all(
     FILES.map(async (file) => {
       const rows = await getParsedRows(file.path);
-      return rows
-        .filter((row) => !isBlankCsvRow(row))
-        .map((row, index) => getPolicyCountKey(row, `${file.path}:${index}`));
+      return rows.filter((row) => !isBlankCsvRow(row)).length;
     })
   );
 
-  return new Set(policyKeysByFile.flat()).size;
+  // Every non-empty row is a tracked entry in its module table. Titles alone
+  // are not unique across jurisdictions or modules.
+  return countsByFile.reduce((total, count) => total + count, 0);
 }
 
 export async function getStatePolicyIntelligence() {
@@ -119,6 +120,9 @@ export async function getStatePolicyIntelligence() {
     const title = cleanCell(titleKey ? row[titleKey] : undefined);
 
     summary.totalPolicies += 1;
+    if (cleanCell(row["Policy Type"]).toLowerCase() === "law") {
+      summary.hasLaw = true;
+    }
 
     if (impactKey && cleanCell(row[impactKey]).toLowerCase() === "high") {
       summary.highImpactPolicies += 1;
@@ -238,6 +242,7 @@ function createEmptyStateSummaries() {
         code,
         name: STATE_NAMES[code],
         totalPolicies: 0,
+        hasLaw: false,
         highImpactPolicies: 0,
         firstPolicyDate: null,
         firstPolicyTimestamp: null,
@@ -288,21 +293,6 @@ function getTopOperationalAreas(states: StateIntelligence[]) {
       return a.fullLabel.localeCompare(b.fullLabel);
     })
     .slice(0, 3);
-}
-
-function getPolicyCountKey(row: CsvRow, fallbackKey: string) {
-  const titleKey = pickColumn(row, POLICY_TITLE_COLUMNS);
-  const title = cleanCell(titleKey ? row[titleKey] : undefined);
-
-  if (!title) {
-    return fallbackKey;
-  }
-
-  return title
-    .toLowerCase()
-    .replace(/[\u2010-\u2015]/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 function parsePolicyDate(rawValue: string | undefined): ParsedPolicyDate {
