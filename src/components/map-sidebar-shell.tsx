@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import type { StateIntelligence } from "@/lib/state-policy-intelligence";
 import Map from "@/components/map";
 import StateIntelligencePanel from "@/components/state-intelligence-panel";
@@ -38,6 +38,9 @@ export default function MapSidebarShell({
   }, []);
 
   const activeState = hoveredState ? stateIntelligence[hoveredState] : null;
+  const stateLawPresence = useMemo(() => Object.fromEntries(
+    Object.entries(stateIntelligence).map(([code, state]) => [code, state.hasLaw]),
+  ) as Record<string, boolean>, [stateIntelligence]);
   const fallbackPanel = defaultPanel ?? (
     whatsNewUpdates ? <WhatsNew updates={whatsNewUpdates} /> : null
   );
@@ -50,6 +53,7 @@ export default function MapSidebarShell({
           compact={compactMap}
           hoveredState={hoveredState}
           statePolicyCounts={statePolicyCounts}
+          stateLawPresence={stateLawPresence}
           onStateHover={handleStateHover}
         />
         {mapFooter}
