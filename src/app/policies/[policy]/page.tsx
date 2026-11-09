@@ -14,6 +14,13 @@ import {
 import Back from "./back";
 import RulePopup from "./rule-popup";
 
+function parseTags(tags: string) {
+  return tags
+    .split(/[;,]/)
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+}
+
 export default async function PolicyPage({
   params,
 }: {
@@ -208,7 +215,7 @@ export default async function PolicyPage({
                     Keywords
                   </h3>
                   <div className="flex gap-2 flex-wrap">
-                    {keywordTags.split(",").map((tag: string) => (
+                    {parseTags(keywordTags).map((tag) => (
                       <Badge
                         key={tag}
                         variant="secondary"
@@ -217,7 +224,7 @@ export default async function PolicyPage({
                             getRandomTailwindColor("Keyword Tags"),
                         }}
                       >
-                        {tag.trim()}
+                        {tag}
                       </Badge>
                     ))}
                   </div>
@@ -230,7 +237,7 @@ export default async function PolicyPage({
                     Stakeholders
                   </h3>
                   <div className="flex gap-2 flex-wrap">
-                    {stakeholderTags.split(",").map((tag: string) => (
+                    {parseTags(stakeholderTags).map((tag) => (
                       <Badge
                         key={tag}
                         variant="secondary"
@@ -239,7 +246,7 @@ export default async function PolicyPage({
                             getRandomTailwindColor("Stakeholder Tags"),
                         }}
                       >
-                        {tag.trim()}
+                        {tag}
                       </Badge>
                     ))}
                   </div>
