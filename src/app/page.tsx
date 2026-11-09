@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <>
       <div className="relative">
-        <h1 className="text-4xl mt-4 md:text-5xl font-medium md:mt-7">
+        <h1 className="text-4xl mt-4 font-medium md:mt-7">
           AI in Healthcare Policy: Laws, Regulations, and Standards
         </h1>
 
