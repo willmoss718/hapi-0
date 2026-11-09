@@ -28,13 +28,13 @@ export default function Nav() {
     const desktopList = (
         <NavigationMenu viewport={false}>
             <NavigationMenuList className="flex-row justify-end gap-2 items-center whitespace-nowrap">
-                <NavigationMenuItem className="mr-2 flex items-center gap-1 rounded-full border border-slate-200/70 bg-slate-50/60 px-1.5 py-0.5">
-                    {FILES.map((file) => (
-                        <NavigationMenuLink asChild key={file.path}>
+                {FILES.map((file) => (
+                    <NavigationMenuItem key={file.path}>
+                        <NavigationMenuLink asChild>
                             <Link href={`/data/${file.path}`}>{file.navName}</Link>
                         </NavigationMenuLink>
-                    ))}
-                </NavigationMenuItem>
+                    </NavigationMenuItem>
+                ))}
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild>
                         <Link href="/operational-implications">Operational Implications</Link>
@@ -115,7 +115,7 @@ export default function Nav() {
                 </Link>
             </div>
             <Drawer>
-                <DrawerTrigger className="md:hidden" aria-label="Open menu">
+                <DrawerTrigger className="lg:hidden" aria-label="Open menu">
                     <MenuIcon />
                 </DrawerTrigger>
                 <DrawerContent className="p-4 min-h-96">
@@ -125,7 +125,7 @@ export default function Nav() {
                     {mobileList}
                 </DrawerContent>
             </Drawer>
-            <div className="flex-row justify-end items-center hidden md:flex">
+            <div className="flex-row justify-end items-center hidden lg:flex">
                 {desktopList}
             </div>
         </nav>
