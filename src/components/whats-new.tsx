@@ -1,5 +1,9 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import {
     Carousel,
+    type CarouselApi,
     CarouselContent,
     CarouselItem,
     CarouselNext,
@@ -25,10 +29,37 @@ type WhatsNewProps = {
     updates: HomepagePolicyUpdate[]
 }
 
+const AUTO_ROTATE_INTERVAL_MS = 4000
+
 export default function WhatsNew({ updates }: WhatsNewProps) {
+    const [api, setApi] = useState<CarouselApi>()
+    const [isPaused, setIsPaused] = useState(false)
+
+    useEffect(() => {
+        if (!api || isPaused || updates.length < 2) return
+
+        const interval = window.setInterval(() => {
+            api.scrollNext()
+        }, AUTO_ROTATE_INTERVAL_MS)
+
+        return () => window.clearInterval(interval)
+    }, [api, isPaused, updates.length])
+
     return (
         <>
-            <Carousel className="w-full h-40 rounded-lg border border-gray-200 relative">
+            <Carousel
+                className="w-full h-40 rounded-lg border border-gray-200 relative"
+                opts={{ loop: true }}
+                setApi={setApi}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                onFocusCapture={() => setIsPaused(true)}
+                onBlurCapture={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                        setIsPaused(false)
+                    }
+                }}
+            >
                 <h4 className="text-2xl font-medium absolute top-5 left-6">
                     What&apos;s New
                 </h4>
