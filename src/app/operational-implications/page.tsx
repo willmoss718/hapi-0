@@ -81,12 +81,12 @@ export default async function OperationalImplicationsPage({
   );
 
   return (
-    <div className="py-8">
-      <div className="space-y-2 mb-8">
-        <h1 className="text-4xl font-semibold tracking-tight">Operational Implications</h1>
-        <p className="text-xl text-muted-foreground">
+    <div className="mt-6 md:mt-8">
+      <div className="mb-8">
+        <h1 className="text-4xl font-medium">Operational Implications</h1>
+        <h2 className="mt-2.5 text-lg leading-7">
           View and compare operational requirements created by U.S. state-level AI healthcare laws.
-        </p>
+        </h2>
       </div>
       <ImplicationsTable
         rules={sortedRules}
