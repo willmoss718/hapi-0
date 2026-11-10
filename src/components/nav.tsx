@@ -118,8 +118,8 @@ export default function Nav() {
     return (
         <nav aria-label="Primary navigation">
             <div className="flex flex-row items-center justify-between gap-4 py-2.5 lg:py-3">
-                <Link href="/" className="group shrink-0" aria-label="Health & AI Policy Index home">
-                    <span className="font-editorial block text-[1.45rem] font-semibold leading-[1.02] tracking-[-0.02em] text-primary sm:text-[1.55rem] lg:text-[1.7rem]">
+                <Link href="/" className="group shrink-0 xl:translate-y-1" aria-label="Health & AI Policy Index home">
+                    <span className="font-editorial block text-[1.45rem] font-semibold leading-[1.02] tracking-[-0.02em] text-foreground sm:text-[1.55rem] lg:text-[1.7rem]">
                         Health &amp; AI<br />Policy Index
                     </span>
                 </Link>
