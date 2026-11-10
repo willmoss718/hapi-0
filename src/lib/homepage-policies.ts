@@ -5,6 +5,13 @@ import neatCsv from "neat-csv";
 
 type CsvRow = Record<string, string | undefined>;
 
+type GitHubCommitSummary = {
+  commit?: {
+    author?: { date?: string | null } | null;
+    committer?: { date?: string | null } | null;
+  };
+};
+
 export type HomepagePolicyUpdate = {
   title: string;
   date: string;
@@ -81,9 +88,11 @@ const HOMEPAGE_LAST_UPDATED_OVERRIDE = {
   date: "",
 };
 
+const LAST_KNOWN_MODULE_CSV_UPDATE = new Date("2026-11-04T23:47:17Z");
+
 export async function getHomepagePolicyData({ limit = 5 } = {}) {
   const { files, policies, lastUpdatedTimestamps } = await getHomepagePolicySourceData();
-  const latestCsvCommitDate = getLatestCsvCommitDate(files.map((file) => file.path));
+  const latestCsvCommitDate = await getLatestCsvCommitDate(files.map((file) => file.path));
 
   return {
     updates: policies
@@ -205,13 +214,76 @@ function getManualLastUpdatedOverride() {
   return parsePolicyDate(HOMEPAGE_LAST_UPDATED_OVERRIDE.date);
 }
 
-function getLatestCsvCommitDate(filePaths: string[]) {
+async function getLatestCsvCommitDate(filePaths: string[]) {
+  const githubCommitDate = await getLatestCsvCommitDateFromGitHub(filePaths);
+
+  if (githubCommitDate !== null) {
+    return githubCommitDate;
+  }
+
+  return getLatestCsvCommitDateFromLocalGit(filePaths) ?? LAST_KNOWN_MODULE_CSV_UPDATE;
+}
+
+async function getLatestCsvCommitDateFromGitHub(filePaths: string[]) {
+  const repositoryOwner = process.env.VERCEL_GIT_REPO_OWNER || "willmoss718";
+  const repositoryName = process.env.VERCEL_GIT_REPO_SLUG || "hapi-0";
+  const deploymentCommit = process.env.VERCEL_GIT_COMMIT_SHA || "local";
+
+  try {
+    const commitDates = await Promise.all(
+      filePaths.map(async (filePath) => {
+        const csvPath = `src/assets/${filePath}.csv`;
+        const url = new URL(
+          `https://api.github.com/repos/${repositoryOwner}/${repositoryName}/commits`,
+        );
+        url.searchParams.set("path", csvPath);
+        url.searchParams.set("per_page", "1");
+
+        const response = await fetch(url, {
+          cache: "force-cache",
+          headers: {
+            Accept: "application/vnd.github+json",
+            "User-Agent": "HAPI-build",
+            "X-HAPI-Deployment": deploymentCommit,
+          },
+        });
+
+        if (!response.ok) return null;
+
+        const commits = (await response.json()) as GitHubCommitSummary[];
+        const rawDate = commits[0]?.commit?.committer?.date ?? commits[0]?.commit?.author?.date;
+        if (!rawDate) return null;
+
+        const date = new Date(rawDate);
+        return Number.isNaN(date.getTime()) ? null : date;
+      }),
+    );
+
+    return getNewestDate(commitDates);
+  } catch {
+    return null;
+  }
+}
+
+function getLatestCsvCommitDateFromLocalGit(filePaths: string[]) {
   const csvPaths = filePaths.flatMap((path) => [
     `src/assets/${path}.csv`,
     `src/assets/${path}-supplement.csv`,
   ]);
 
   try {
+    const isShallowRepository = execFileSync(
+      "git",
+      ["rev-parse", "--is-shallow-repository"],
+      {
+        cwd: process.cwd(),
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+      },
+    ).trim() === "true";
+
+    if (isShallowRepository) return null;
+
     const latestCommitDate = execFileSync(
       "git",
       ["log", "-1", "--format=%cI", "--", ...csvPaths],
@@ -229,6 +301,13 @@ function getLatestCsvCommitDate(filePaths: string[]) {
   } catch {
     return null;
   }
+}
+
+function getNewestDate(dates: Array<Date | null>) {
+  const validDates = dates.filter((date): date is Date => date !== null);
+  if (validDates.length === 0) return null;
+
+  return new Date(Math.max(...validDates.map((date) => date.getTime())));
 }
 
 function isExcludedStatus(row: CsvRow) {
