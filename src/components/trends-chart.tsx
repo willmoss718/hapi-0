@@ -43,7 +43,7 @@ function MultiSelectPills<T extends string>({
 }) {
   return (
     <fieldset className="space-y-2">
-      <legend className="text-sm font-medium text-gray-700">{label}</legend>
+      <legend className="text-label text-muted-foreground">{label}</legend>
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
           const isSelected = selected.includes(option.value);
@@ -52,11 +52,11 @@ function MultiSelectPills<T extends string>({
             <label
               key={option.value}
               className={cn(
-                "inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-sm transition-colors",
-                "hover:border-gray-400 hover:bg-gray-50",
+                "inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-[2px] border px-3 py-1.5 text-sm transition-colors",
+                "hover:border-[#7f9f95] hover:bg-background",
                 isSelected
-                  ? "border-gray-900 bg-gray-900 text-white hover:border-gray-900 hover:bg-gray-800"
-                  : "border-gray-200 bg-white text-gray-700",
+                  ? "border-primary bg-primary text-primary-foreground hover:border-primary hover:bg-primary/90"
+                  : "border-border bg-[#faf8f2] text-foreground/75",
               )}
             >
               <input
@@ -69,10 +69,10 @@ function MultiSelectPills<T extends string>({
                 aria-hidden="true"
                 className={cn(
                   "flex size-3.5 items-center justify-center rounded-[3px] border",
-                  isSelected ? "border-white bg-white" : "border-gray-400 bg-white",
+                  isSelected ? "border-primary-foreground bg-primary-foreground" : "border-[#7f9f95] bg-background",
                 )}
               >
-                {isSelected && <span className="size-1.5 rounded-[2px] bg-gray-900" />}
+                {isSelected && <span className="size-1.5 rounded-[1px] bg-primary" />}
               </span>
               <span>{option.label}</span>
             </label>
@@ -155,12 +155,12 @@ export default function TrendsChart({ data, tagData }: {
 
   return (
     <div className="w-full">
-      <div className="my-6 space-y-5 rounded-md border border-gray-200 bg-white p-4">
+      <div className="my-6 space-y-6 rounded-[2px] border border-[#aebbb4] bg-[#edf4f1]/55 p-5">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-[minmax(16rem,1fr)_minmax(18rem,auto)]">
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-gray-600">Issuing Body</label>
+            <label className="text-label text-muted-foreground">Issuing Body</label>
             <select
-              className="border rounded px-2 py-1"
+              className="h-10 rounded-[2px] border border-border bg-background px-3 text-sm outline-none transition-shadow focus:border-ring focus:ring-2 focus:ring-ring/30"
               value={issuingBody}
               onChange={(e) => setIssuingBody(e.target.value)}
             >
@@ -172,12 +172,12 @@ export default function TrendsChart({ data, tagData }: {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="flex flex-col gap-1">
-              <label className="text-sm text-gray-600">Start</label>
-              <Input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
+              <label className="text-label text-muted-foreground">Start</label>
+              <Input className="h-10 rounded-[2px] bg-background shadow-none" type="date" value={start} onChange={(e) => setStart(e.target.value)} />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-sm text-gray-600">End</label>
-              <Input type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
+              <label className="text-label text-muted-foreground">End</label>
+              <Input className="h-10 rounded-[2px] bg-background shadow-none" type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
             </div>
           </div>
         </div>
@@ -210,8 +210,8 @@ export default function TrendsChart({ data, tagData }: {
         </div>
       </div>
       
-      <div className="flex items-center justify-end mb-4 pr-4 gap-2">
-        <label htmlFor="cumulative-switch" className="text-sm text-gray-600">
+      <div className="mb-4 flex items-center justify-end gap-2 pr-1">
+        <label htmlFor="cumulative-switch" className="text-sm text-muted-foreground">
           Show Cumulative
         </label>
         <Switch
@@ -224,7 +224,7 @@ export default function TrendsChart({ data, tagData }: {
       <div className="w-full h-96">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={displayData} margin={{ left: 40, right: 16, top: 16, bottom: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid stroke="#d8d5cc" strokeDasharray="3 3" />
             <XAxis dataKey="month" tick={{ fontSize: 12 }} />
             <YAxis 
               allowDecimals={false} 
@@ -235,7 +235,7 @@ export default function TrendsChart({ data, tagData }: {
               formatter={(value: unknown) => [typeof value === 'number' ? value : Number(value), isCumulative ? 'Total policies' : 'Policies introduced']}
               labelFormatter={(l) => `Month: ${l}`}
             />
-            <Line type="monotone" dataKey="count" stroke="#2563eb" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="count" stroke="#287f73" strokeWidth={2.5} dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </div>

@@ -98,18 +98,12 @@ export default async function DataPage({
 
   return (
     <>
-      <div
-        className={
-          isStatePolicies
-            ? "mt-6 md:mt-10 flex flex-col md:flex-row md:items-start md:gap-8"
-            : "mt-6 md:mt-8 flex flex-col md:flex-row md:items-start md:gap-7"
-        }
-      >
+      <div className="mt-6 flex flex-col md:mt-8 md:flex-row md:items-start md:gap-7">
         <div className="min-w-0 flex-1">
           <h1 className="text-4xl font-medium">
             {matchingFile.name}
           </h1>
-          <h2 className={isStatePolicies ? "mt-4 text-xl" : "mt-2.5 text-lg leading-7"}>
+          <h2 className="mt-2.5 text-lg leading-7">
             {matchingFile.description}
           </h2>
         </div>
@@ -120,9 +114,10 @@ export default async function DataPage({
         )}
       </div>
       {isStatePolicies && stateIntelligence && statePolicyCounts && stateLandscapeStats && (
-        <div className="mt-8">
+        <div className="mt-10">
           <MapSidebarShell
             compactMap
+            editorialMap
             className="pr-0 md:grid md:grid-cols-[minmax(0,1fr)_22rem] lg:grid-cols-[minmax(0,1fr)_24rem] md:items-start md:gap-6"
             mapColumnClassName="md:min-h-[25rem]"
             sidebarClassName="md:w-auto md:min-w-0 md:max-w-none"
@@ -137,11 +132,12 @@ export default async function DataPage({
           availableTags={tags}
           className={isStatePolicies ? undefined : "mt-8"}
           compact={!isStatePolicies}
+          editorial
           hideSearchLabel
         />
         {isStatePolicies && <SelectedStateNotice />}
-        <Table className={`w-full border shadow ${isStatePolicies ? "my-12" : "my-6"}`}>
-          <SortableHeader validKeys={validKeys} />
+        <Table className="module-policy-table my-8 w-full border-y border-border/90">
+          <SortableHeader validKeys={validKeys} editorial />
           <TableBody>
             {sortedCsv.map((row, index) =>
               rowMatchesFilters(row, { q, t }, tagKeys) ? (
@@ -158,6 +154,7 @@ export default async function DataPage({
                         value={value}
                         row={row}
                         tagKeys={tagKeys}
+                        editorial
                       />
                     ) : validKeys.includes(key) ? (
                       <CustomCell

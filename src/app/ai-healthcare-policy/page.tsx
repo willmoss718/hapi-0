@@ -6,9 +6,16 @@ type ExploreLink = {
   path: string;
 };
 
-const exploreSections: Array<{ label: string; links: ExploreLink[] }> = [
+const exploreSections: Array<{
+  label: string;
+  links: ExploreLink[];
+  className: string;
+  hoverClassName: string;
+}> = [
   {
     label: "Policy Modules",
+    className: "bg-[#edf4f1]",
+    hoverClassName: "hover:bg-[#e1ece8]",
     links: [
       { name: "State Policies", path: "/data/state-policies" },
       { name: "Federal Policies", path: "/data/federal-policies" },
@@ -19,12 +26,16 @@ const exploreSections: Array<{ label: string; links: ExploreLink[] }> = [
   },
   {
     label: "Operational Layer",
+    className: "bg-[#eef2f6]",
+    hoverClassName: "hover:bg-[#e2e9f0]",
     links: [
       { name: "Operational Implications", path: "/operational-implications" },
     ],
   },
   {
     label: "Analysis",
+    className: "bg-[#f7f1e4]",
+    hoverClassName: "hover:bg-[#efe5d0]",
     links: [
       { name: "AI Policy Overview", path: "/ai-healthcare-policy" },
       { name: "Trends", path: "/trends" },
@@ -37,13 +48,13 @@ const aboutLink = { name: "About/Methodology", path: "/about" };
 
 export default function AIHealthcarePolicyPage() {
   return (
-    <main className="mx-auto grid max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[minmax(0,42rem)_22rem] lg:items-start lg:gap-14">
+    <main className="mx-auto mt-6 grid max-w-6xl gap-10 md:mt-8 lg:grid-cols-[minmax(0,42rem)_22rem] lg:items-start lg:gap-14">
       <article>
-        <h1 className="mb-6 text-4xl font-medium md:text-5xl">
+        <h1 className="font-editorial mb-7 text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">
           AI in Healthcare Policy: Laws, Regulations, and Standards
         </h1>
 
-        <div className="space-y-5 text-base leading-8 text-slate-800 md:text-lg">
+        <div className="space-y-6 text-[1.03rem] leading-8 text-foreground/85 md:text-[1.08rem]">
           <p>
             Artificial intelligence is quickly becoming part of healthcare. It is being used in clinical decision support, imaging, documentation, operations, patient communication, research, and other areas of care delivery. As these tools become more common, policymakers, regulators, professional bodies, and health systems are trying to define how they should be developed, evaluated, monitored, and used.
           </p>
@@ -79,36 +90,36 @@ export default function AIHealthcarePolicyPage() {
       </article>
 
       <aside className="w-full lg:sticky lg:top-6">
-        <section className="w-full overflow-hidden rounded-lg border border-gray-200">
+        <section className="w-full overflow-hidden rounded-[2px] border border-[#aebbb4] bg-[#edf4f1]/40">
           <div className="px-6 py-5">
-            <h2 className="text-2xl font-medium">Explore the Index</h2>
-            <p className="mt-3 text-sm leading-6 text-gray-600">
+            <h2 className="font-editorial text-2xl font-semibold">Explore the Index</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
               Use the HAPI modules to explore healthcare AI policies by jurisdiction, policy type, issuing body, impact level, keyword theme, and stakeholder group.
             </p>
           </div>
           {exploreSections.map((section) => (
-            <div key={section.label} className="border-t border-gray-100">
-              <div className="px-6 pb-1.5 pt-3 text-[11px] font-medium uppercase tracking-wide text-gray-500">
+            <div key={section.label} className={`border-t border-[#aebbb4]/60 ${section.className}`}>
+              <div className="text-label px-6 pb-1.5 pt-3 text-muted-foreground">
                 {section.label}
               </div>
               {section.links.map((item) => (
                 <Link
                   key={item.path}
                   href={item.path}
-                  className="group flex min-h-11 items-center justify-between px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50"
+                  className={`group flex min-h-11 items-center justify-between px-6 py-2.5 text-sm font-medium transition-colors ${section.hoverClassName}`}
                 >
-                  <span className="text-black">{item.name}</span>
-                  <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-800" />
+                  <span className="text-foreground">{item.name}</span>
+                  <ArrowRightIcon className="h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
                 </Link>
               ))}
             </div>
           ))}
           <Link
             href={aboutLink.path}
-            className="group flex min-h-11 items-center justify-between border-t border-gray-100 px-6 py-2.5 text-sm font-medium transition-colors hover:bg-gray-50"
+            className="group flex min-h-11 items-center justify-between border-t border-[#aebbb4]/60 bg-[#f3efea] px-6 py-2.5 text-sm font-medium transition-colors hover:bg-[#eae4dd]"
           >
-            <span className="text-black">{aboutLink.name}</span>
-            <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-800" />
+            <span className="text-foreground">{aboutLink.name}</span>
+            <ArrowRightIcon className="h-4 w-4 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
           </Link>
         </section>
       </aside>

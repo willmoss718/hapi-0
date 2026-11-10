@@ -1,12 +1,17 @@
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { Public_Sans, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-const quicksandSans = Quicksand({
-  variable: "--font-quicksand",
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
+  subsets: ["latin"],
+});
+
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
   subsets: ["latin"],
 });
 
@@ -23,10 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${quicksandSans.variable} antialiased flex flex-col items-center min-h-screen w-screen justify-start`}
+        className={`${publicSans.variable} ${sourceSerif.variable} flex min-h-screen w-full flex-col items-center justify-start antialiased`}
       >
         <NuqsAdapter>
-          <main className="w-full max-w-7xl px-4 md:px-0">
+          <main className="w-full max-w-[90rem] px-5 sm:px-8 lg:px-10 xl:px-12">
             <Nav />
             {children}
           </main>

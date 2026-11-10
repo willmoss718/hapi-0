@@ -15,6 +15,7 @@ type MapSidebarShellProps = {
   defaultPanel?: ReactNode;
   mapFooter?: ReactNode;
   compactMap?: boolean;
+  editorialMap?: boolean;
   className?: string;
   mapColumnClassName?: string;
   sidebarClassName?: string;
@@ -27,6 +28,7 @@ export default function MapSidebarShell({
   defaultPanel,
   mapFooter,
   compactMap = false,
+  editorialMap = false,
   className,
   mapColumnClassName,
   sidebarClassName,
@@ -44,13 +46,17 @@ export default function MapSidebarShell({
   const fallbackPanel = defaultPanel ?? (
     whatsNewUpdates ? <WhatsNew updates={whatsNewUpdates} /> : null
   );
-  const preserveStaticSidebarHeight = Boolean(defaultPanel && fallbackPanel);
+  // Keep the page height stable while hover swaps the sidebar panel. Without
+  // this, hovering a state near the bottom of the homepage changes the
+  // document height and browser scroll anchoring makes the page jump.
+  const preserveStaticSidebarHeight = Boolean(fallbackPanel);
 
   return (
     <div className={cn("flex flex-col items-start gap-6 pr-8 md:flex-row md:gap-8", className)}>
-      <div id="map" className={cn("w-full min-w-0 flex-1 h-full", mapColumnClassName)}>
+      <div id="map" className={cn("w-full min-w-0 flex-1", editorialMap ? "h-auto" : "h-full", mapColumnClassName)}>
         <Map
           compact={compactMap}
+          editorial={editorialMap}
           hoveredState={hoveredState}
           statePolicyCounts={statePolicyCounts}
           stateLawPresence={stateLawPresence}
@@ -67,10 +73,10 @@ export default function MapSidebarShell({
         )}
       >
         {preserveStaticSidebarHeight ? (
-          <div className="relative">
+          <div className="relative overflow-hidden">
             <div className={cn(activeState ? "invisible" : "")}>{fallbackPanel}</div>
             {activeState && (
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 overflow-y-auto">
                 <StateIntelligencePanel state={activeState} />
               </div>
             )}

@@ -14,14 +14,14 @@ const STAT_ITEMS = [
 
 export default function ModuleStatsCard({ stats }: ModuleStatsCardProps) {
   return (
-    <aside className="w-full rounded-lg border border-gray-200 bg-gray-50/80 px-3.5 py-2.5 text-gray-950 shadow-sm md:w-[34rem] md:max-w-[34rem] lg:w-[38rem] lg:max-w-[38rem]">
-      <div className="grid grid-cols-2 gap-x-3 gap-y-2 sm:grid-cols-3 md:grid-cols-5">
-        {STAT_ITEMS.map(([label, key]) => (
-          <div key={key} className="min-w-0">
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
+    <aside className="w-full rounded-[2px] border border-[#aebbb4] bg-[#edf4f1]/55 px-4 py-3 text-foreground md:w-[34rem] md:max-w-[34rem] lg:w-[38rem] lg:max-w-[38rem]">
+      <div className="grid grid-cols-2 gap-y-3 sm:grid-cols-3 md:grid-cols-5 md:gap-y-0">
+        {STAT_ITEMS.map(([label, key], index) => (
+          <div key={key} className={`min-w-0 px-3 first:pl-0 last:pr-0 ${index > 0 ? "md:border-l md:border-[#aebbb4]/60" : ""}`}>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               {label}
             </p>
-            <p className="mt-0.5 whitespace-nowrap text-sm font-semibold leading-5 text-gray-950">
+            <p className="font-editorial mt-1 whitespace-nowrap text-[0.95rem] font-semibold leading-5 text-foreground">
               {formatStatValue(stats[key])}
             </p>
           </div>

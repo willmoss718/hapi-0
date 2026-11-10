@@ -1,16 +1,16 @@
 export default function Page() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <article className="mx-auto mt-6 max-w-3xl pb-12 md:mt-8">
 
-      <h1 className="text-4xl md:text-5xl font-medium mb-4">
+      <h1 className="font-editorial mb-4 text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">
         AI Regulation Is Targeting the Wrong Layer
       </h1>
 
-      <p className="text-sm text-gray-500 mb-8">
+      <p className="mb-8 border-b border-border pb-6 text-sm text-muted-foreground">
         By Will Moss · April 2026
       </p>
 
-      <div className="space-y-6 text-base leading-relaxed">
+      <div className="space-y-6 text-[1.04rem] leading-8 text-foreground/85">
 
         <p>
           There is a growing push to regulate AI in healthcare. New laws, guidance, and standards are being introduced across states, federal agencies, and industry bodies. On the surface, this looks like a system that is becoming more controlled and more defined.
@@ -50,6 +50,6 @@ export default function Page() {
 
       </div>
 
-    </div>
+    </article>
   );
 }

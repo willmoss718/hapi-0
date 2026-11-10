@@ -10,13 +10,13 @@ export default function StatePolicyLandscapePanel({
   stats,
 }: StatePolicyLandscapePanelProps) {
   return (
-    <aside className="w-full rounded-lg border border-gray-200 bg-white px-4 py-4 text-gray-950 shadow-sm">
-      <div className="border-b border-gray-100 pb-3">
+    <aside className="w-full rounded-[2px] border border-[#aebbb4] bg-[#edf4f1]/55 px-5 py-5 text-foreground">
+      <div className="border-b border-[#aebbb4]/70 pb-3">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+          <p className="text-label text-muted-foreground">
             National Intelligence
           </p>
-          <h3 className="mt-1 whitespace-nowrap text-xl font-semibold leading-tight">
+          <h3 className="font-editorial mt-1 whitespace-nowrap text-2xl font-semibold leading-tight tracking-[-0.015em]">
             State Policy Landscape
           </h3>
         </div>
@@ -44,7 +44,7 @@ export default function StatePolicyLandscapePanel({
       </div>
 
       <section className="mt-4">
-        <h4 className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+        <h4 className="text-label text-muted-foreground">
           Most Common Operational Areas
         </h4>
         <div className="mt-2 space-y-2">
@@ -55,7 +55,7 @@ export default function StatePolicyLandscapePanel({
       </section>
 
       <section className="mt-4">
-        <h4 className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+        <h4 className="text-label text-muted-foreground">
           Most Active States
         </h4>
         <div className="mt-2 divide-y divide-gray-100 border-y border-gray-100">
@@ -83,7 +83,7 @@ export default function StatePolicyLandscapePanel({
 
       <Link
         href="/operational-implications"
-        className="mt-4 flex items-center justify-between gap-3 rounded-lg bg-gray-950 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+        className="mt-4 flex items-center justify-between gap-3 rounded-[2px] bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
       >
         <span>Explore Operational Implications</span>
         <ArrowRightIcon className="h-4 w-4 shrink-0" />
@@ -102,11 +102,11 @@ function PolicyCount({
   accent?: boolean;
 }) {
   return (
-    <div className={`min-w-0 rounded-md border px-2.5 py-2 ${accent ? "border-emerald-100 bg-emerald-50" : "border-gray-100"}`}>
-      <p className={accent ? "text-xl font-semibold leading-none text-emerald-950" : "text-xl font-semibold leading-none text-gray-950"}>
+    <div className={`min-w-0 rounded-[2px] border px-2.5 py-2 ${accent ? "border-[#7f9f95] bg-[#dcece6]" : "border-[#aebbb4]/60 bg-background/65"}`}>
+      <p className="font-editorial text-xl font-semibold leading-none text-foreground">
         {value}
       </p>
-      <p className={accent ? "mt-1 truncate text-[10px] font-semibold uppercase tracking-wide text-emerald-700" : "mt-1 truncate text-[10px] font-semibold uppercase tracking-wide text-gray-500"}>
+      <p className="mt-1 truncate text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
         {label}
       </p>
     </div>
@@ -115,7 +115,7 @@ function PolicyCount({
 
 function TimelineTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-gray-100 px-3 py-2.5">
+    <div className="rounded-[2px] border border-[#aebbb4]/60 bg-background/65 px-3 py-2.5">
       <p className="text-[10px] font-semibold uppercase tracking-wide text-gray-500">
         {label}
       </p>
@@ -137,9 +137,9 @@ function OperationalAreaRow({
           {area.percentage}% of states
         </p>
       </div>
-      <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-gray-100">
+      <div className="mt-1.5 h-1.5 overflow-hidden bg-background">
         <div
-          className="h-full rounded-full bg-emerald-500"
+          className="h-full bg-[#287f73]"
           style={{ width: `${area.percentage}%` }}
         />
       </div>

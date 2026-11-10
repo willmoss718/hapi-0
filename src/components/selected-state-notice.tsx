@@ -62,7 +62,7 @@ export default function SelectedStateNotice() {
   if (!stateName) return null;
 
   return (
-    <div className="-mb-8 mt-8 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-900">
+    <div className="mt-5 inline-flex items-center rounded-[2px] border border-[#7f9f95] bg-[#edf4f1] px-3 py-1.5 text-sm font-medium text-primary">
       Showing state policies for {stateName}
     </div>
   );

@@ -10,6 +10,7 @@ export default function Filters(props: {
   availableTags: Record<string, string[]>;
   className?: string;
   compact?: boolean;
+  editorial?: boolean;
   hideSearchLabel?: boolean;
 }) {
   const [search, setSearch] = useQueryState(
@@ -27,7 +28,7 @@ export default function Filters(props: {
   const tagRowsGap = props.compact ? "gap-1.5" : "gap-2";
 
   return (
-    <div className={`flex flex-col ${sectionGap} ${props.className ?? "mt-12"}`}>
+    <div className={`flex flex-col ${sectionGap} ${props.editorial ? "border-y border-border bg-[#f4f0e8]/55 px-4 py-5 md:px-5" : ""} ${props.className ?? "mt-12"}`}>
       {!props.hideSearchLabel && (
         <div className="flex flex-row gap-2 items-center justify-start text-muted-foreground">
           <SearchIcon className="size-4" />
@@ -37,13 +38,14 @@ export default function Filters(props: {
         </div>
       )}
       <Input
+        className={props.editorial ? "h-11 rounded-[2px] border-border bg-background px-4 shadow-none focus-visible:ring-2" : undefined}
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search"
       />
       <div className={`flex flex-col ${sectionGap}`}>
-        <div className="flex flex-row gap-2 items-center justify-start text-muted-foreground">
+        <div className={`flex flex-row gap-2 items-center justify-start text-muted-foreground ${props.editorial ? "text-label" : ""}`}>
           <ListFilterIcon className="size-4" />
           <div className="text-xs font-medium whitespace-nowrap">
             Filter by Tag Category...
@@ -51,20 +53,18 @@ export default function Filters(props: {
         </div>
         <div className={`flex flex-col ${tagRowsGap}`}>
           {Object.entries(props.availableTags).map(([key, values]) => (
-            <div key={key} className="flex flex-row items-center justify-start">
+            <div key={key} className={props.editorial ? "grid grid-cols-1 items-start gap-2 border-t border-border/60 pt-3 first:border-0 first:pt-0 md:grid-cols-[9.5rem_minmax(0,1fr)]" : "flex flex-row items-center justify-start"}>
               <Badge
                 variant="secondary"
-                className="text-xs font-medium whitespace-nowrap"
-                style={{
-                  backgroundColor: getRandomTailwindColor(key),
-                }}
+                className={props.editorial ? "rounded-[2px] border border-foreground/10 text-[0.68rem] font-semibold tracking-[0.04em] text-foreground" : "text-xs font-medium whitespace-nowrap"}
+                style={{ backgroundColor: getRandomTailwindColor(key) }}
               >
                 {key}
               </Badge>
-              <span className="text-xs mx-1.5">:</span>
+              {!props.editorial && <span className="text-xs mx-1.5">:</span>}
               <div
                 key={key}
-                className="flex flex-row gap-2 items-center justify-start flex-nowrap overflow-x-auto"
+                className={`flex flex-row items-center justify-start overflow-x-auto ${props.editorial ? "flex-wrap gap-1.5" : "flex-nowrap gap-2"}`}
               >
                 {values.map(
                   (tag) =>
@@ -82,6 +82,8 @@ export default function Filters(props: {
                       >
                         <Badge
                           variant={tags.includes(tag) ? "default" : "secondary"}
+                          className={props.editorial ? `rounded-[2px] border px-2.5 py-1 ${tags.includes(tag) ? "border-primary bg-primary text-primary-foreground" : "border-foreground/10 text-foreground/80"}` : undefined}
+                          style={props.editorial && !tags.includes(tag) ? { backgroundColor: getRandomTailwindColor(key) } : undefined}
                         >
                           {tag}
                         </Badge>

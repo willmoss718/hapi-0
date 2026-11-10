@@ -28,18 +28,18 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
   const policyName = data[Object.keys(data)[1]];
 
   return (
-    <div className="p-6 bg-gray-50 border-t">
+    <div className="border-t border-[#aebbb4] bg-[#edf4f1]/35 p-6">
       <div className="max-w-4xl space-y-4">
         {/* Header with state and type badges */}
         {(state || policyType) && (
           <div className="flex items-center gap-2 flex-wrap">
             {state && (
-              <Badge variant="secondary" className="text-sm font-normal">
+              <Badge variant="secondary" className="rounded-[2px] border border-[#879aad] bg-[#eef2f6] text-sm font-normal">
                 {state}
               </Badge>
             )}
             {policyType && (
-              <Badge variant="secondary" className="text-sm font-normal">
+              <Badge variant="secondary" className="rounded-[2px] border border-[#aebbb4] bg-[#f3efea] text-sm font-normal">
                 {policyType}
               </Badge>
             )}
@@ -69,21 +69,21 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
           {summary && (
             <div>
               <h3 className="text-sm font-semibold mb-1">Summary</h3>
-              <p className="text-sm text-gray-700 line-clamp-3">{summary}</p>
+              <p className="line-clamp-3 text-sm leading-6 text-foreground/80">{summary}</p>
             </div>
           )}
 
           {healthcareImplications && (
             <div>
               <h3 className="text-sm font-semibold mb-1">Healthcare Implications</h3>
-              <p className="text-sm text-gray-700 line-clamp-2">{healthcareImplications}</p>
+              <p className="line-clamp-2 text-sm leading-6 text-foreground/80">{healthcareImplications}</p>
             </div>
           )}
 
           {operationalImplications && (
             <div>
               <h3 className="text-sm font-semibold mb-1">Operational Implications</h3>
-              <p className="text-sm text-gray-700 line-clamp-2">{operationalImplications}</p>
+              <p className="line-clamp-2 text-sm leading-6 text-foreground/80">{operationalImplications}</p>
             </div>
           )}
         </div>
@@ -95,7 +95,7 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
               <span className="text-xs font-medium text-muted-foreground">Impact:</span>
               <Badge 
                 variant="secondary" 
-                className="text-xs"
+                className="rounded-[2px] border border-foreground/10 text-xs"
                 style={{
                   backgroundColor: getRandomTailwindColor("Impact Level"),
                 }}
@@ -113,7 +113,7 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
                   <Badge 
                     key={tag} 
                     variant="secondary" 
-                    className="text-xs"
+                    className="rounded-[2px] border border-foreground/10 text-xs"
                     style={{
                       backgroundColor: getRandomTailwindColor("Keyword Tags"),
                     }}
@@ -133,7 +133,7 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
                   <Badge 
                     key={tag} 
                     variant="secondary" 
-                    className="text-xs"
+                    className="rounded-[2px] border border-foreground/10 text-xs"
                     style={{
                       backgroundColor: getRandomTailwindColor("Stakeholder Tags"),
                     }}
@@ -148,13 +148,13 @@ export default function PolicyPreview({ data }: { data: PolicyData }) {
 
         {/* Action buttons */}
         <div className="flex items-center gap-2 pt-2">
-          <Button asChild size="sm" variant="default">
+          <Button asChild className="rounded-[2px]" size="sm" variant="default">
             <Link href={`/policies/${encodeURIComponent(policyName)}`}>
               View Full Details
             </Link>
           </Button>
           {linkUrl && (
-            <Button asChild size="sm" variant="outline">
+            <Button asChild className="rounded-[2px] border-[#879aad] bg-background shadow-none" size="sm" variant="outline">
               <Link href={linkUrl} target="_blank" rel="noopener noreferrer">
                 Original Source
               </Link>

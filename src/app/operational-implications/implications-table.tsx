@@ -84,10 +84,10 @@ export type PolicyMatch = {
   specificImplication: string | null;
 };
 
-// Interpolates from white at 0% to green-200 (#bbf7d0) at 100%
+// Interpolates from the warm page ground to the site's muted teal.
 function pctToColor(fraction: number): string {
-  const from = [255, 255, 255];
-  const to   = [187, 247, 208];
+  const from = [247, 250, 247];
+  const to   = [191, 226, 207];
   const r = Math.round(from[0] + (to[0] - from[0]) * fraction);
   const g = Math.round(from[1] + (to[1] - from[1]) * fraction);
   const b = Math.round(from[2] + (to[2] - from[2]) * fraction);
@@ -223,31 +223,31 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
 
   return (
     <div>
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted-foreground">
           Expand categories to view detailed operational requirements. Click a checkmarked cell to see the policies behind that state/category match.
         </p>
         <div className="shrink-0">
-          <Button variant="outline" size="sm" onClick={toggleAll}>
+          <Button className="rounded-[2px] border-[#879aad] bg-[#eef2f6] shadow-none hover:bg-background" variant="outline" size="sm" onClick={toggleAll}>
             {allExpanded ? "Collapse All" : "Expand All"}
           </Button>
         </div>
       </div>
 
-      <div className="overflow-x-auto border rounded-lg shadow-sm">
-          <table className="text-sm border-collapse min-w-max w-full">
-            <thead>
-              <tr className="bg-gray-100 border-b">
-                <th className="sticky left-0 z-10 bg-gray-100 text-left px-4 py-3 font-medium w-96 border-r">
+      <div className="overflow-x-auto rounded-[2px] border border-border/90">
+          <table className="w-full min-w-max border-collapse text-sm">
+            <thead className="bg-[#d9e1e8]">
+              <tr className="border-b border-border/90">
+                <th className="sticky left-0 z-20 w-56 border-r border-border/90 bg-[#d9e1e8] px-4 py-3.5 text-left text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-[#263746] sm:w-72 md:w-[28rem] md:min-w-[28rem]">
                   Category
                 </th>
-                <th className="px-3 py-3 font-medium text-center text-xs w-16 border-r">
+                  <th className="w-16 border-r border-border/90 px-3 py-3 text-center text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-[#263746]">
                   % States
                 </th>
                 {sortedStates.map((state) => (
                   <th
                     key={state}
-                    className={`px-1 py-3 font-medium text-center text-xs w-10 cursor-pointer select-none transition-colors hover:bg-gray-200 ${sortByState === state ? "bg-gray-200" : ""}`}
+                    className={`w-10 cursor-pointer select-none px-1 py-3 text-center text-[0.68rem] font-semibold tracking-[0.04em] text-[#263746] transition-colors hover:bg-[#cbd6df] ${sortByState === state ? "bg-[#c4d0db] text-foreground" : ""}`}
                     onClick={() => setSortByState(sortByState === state ? null : state)}
                   >
                     <div className="flex flex-col items-center gap-0.5">
@@ -272,13 +272,12 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                 }
                 const gCount = states.filter((s) => statesInGroup.has(s)).length;
                 const gPct = Math.round((gCount / states.length) * 100);
-
                 return (
                   <React.Fragment key={prefix}>
-                    <tr className="border-y">
+                    <tr className="border-b border-border/80">
                       {/* Name — expands/collapses */}
                       <td
-                        className="sticky left-0 z-10 bg-white px-4 py-3 border-r font-medium cursor-pointer hover:bg-gray-100 transition-colors"
+                        className="sticky left-0 z-10 w-56 cursor-pointer border-r border-border/90 bg-background px-4 py-3 font-medium transition-colors hover:bg-[#edf4f1] sm:w-72 md:w-[28rem] md:min-w-[28rem]"
                         onClick={() => toggleGroup(prefix)}
                       >
                         <div className="flex items-center gap-2">
@@ -287,15 +286,20 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                           ) : (
                             <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
                           )}
-                          <span className="font-semibold">{prefix}</span>
-                          <span className="text-muted-foreground font-normal">
+                          <span
+                            className="inline-flex min-w-7 justify-center rounded-[2px] border px-1.5 py-0.5 text-xs font-semibold"
+                            style={{ borderColor: "#7f9f95", color: "#1f665d", backgroundColor: "#fbfaf7" }}
+                          >
+                            {prefix}
+                          </span>
+                          <span className="font-normal text-foreground/70 md:whitespace-nowrap">
                             — {GROUP_NAMES[prefix]}
                           </span>
                         </div>
                       </td>
                       {/* % — color scaled, sorts state columns by this group */}
                       <td
-                        className="px-3 py-3 text-center font-semibold border-r text-sm cursor-pointer select-none transition-colors"
+                        className="cursor-pointer select-none border-r border-border/90 px-3 py-3 text-center font-semibold text-primary transition-colors"
                         style={{ backgroundColor: pctToColor(gCount / states.length) }}
                         onClick={() => toggleColSort("group", prefix)}
                       >
@@ -308,7 +312,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                       </td>
                       {sortedStates.map((state) => {
                         const hasCheck = statesInGroup.has(state);
-                        const bg = sortByState === state ? "#e5e7eb" : hasCheck ? "#dcfce7" : "#ffffff";
+                        const bg = sortByState === state ? "#dfe7ef" : hasCheck ? "#dcf1e6" : "#fbfaf7";
                         return (
                           <td
                             key={state}
@@ -317,9 +321,9 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                             onClick={() => hasCheck && setSelectedCell({ kind: "group", prefix, state })}
                           >
                             {hasCheck ? (
-                              <Check className="w-3.5 h-3.5 text-green-600 mx-auto" strokeWidth={2.5} />
+                              <Check className="mx-auto h-3.5 w-3.5 text-[#237f69]" strokeWidth={2.5} />
                             ) : (
-                              <X className="w-3.5 h-3.5 text-red-300 mx-auto" strokeWidth={2} />
+                              <X className="mx-auto h-3.5 w-3.5 text-[#c4beb2]" strokeWidth={2} />
                             )}
                           </td>
                         );
@@ -332,19 +336,24 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                         const count = states.filter((s) => statesWithRule.has(s)).length;
                         const pct = Math.round((count / states.length) * 100);
                         const isRuleColSorted = colSort?.kind === "rule" && colSort.key === rule;
-                        const labelBg = isRuleColSorted ? "bg-blue-50" : "bg-white";
+                        const labelBg = isRuleColSorted ? "bg-[#e4ebf2]" : "bg-[#faf8f2]";
                         const [ruleCode, ...descParts] = rule.split(":");
                         const ruleDesc = descParts.join(":").trim();
 
                         return (
-                          <tr key={rule}>
+                          <tr className="border-b border-border/60" key={rule}>
                             {/* Name — sorts state columns by this rule */}
                             <td
-                              className={`sticky left-0 z-10 ${labelBg} px-4 py-3 border-r leading-snug cursor-pointer hover:brightness-95 transition-all`}
+                              className={`sticky left-0 z-10 w-56 sm:w-72 md:w-[28rem] md:min-w-[28rem] ${labelBg} cursor-pointer border-r border-border/90 px-4 py-3 leading-snug transition-colors hover:bg-[#edf4f1]`}
                               onClick={() => toggleColSort("rule", rule)}
                             >
                               <div className="flex items-baseline gap-2 ml-6">
-                                <span className="font-semibold shrink-0">{ruleCode.trim()}</span>
+                                <span
+                                  className="shrink-0 rounded-[2px] border px-1.5 py-0.5 text-xs font-semibold"
+                                  style={{ borderColor: "#7f9f95", color: "#1f665d", backgroundColor: "#edf4f1" }}
+                                >
+                                  {ruleCode.trim()}
+                                </span>
                                 <span className="text-muted-foreground">— {ruleDesc}</span>
                                 {isRuleColSorted && (
                                   <ArrowUpDown className="w-3 h-3 text-muted-foreground shrink-0 self-center" />
@@ -353,7 +362,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                             </td>
                             {/* % — color scaled, also sorts state columns by this rule */}
                             <td
-                              className="px-3 py-3 text-center font-medium border-r text-muted-foreground text-xs cursor-pointer select-none hover:brightness-95 transition-all"
+                              className="cursor-pointer select-none border-r border-border/90 px-3 py-3 text-center text-xs font-medium text-primary transition-all hover:brightness-95"
                               style={{ backgroundColor: pctToColor(count / states.length) }}
                               onClick={() => toggleColSort("rule", rule)}
                             >
@@ -362,7 +371,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                             {/* Checkmark cells — show policy details on click */}
                             {sortedStates.map((state) => {
                               const hasRule = statesWithRule.has(state);
-                              const bg = sortByState === state ? "#e5e7eb" : hasRule ? "#dcfce7" : "#ffffff";
+                              const bg = sortByState === state ? "#dfe7ef" : hasRule ? "#dcf1e6" : "#fbfaf7";
                               return (
                                 <td
                                   key={state}
@@ -371,9 +380,9 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
                                   onClick={() => hasRule && setSelectedCell({ kind: "rule", rule, state })}
                                 >
                                   {hasRule ? (
-                                    <Check className="w-3.5 h-3.5 text-green-600 mx-auto" strokeWidth={2.5} />
+                                    <Check className="mx-auto h-3.5 w-3.5 text-[#237f69]" strokeWidth={2.5} />
                                   ) : (
-                                    <X className="w-3.5 h-3.5 text-red-300 mx-auto" strokeWidth={2} />
+                                    <X className="mx-auto h-3.5 w-3.5 text-[#c4beb2]" strokeWidth={2} />
                                   )}
                                 </td>
                               );
@@ -391,36 +400,36 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
       {/* Policy detail modal */}
       {selectedCell && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-primary/35"
           onClick={() => setSelectedCell(null)}
         >
           <div
-            className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[80vh] flex flex-col"
+            className="mx-4 flex max-h-[80vh] w-full max-w-lg flex-col rounded-[2px] border border-[#aebbb4] bg-background shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="px-6 py-4 border-b">
+            <div className="border-b border-border bg-[#edf4f1] px-6 py-4">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">
                     {modalStateLabel}
                   </p>
                   {selectedCell.kind === "group" ? (
-                    <h2 className="font-semibold text-base leading-snug">
+                    <h2 className="font-editorial text-xl font-semibold leading-snug">
                       <span className="mr-1">{selectedCell.prefix}</span>
                       <span className="text-muted-foreground font-normal">
                         — {GROUP_NAMES[selectedCell.prefix]}
                       </span>
                     </h2>
                   ) : (
-                    <h2 className="font-semibold text-base leading-snug">
+                    <h2 className="font-editorial text-xl font-semibold leading-snug">
                       <span className="mr-1">{modalRuleCode.trim()}</span>
                       <span className="text-muted-foreground font-normal">— {modalRuleDesc}</span>
                     </h2>
                   )}
                 </div>
                 <button
-                  className="text-muted-foreground hover:text-foreground shrink-0 mt-0.5"
+                  className="mt-0.5 shrink-0 rounded-[2px] border border-border p-1 text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
                   onClick={() => setSelectedCell(null)}
                 >
                   <X className="w-5 h-5" />
@@ -429,7 +438,7 @@ export default function ImplicationsTable({ rules, matrix, states, policyDetails
             </div>
 
             {/* Body */}
-            <div className="overflow-y-auto px-6 py-4 space-y-6">
+            <div className="space-y-6 overflow-y-auto px-6 py-5">
               {selectedCell.kind === "group" && (
                 <div className="space-y-3">
                   <div>
@@ -557,7 +566,7 @@ function PolicyLink({
       {policy.name ? (
         <Link
           href={`/policies/${encodeURIComponent(policy.name)}`}
-          className="font-medium text-sm underline underline-offset-2 hover:text-muted-foreground leading-snug"
+          className="text-sm font-medium leading-snug text-primary underline decoration-primary/35 underline-offset-4 hover:decoration-primary"
           onClick={onNavigate}
         >
           {policy.name}

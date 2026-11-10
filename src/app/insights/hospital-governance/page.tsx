@@ -1,16 +1,16 @@
 export default function Page() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <article className="mx-auto mt-6 max-w-3xl pb-12 md:mt-8">
 
-      <h1 className="text-4xl md:text-5xl font-medium mb-4">
+      <h1 className="font-editorial mb-4 text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">
         Hospitals Are Being Forced to Build AI Governance Alone
       </h1>
 
-      <p className="text-sm text-gray-500 mb-8">
+      <p className="mb-8 border-b border-border pb-6 text-sm text-muted-foreground">
         By Will Moss · April 2026
       </p>
 
-      <div className="space-y-6 text-base leading-relaxed">
+      <div className="space-y-6 text-[1.04rem] leading-8 text-foreground/85">
 
         <p>
           AI is moving into healthcare faster than regulation is catching up. Hospitals are left in a difficult position, as there is no single framework that clearly defines how these tools should be used in practice, and the policies that do exist are scattered across different levels of government and different types of institutions.
@@ -50,6 +50,6 @@ export default function Page() {
 
       </div>
 
-    </div>
+    </article>
   );
 }

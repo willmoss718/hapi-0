@@ -46,9 +46,9 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
     }, [api, isPaused, updates.length])
 
     return (
-        <>
+        <div className="flex h-full flex-col">
             <Carousel
-                className="w-full h-40 rounded-lg border border-gray-200 relative"
+                className="relative w-full border-y border-foreground/25 py-3"
                 opts={{ loop: true }}
                 setApi={setApi}
                 onMouseEnter={() => setIsPaused(true)}
@@ -60,60 +60,60 @@ export default function WhatsNew({ updates }: WhatsNewProps) {
                     }
                 }}
             >
-                <h4 className="text-2xl font-medium absolute top-5 left-6">
-                    What&apos;s New
-                </h4>
+                <h2 className="font-editorial text-2xl font-semibold">What&apos;s New</h2>
 
-                <CarouselContent>
+                <CarouselContent className="mt-3">
                     {updates.map((item) => (
                         <CarouselItem
                             key={item.title}
-                            className="w-full h-full px-10 pt-15 pb-4 flex flex-col gap-2"
+                            className="flex min-h-20 w-full flex-col gap-2 pr-2 pt-1"
                         >
                             <Link href={item.path}>
-                                <h5 className="leading-snug hover:underline line-clamp-2">
+                                <h3 className="line-clamp-2 text-base font-semibold leading-6 text-foreground/90 hover:underline">
                                     {item.title}
-                                </h5>
+                                </h3>
                             </Link>
-                            <p className="text-xs font-medium text-gray-500">
+                            <p className="text-label text-muted-foreground">
                                 {[item.date, item.moduleType, item.state].filter(Boolean).join(" · ")}
                             </p>
                         </CarouselItem>
                     ))}
                 </CarouselContent>
 
-                <CarouselPrevious className="translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
-                <CarouselNext className="-translate-x-6 z-10 bg-white disabled:opacity-100 disabled:invisible" />
+                <div className="mt-2 flex gap-2">
+                    <CarouselPrevious className="static size-8 translate-y-0 rounded-none border-foreground/30 bg-transparent disabled:invisible" />
+                    <CarouselNext className="static size-8 translate-y-0 rounded-none border-foreground/30 bg-transparent disabled:invisible" />
+                </div>
             </Carousel>
 
-            <section className="flex w-full flex-col gap-2 rounded-lg border border-gray-200 px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <section className="py-2.5">
                 <div className="min-w-0">
-                    <h4 className="text-xl font-medium leading-tight">Operational Implications</h4>
-                    <p className="mt-1 text-sm leading-5 text-gray-600">
+                    <h2 className="font-editorial text-2xl font-semibold leading-tight">Operational Implications</h2>
+                    <p className="mt-1 text-sm leading-5 text-muted-foreground">
                         Compare detailed operational impacts across U.S. states.
                     </p>
                 </div>
                 <Link
                     href="/operational-implications"
-                    className="inline-flex h-10 shrink-0 items-center justify-center rounded-md border border-gray-900 bg-gray-900 px-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-gray-900"
+                    className="mt-2 inline-flex items-center gap-2 border-b border-primary pb-0.5 text-sm font-semibold text-primary transition-colors hover:text-foreground"
                 >
                     Explore →
                 </Link>
             </section>
 
-            <section className="w-full overflow-hidden rounded-lg border border-gray-200">
-                <h4 className="px-6 py-5 text-2xl font-medium">Explore HAPI</h4>
+            <section className="flex min-h-0 w-full flex-1 flex-col border-t border-foreground/25 pt-3">
+                <h2 className="font-editorial pb-1 text-2xl font-semibold">Explore HAPI</h2>
                 {exploreLinks.map((item) => (
                     <Link
                         key={item.path}
                         href={item.path}
-                        className="group flex min-h-12 items-center justify-between border-t border-gray-100 px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+                        className="group flex min-h-9 flex-1 items-center justify-between border-b border-border py-2 text-sm font-semibold transition-colors hover:border-foreground/50 hover:text-primary"
                     >
-                        <span className="text-black">{item.name}</span>
-                        <ArrowRightIcon className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-all duration-300 group-hover:text-gray-800" />
+                        <span>{item.name}</span>
+                        <ArrowRightIcon className="size-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
                     </Link>
                 ))}
             </section>
-        </>
+        </div>
     )
 }

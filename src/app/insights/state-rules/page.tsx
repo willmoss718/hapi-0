@@ -1,16 +1,16 @@
 export default function Page() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <article className="mx-auto mt-6 max-w-3xl pb-12 md:mt-8">
 
-      <h1 className="text-4xl md:text-5xl font-medium mb-4">
+      <h1 className="font-editorial mb-4 text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">
         States Are Quietly Setting the Rules for Clinical AI
       </h1>
 
-      <p className="text-sm text-gray-500 mb-8">
+      <p className="mb-8 border-b border-border pb-6 text-sm text-muted-foreground">
         By Will Moss · April 2026
       </p>
 
-      <div className="space-y-6 text-base leading-relaxed">
+      <div className="space-y-6 text-[1.04rem] leading-8 text-foreground/85">
 
         <p>
           Most conversations about AI regulation in healthcare focus on the federal government. That makes sense on paper. Federal agencies oversee medical devices, data privacy, and large parts of the healthcare system. If there were going to be a single, defining framework for AI, it would likely come from that level.
@@ -54,6 +54,6 @@ export default function Page() {
 
       </div>
 
-    </div>
+    </article>
   );
 }

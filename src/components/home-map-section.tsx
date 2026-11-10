@@ -17,12 +17,15 @@ export default function HomeMapSection({
   const statePolicyCounts = getStatePolicyCounts(stateIntelligence);
 
   return (
-    <div className="mt-8 mb-8">
+    <section className="mb-14 mt-8 md:mt-10" aria-label="Explore HAPI">
       <MapSidebarShell
+        editorialMap
+        className="gap-10 pr-0 md:grid md:grid-cols-[minmax(0,1fr)_21rem] md:items-start lg:grid-cols-[minmax(0,1fr)_23rem] xl:grid-cols-[minmax(0,1fr)_25rem]"
+        sidebarClassName="md:w-auto md:min-w-0 md:max-w-none"
         stateIntelligence={stateIntelligence}
         statePolicyCounts={statePolicyCounts}
         whatsNewUpdates={whatsNewUpdates}
       />
-    </div>
+    </section>
   );
 }

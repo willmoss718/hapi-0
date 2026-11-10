@@ -14,9 +14,9 @@ export default async function TrendsPage() {
   const allStakeholderTags = uniqueSorted(data.flatMap((record) => record.tags.stakeholder));
 
   return (
-    <div className="mt-8 md:mt-16">
+    <div className="mt-6 md:mt-8">
       <h1 className="text-4xl font-medium">Trends</h1>
-      <h2 className="text-xl mt-4">
+      <h2 className="mt-2.5 text-lg leading-7">
         Visualize policies over time by module, tags, and issuing body.
       </h2>
       <div className="my-8">

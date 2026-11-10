@@ -82,7 +82,7 @@ export default async function OperationalImplicationsPage({
 
   return (
     <div className="mt-6 md:mt-8">
-      <div className="mb-8">
+      <div className="mb-3">
         <h1 className="text-4xl font-medium">Operational Implications</h1>
         <h2 className="mt-2.5 text-lg leading-7">
           View and compare operational requirements created by U.S. state-level AI healthcare laws.

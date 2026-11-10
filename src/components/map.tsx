@@ -25,6 +25,7 @@ type MapProps = {
   hoveredState?: string | null;
   onStateHover?: (state: string | null) => void;
   compact?: boolean;
+  editorial?: boolean;
 };
 
 export default function Map({
@@ -33,6 +34,7 @@ export default function Map({
   hoveredState,
   onStateHover,
   compact = false,
+  editorial = false,
 }: MapProps) {
   const router = useRouter();
 
@@ -63,18 +65,47 @@ export default function Map({
     return states;
   }, [hoveredState, onStateHover, router, statePolicyCounts, stateLawPresence]);
 
+  const labelStyleRules = useMemo(() => {
+    const activeStateSelectors = ALL_US_STATES
+      .filter((state) => stateLawPresence[state] || statePolicyCounts[state] > 0)
+      .map((state) => `.hapi-policy-map .${state.toLowerCase()}-label`)
+      .join(",\n");
+    const inactiveStateSelectors = [...ALL_US_STATES, "DC"]
+      .filter((state) => !stateLawPresence[state] && !statePolicyCounts[state])
+      .map((state) => `.hapi-policy-map .${state.toLowerCase()}-label`)
+      .join(",\n");
+
+    return `
+      .hapi-policy-map .state-label {
+        text-shadow: none !important;
+        stroke: none !important;
+        paint-order: normal !important;
+        font-family: var(--font-public-sans), ui-sans-serif, sans-serif;
+        font-weight: 600 !important;
+      }
+      ${activeStateSelectors} {
+        fill: #fffdf6 !important;
+      }
+      ${inactiveStateSelectors} {
+        fill: #1f2933 !important;
+      }
+    `;
+  }, [stateLawPresence, statePolicyCounts]);
+
   return (
     <div
       className={cn(
-        "w-full overflow-hidden rounded-lg border border-gray-200",
-        !compact && "h-full",
+        "hapi-policy-map w-full overflow-hidden",
+        editorial ? "border-0" : "rounded-lg border border-gray-200",
+        !compact && !editorial && "h-full",
       )}
       onMouseLeave={() => onStateHover?.(null)}
     >
+      <style>{labelStyleRules}</style>
       <div
         className={cn(
           "w-full",
-          compact ? "aspect-[1.72/1]" : "h-full",
+          compact || editorial ? "aspect-[1.72/1]" : "h-full",
         )}
       >
         <USAMap
@@ -84,29 +115,33 @@ export default function Map({
       </div>
       <legend
         className={cn(
-          "flex flex-col justify-start items-start gap-1 border-t border-gray-200",
-          compact ? "p-4 text-base" : "p-8",
+          "flex flex-col items-start justify-start gap-2",
+          editorial
+            ? "border-0 px-0 pb-0 pt-2 text-base"
+            : compact
+              ? "border-t border-gray-200 p-4 text-base"
+              : "border-t border-gray-200 p-8",
         )}
       >
-        <h3 className="uppercase font-medium tracking-wide">Explore by State</h3>
+        <h2 className={cn(editorial ? "font-editorial text-2xl font-semibold" : "uppercase font-medium tracking-wide")}>Explore by State</h2>
         <div
           className={cn(
             "flex justify-start gap-2",
-            compact
+            compact || editorial
               ? "flex-col items-start text-sm sm:flex-row sm:flex-wrap sm:items-center"
               : "flex-row items-center",
           )}
         >
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-500"></div>
+            <div className="size-3 bg-[#287f73]"></div>
             <p>State Law(s) Present</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-blue-500"></div>
+            <div className="size-3 bg-[#5b7896]"></div>
             <p>State Policies, No Law</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#D3D3D3]"></div>
+            <div className="size-3 bg-[#d8d5cc]"></div>
             <p>No State Policies</p>
           </div>
         </div>
@@ -120,15 +155,15 @@ function getStateFill(
   statePolicyCounts: Record<string, number>,
   stateLawPresence: Record<string, boolean>,
 ) {
-  if (stateLawPresence[state]) return "#30c48d";
-  if (statePolicyCounts[state] > 0) return "#5a8def";
-  return "#D3D3D3";
+  if (stateLawPresence[state]) return "#287f73";
+  if (statePolicyCounts[state] > 0) return "#5b7896";
+  return "#d8d5cc";
 }
 
 function getHoveredFill(fill: string) {
-  if (fill === "#30c48d") return "#22d38f";
-  if (fill === "#5a8def") return "#3f7df4";
-  return "#b9c0ca";
+  if (fill === "#287f73") return "#1e6b61";
+  if (fill === "#5b7896") return "#456581";
+  return "#c3bfb4";
 }
 
 const ALL_US_STATES = [

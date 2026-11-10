@@ -1,8 +1,8 @@
 export default function About() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <article className="about-content mx-auto mt-6 max-w-4xl pb-12 md:mt-8 [&>h2]:mt-12 [&>h2]:pt-6 [&>h2]:text-2xl [&>h2]:font-semibold [&>p]:text-[1.04rem] [&>p]:leading-8 [&>p]:text-foreground/85 [&>ul]:leading-7 [&>ul]:text-foreground/85">
 
-      <h1 className="text-4xl md:text-5xl font-medium mb-6">
+      <h1 className="font-editorial mb-8 text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">
         About the Health & AI Policy Index
       </h1>
 
@@ -20,7 +20,7 @@ export default function About() {
 
       <p className=" text-lg mb-6">
         For questions, feedback, or collaboration inquiries related to AI policy in healthcare, contact:{" "}
-        <a href="mailto:wlm74@cornell.edu" className="underline">
+        <a href="mailto:wlm74@cornell.edu" className="text-primary underline decoration-primary/35 underline-offset-4 hover:decoration-primary">
           wlm74@cornell.edu
         </a>
       </p>
@@ -102,6 +102,6 @@ export default function About() {
         Please cite as: <em>Health & AI Policy Index (HAPI)</em>. Include the item permalink and “Last Updated” date.
       </p>
 
-    </div>
+    </article>
   );
 }

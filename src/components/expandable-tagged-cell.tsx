@@ -12,15 +12,16 @@ interface ExpandableTaggedCellProps {
   row: Record<string, string>;
   tagKeys: string[];
   isExpanded?: boolean;
+  editorial?: boolean;
 }
 
-export function ExpandableTaggedCell({ value, row, tagKeys, isExpanded }: ExpandableTaggedCellProps) {
+export function ExpandableTaggedCell({ value, row, tagKeys, isExpanded, editorial = false }: ExpandableTaggedCellProps) {
   return (
     <TableCell className="max-w-xl overflow-x-auto whitespace-nowrap">
       <div className="flex items-start gap-2">
         <button
           data-expand-trigger
-          className="mt-0.5 p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer"
+          className={cn("mt-0.5 p-1 transition-colors cursor-pointer", editorial ? "rounded-[2px] text-primary hover:bg-[#e6eeeb]" : "rounded hover:bg-gray-100")}
           aria-label={isExpanded ? "Collapse row" : "Expand row"}
         >
           <ChevronDown 
@@ -35,7 +36,7 @@ export function ExpandableTaggedCell({ value, row, tagKeys, isExpanded }: Expand
             href={`/policies/${encodeURIComponent(value)}`}
             onClick={(e) => e.stopPropagation()}
           >
-            <span className="underline underline-offset-4 font-semibold hover:text-gray-700">
+            <span className={editorial ? "font-semibold text-primary underline decoration-primary/35 underline-offset-4 hover:decoration-primary" : "underline underline-offset-4 font-semibold hover:text-gray-700"}>
               {value}
             </span>
             <div className="flex flex-row gap-2 mt-2 overflow-x-auto">
@@ -46,10 +47,8 @@ export function ExpandableTaggedCell({ value, row, tagKeys, isExpanded }: Expand
                   <Badge
                     key={value}
                     variant="secondary"
-                    className="empty:hidden"
-                    style={{
-                      backgroundColor: getRandomTailwindColor(tagKey),
-                    }}
+                    className={editorial ? "empty:hidden rounded-[2px] border border-foreground/10 text-foreground/75" : "empty:hidden"}
+                    style={{ backgroundColor: getRandomTailwindColor(tagKey) }}
                   >
                     {value}
                   </Badge>

@@ -7,7 +7,7 @@ export default function Back() {
   const router = useRouter();
   return (
     <button
-      className="text-lg font-medium text-muted-foreground mb-2 hover:text-foreground flex items-center gap-2 hover:cursor-pointer tracking-tight"
+      className="mb-2 flex items-center gap-2 text-sm font-medium tracking-tight text-muted-foreground transition-colors hover:cursor-pointer hover:text-primary"
       onClick={() => router.back()}
     >
       <ArrowLeftIcon className="w-4 h-4" />
